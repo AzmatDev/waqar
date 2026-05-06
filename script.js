@@ -1,34 +1,39 @@
 const products = [
-    { id:1, cat:'adulte', name:'Al-Fajr', sub:'Jubba adulte — Lin tissé',
-        colors:[{label:'Blanc',hex:'#EDE8DF',val:'Jubba Adulte — Blanc (Lin)'},{label:'Noir',hex:'#1A1A1A',val:'Jubba Adulte — Noir (Lin)'}],
-        img:'https://images.unsplash.com/photo-1594938298603-c8148c4b4055?w=600&q=80' },
-    { id:2, cat:'adulte', name:'Al-Layl', sub:'Jubba adulte — Satin',
-        colors:[{label:'Noir',hex:'#1A1A1A',val:'Jubba Adulte — Noir (Satin)'},{label:'Blanc',hex:'#EDE8DF',val:'Jubba Adulte — Blanc (Satin)'}],
-        img:'https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=600&q=80' },
-    { id:3, cat:'enfant', name:'As-Saghir', sub:'Jubba enfant — Denim',
-        colors:[{label:'Noir',hex:'#2A2A2A',val:'Jubba Enfant — Noir (Denim)'}],
-        img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
-    { id:4, cat:'enfant', name:'Al-Nur', sub:'Jubba enfant — Lin',
-        colors:[{label:'Gris clair',hex:'#C8C3BA',val:'Jubba Enfant — Gris clair (Lin)'}],
-        img:'https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&q=80' }
+    {
+        id: 1, cat: 'adulte',
+        name: 'Jubba Noire',
+        sub: '50% Lycra · 50% Coton',
+        img: 'images/jubba_blk.png'
+    },
+    {
+        id: 2, cat: 'adulte',
+        name: 'Jubba Blanche',
+        sub: '50% Lycra · 50% Coton',
+        img: 'images/jubba_wht.png'
+    },
+    {
+        id: 3, cat: 'enfant',
+        name: 'Jubba Noire',
+        sub: '50% Lycra · 50% Coton',
+        img: 'images/jubba-enfant-noir.jpg'
+    },
+    {
+        id: 4, cat: 'enfant',
+        name: 'Jubba Gris clair',
+        sub: '50% Lycra · 50% Coton',
+        img: 'images/jubba-enfant-gris.jpg'
+    }
 ];
-
-let currentProduct = null;
 
 function renderProducts(cat) {
     const grid = document.getElementById('products-grid');
     grid.innerHTML = products.filter(p => p.cat === cat).map(p => `
-    <div class="product-card fade-in" onclick="openModal(${p.id})">
+    <div class="product-card fade-in" onclick="scrollToOrder('${p.name}', '${cat}')">
       <div class="product-img">
-        <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.parentElement.style.background='${p.colors[0].hex}'">
+        <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.parentElement.style.background='${p.name.includes('Noir') ? '#1A1A1A' : p.name.includes('Gris') ? '#C8C3BA' : '#EDE8DF'}'">
       </div>
       <p class="product-name">${p.name}</p>
-      <div class="product-meta">
-        <span>${p.sub}</span>
-        <div class="product-colors">
-          ${p.colors.map(c => `<div class="color-dot" style="background:${c.hex}" title="${c.label}"></div>`).join('')}
-        </div>
-      </div>
+      <p class="product-meta">${p.sub}</p>
     </div>
   `).join('');
     observeFadeIns();
@@ -40,40 +45,27 @@ function filterProducts(cat, btn) {
     renderProducts(cat);
 }
 
-function openModal(id) {
-    currentProduct = products.find(p => p.id === id);
-    document.getElementById('modal-name').textContent = currentProduct.name;
-    document.getElementById('modal-cat').textContent = currentProduct.sub;
-    document.getElementById('modal-colors').innerHTML = currentProduct.colors.map((c, i) => `
-    <div class="color-option ${i === 0 ? 'selected' : ''}" onclick="selectColor(this)">
-      <div class="color-swatch" style="background:${c.hex};"></div>
-      <span>${c.label}</span>
-    </div>
-  `).join('');
-    document.getElementById('modal').classList.add('open');
-}
-
-function selectColor(el) {
-    el.closest('.modal-colors').querySelectorAll('.color-option').forEach(o => o.classList.remove('selected'));
-    el.classList.add('selected');
-}
-
-function closeModal(e) {
-    if (e.target === document.getElementById('modal')) {
-        document.getElementById('modal').classList.remove('open');
-    }
-}
-
-function prefillForm() {
-    if (!currentProduct) return;
-    const label = document.querySelector('.color-option.selected span')?.textContent;
-    const match = currentProduct.colors.find(c => c.label === label);
-    if (match) {
-        for (let opt of document.getElementById('modele').options) {
-            if (opt.value === match.val) { opt.selected = true; break; }
+function scrollToOrder(nom, cat) {
+    document.getElementById('commande').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+        const select = document.getElementById('modele');
+        for (let opt of select.options) {
+            const label = cat === 'enfant' ? 'Enfant' : 'Adulte';
+            const couleur = nom.includes('Noir') ? 'Noir' : nom.includes('Gris') ? 'Gris clair' : 'Blanc';
+            if (opt.value.includes(label) && opt.value.includes(couleur)) {
+                opt.selected = true;
+                break;
+            }
         }
-    }
-    document.getElementById('modal').classList.remove('open');
+    }, 800);
+}
+
+// Hover jubba SVG au survol du bouton hero
+const btn = document.querySelector('.btn-primary');
+const jubba = document.querySelector('.jubba-svg');
+if (btn && jubba) {
+    btn.addEventListener('mouseenter', () => jubba.style.opacity = '0.32');
+    btn.addEventListener('mouseleave', () => jubba.style.opacity = '0.13');
 }
 
 document.getElementById('orderForm').addEventListener('submit', function(e) {
@@ -87,11 +79,13 @@ document.getElementById('orderForm').addEventListener('submit', function(e) {
     const body = encodeURIComponent(
         `NOUVELLE COMMANDE WAQĀR\n\n` +
         `Client : ${f('prenom')} ${f('nom')}\n` +
-        `Email : ${f('email')}\n` +
-        `Pays : ${f('pays')}\n\n` +
+        `Email : ${f('email')}\n\n` +
         `Modèle : ${f('modele')}\n` +
-        `Taille : ${f('taille')}\n` +
-        `Quantité : ${f('quantite')}\n\n` +
+        `Taille : ${f('taille')}\n\n` +
+        `Adresse : ${f('adresse')}\n` +
+        `Code postal : ${f('codepostal')}\n` +
+        `Ville : ${f('ville')}\n` +
+        `Pays : ${f('pays')}\n\n` +
         `Informations : ${f('message') || 'Aucune'}\n\n` +
         `---\nwaqar.fr`
     );

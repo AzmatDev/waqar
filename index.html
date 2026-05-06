@@ -10,7 +10,9 @@
 <body>
 
 <nav>
-    <a href="#" class="nav-logo">WAQ<span>Ā</span>R</a>
+    <a href="#" class="nav-logo">
+        <img src="images/logo_waqar.jpeg" alt="WAQĀR" class="nav-logo-img">
+    </a>
     <ul>
         <li><a href="#sunnah">La Sunnah</a></li>
         <li><a href="#collection">Collection</a></li>
@@ -28,13 +30,8 @@
         <p class="hero-desc">Des Jubbas pour hommes et enfants, conformes à la Sunnah du Prophète ﷺ — confectionnées avec soin en Turquie, pour le père qui honore la Sunnah et le fils qui grandit dans la foi.</p>
         <a href="#collection" class="btn-primary">Découvrir la collection</a>
     </div>
-    <div class="hero-visual fade-in">
-        <div class="hero-img">
-            <img src="https://images.unsplash.com/photo-1594938298603-c8148c4b4055?w=600&q=80" alt="Jubba blanche" onerror="this.parentElement.style.background='#DDD8CF'">
-        </div>
-        <div class="hero-img">
-            <img src="https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=600&q=80" alt="Jubba noire" onerror="this.parentElement.style.background='#2A2A2A'">
-        </div>
+    <div class="hero-visual">
+        <img src="images/picsvg.svg" alt="Silhouette Jubba WAQĀR" class="jubba-svg">
     </div>
 </section>
 
@@ -100,29 +97,39 @@
 
 <section id="about">
     <div class="about-layout">
-        <div class="about-text fade-in">
-            <span class="arabic">بسم الله الرحمن الرحيم</span>
-            <span class="section-tag" style="text-align:left;">Qui sommes-nous</span>
-            <h2 class="section-title" style="text-align:left;margin-bottom:1.5rem;">Né d'un amour<br>pour la Sunnah</h2>
-            <p>Waqār est née de deux choses : un amour profond pour la Sunnah du Prophète ﷺ et un manque que beaucoup d'entre nous ont ressenti — trouver une Jubba de qualité, élégante, dans laquelle on se sent digne.</p>
-            <p>Nous proposons des Jubbas pour hommes et enfants — l'habit que portait notre bien-aimé Prophète ﷺ. Pas seulement un vêtement. Une intention. Un acte d'amour envers Allah ﷻ.</p>
-            <div class="about-points">
-                <div class="about-point">Pour le père qui veut honorer la Sunnah.</div>
-                <div class="about-point">Pour le fils qui grandit dans la foi.</div>
-                <div class="about-point">Pour la prière, le vendredi, le quotidien.</div>
-                <div class="about-point">Chaque Jubba est choisie avec soin pour sa coupe, sa matière et sa conformité à la Sunnah.</div>
-            </div>
-            <div class="about-signature">
-                <span class="sig-name">Waqār</span>
-                <span class="sig-handle">@waqar.1447 — وقار</span>
-            </div>
-        </div>
         <div class="about-visual fade-in">
             <div class="about-img-main">
-                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Jubba WAQĀR" onerror="this.parentElement.style.background='#DDD8CF'">
+                <img src="images/lettre_waqar.jpeg" alt="Lettre WAQĀR" onerror="this.parentElement.style.background='#EDE8DF'">
             </div>
             <div class="about-quote">
                 « Chaque Jubba est choisie avec soin pour sa coupe, sa matière et sa conformité à la Sunnah. »
+                <span>— WAQĀR · ١٤٤٧</span>
+            </div>
+        </div>
+
+        <div class="about-hadiths fade-in">
+            <div class="hadith-block">
+                <div class="hadith-item">
+                    <span class="hadith-arabic">وَكَانَ لَهُ جُبَّةٌ</span>
+                    <p class="hadith-text">« Le Prophète ﷺ possédait une jubba qu'il portait. »</p>
+                    <span class="hadith-source">Sahih Muslim</span>
+                </div>
+                <div class="hadith-divider"></div>
+                <div class="hadith-item">
+                    <span class="hadith-arabic">إِنَّ اللَّهَ جَمِيلٌ يُحِبُّ الْجَمَالَ</span>
+                    <p class="hadith-text">« Allah est beau et Il aime la beauté. »</p>
+                    <span class="hadith-source">Sahih Muslim · 91</span>
+                </div>
+                <div class="hadith-divider"></div>
+                <div class="hadith-item">
+                    <span class="hadith-arabic">مَا أَسْفَلَ مِنَ الْكَعْبَيْنِ فَفِي النَّارِ</span>
+                    <p class="hadith-text">« Ce qui dépasse les chevilles est dans le feu. »</p>
+                    <span class="hadith-source">Sahih Bukhari · 5787</span>
+                </div>
+            </div>
+
+            <div class="about-quote" style="margin-top: 1rem;">
+                <em>Entre pudeur et noblesse, entre tradition et présence, la jubba n'est pas un style. C'est une position.</em>
                 <span>— WAQĀR · ١٤٤٧</span>
             </div>
         </div>
@@ -156,8 +163,7 @@
             </div>
         </div>
         <div>
-            <form class="order-form fade-in" id="orderForm">
-                <div class="form-row">
+                <form class="order-form fade-in" id="orderForm"><div class="form-row">
                     <div class="form-group">
                         <label class="form-label">Prénom</label>
                         <input type="text" class="form-control" id="prenom" required placeholder="Prénom">
@@ -167,21 +173,20 @@
                         <input type="text" class="form-control" id="nom" required placeholder="Nom">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" required placeholder="vous@email.com">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Modèle</label>
-                    <select class="form-control" id="modele" required>
-                        <option value="">— Choisir un modèle —</option>
-                        <option>Jubba Adulte — Blanc</option>
-                        <option>Jubba Adulte — Noir</option>
-                        <option>Jubba Enfant — Noir</option>
-                        <option>Jubba Enfant — Gris clair</option>
-                    </select>
-                </div>
-                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" required placeholder="vous@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Modèle</label>
+                        <select class="form-control" id="modele" required>
+                            <option value="">— Choisir un modèle —</option>
+                            <option>Jubba Adulte — Blanc</option>
+                            <option>Jubba Adulte — Noir</option>
+                            <option>Jubba Enfant — Noir</option>
+                            <option>Jubba Enfant — Gris clair</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label class="form-label">Taille</label>
                         <select class="form-control" id="taille" required>
@@ -190,27 +195,34 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Quantité</label>
-                        <select class="form-control" id="quantite">
-                            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-                        </select>
+                        <label class="form-label">Adresse</label>
+                        <input type="text" class="form-control" id="adresse" required placeholder="12 rue des Lilas">
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Pays de livraison</label>
-                    <input type="text" class="form-control" id="pays" required placeholder="France, Belgique, Suisse...">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Informations complémentaires</label>
-                    <textarea class="form-control" id="message" rows="3" placeholder="Hauteur, remarques..." style="resize:vertical;"></textarea>
-                </div>
-                <p class="form-note">Votre demande sera envoyée à notre équipe. Vous serez contacté pour le paiement et la confirmation d'expédition.</p>
-                <button type="submit" class="btn-order">Envoyer ma commande →</button>
-            </form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Code postal</label>
+                            <input type="text" class="form-control" id="codepostal" required placeholder="75001">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Ville</label>
+                            <input type="text" class="form-control" id="ville" required placeholder="Paris">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Pays</label>
+                        <input type="text" class="form-control" id="pays" required placeholder="France, Belgique, Suisse...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Informations complémentaires</label>
+                        <textarea class="form-control" id="message" rows="3" placeholder="Hauteur, remarques..." style="resize:vertical;"></textarea>
+                    </div>
+                    <p class="form-note">Votre demande sera envoyée à notre équipe. Vous serez contacté pour le paiement et la confirmation d'expédition.</p>
+                    <button type="submit" class="btn-order">Envoyer ma commande →</button>
+                </form>
             <div class="form-success" id="formSuccess">
                 <div class="check">✦</div>
                 <h3>Commande reçue — بارك الله فيك</h3>
-                <p>Votre demande a bien été transmise.<br>Vous serez contacté prochainement, incha'Allah.</p>
+                <p>Votre demande a bien été transmise.<br>Vous serez contacté prochainement, Incha'Allah.</p>
             </div>
         </div>
     </div>
@@ -223,14 +235,15 @@
     <p style="margin-top:0.8rem;opacity:0.5;">© 1447 / 2025 WAQĀR. Tous droits réservés.</p>
 </footer>
 
-<div class="modal-overlay" id="modal" onclick="closeModal(event)">
-    <div class="modal">
-        <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
-        <p class="modal-sub" id="modal-cat"></p>
-        <h3 class="modal-title" id="modal-name"></h3>
-        <div class="modal-colors" id="modal-colors"></div>
-        <a href="#commande" class="modal-btn" onclick="prefillForm()">Commander cette pièce</a>
+<div class="legal-bar">
+    <span>© 2025 WAQĀR</span>
+    <div class="legal-links">
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="cgv.html">CGV</a>
+        <a href="cookies.html">Cookies</a>
     </div>
+</div>
 </div>
 <script src="script.js"></script>
 </body>
