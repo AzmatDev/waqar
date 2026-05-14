@@ -242,6 +242,11 @@ footer .footer-devise { font-style: italic; color: var(--gold); margin-bottom: 1
 /* RESPONSIVE */
 @media (max-width: 900px) {
     /* NAV */
+    .nav-logo-img {
+        position: static;
+        transform: none;
+        height: 45px;
+    }
     nav { padding: 1.2rem 1.5rem; }
     nav ul { display: none; }
 
@@ -253,7 +258,7 @@ footer .footer-devise { font-style: italic; color: var(--gold); margin-bottom: 1
         min-height: auto;
     }
     .hero-visual {
-        height: 60vw;
+        display: none;
     }
     .bismillah {
         font-size: 1.3rem;
