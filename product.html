@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAQĀR — Produit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .product-page {
+            min-height: 100vh;
+            padding: 8rem 3rem 6rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-main-img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            background: #E2DDD5;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-main-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-thumbnails {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .product-thumb {
+            width: 80px;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.45;
+            border: 1.5px solid transparent;
+            transition: opacity 0.2s, border-color 0.2s;
+            background: #E2DDD5;
+        }
+
+        .product-thumb.active { opacity: 1; border-color: var(--gold); }
+        .product-thumb:hover { opacity: 0.8; }
+        .product-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+        .product-cat {
+            font-size: 0.67rem;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .product-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-matiere {
+            font-size: 0.75rem;
+            color: var(--warm-gray);
+            letter-spacing: 0.08em;
+            margin-bottom: 2rem;
+        }
+
+        .product-divider {
+            width: 30px;
+            height: 1px;
+            background: var(--gold);
+            margin: 1.5rem 0;
+            opacity: 0.5;
+        }
+
+        .product-desc {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-style: italic;
+            line-height: 1.9;
+            color: var(--charcoal);
+            margin-bottom: 2rem;
+        }
+
+        .product-taille-label {
+            font-size: 0.67rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--warm-gray);
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .product-tailles {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .taille-btn {
+            width: 48px;
+            height: 48px;
+            border: 0.5px solid var(--border);
+            background: transparent;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.8rem;
+            color: var(--charcoal);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .taille-btn:hover { border-color: var(--black); }
+        .taille-btn.selected { background: var(--black); color: var(--white); border-color: var(--black); }
+
+        .product-sunnah {
+            background: var(--cream-dark);
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 2px solid var(--gold-light);
+        }
+
+        .product-sunnah p {
+            font-size: 0.78rem;
+            color: var(--warm-gray);
+            line-height: 1.7;
+        }
+
+        .btn-precommande {
+            display: block;
+            width: 100%;
+            padding: 1.1rem;
+            background: var(--black);
+            color: var(--white);
+            font-family: 'Jost', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 400;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: background 0.25s;
+        }
+
+        .btn-precommande:hover { background: var(--gold); }
+
+        .product-note {
+            font-size: 0.68rem;
+            color: var(--warm-gray);
+            text-align: center;
+            margin-top: 0.8rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 900px) {
+            .product-page {
+                grid-template-columns: 1fr;
+                padding: 7rem 1.5rem 4rem;
+                gap: 2.5rem;
+            }
+        }
+
+        .product-right {
+            display: flex;
+            flex-direction: column;
+            padding-top: 0; /* aligne avec le haut de l'image */
+        }
+
+        .product-prix {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-coloris-label {
+            font-size: 0.67rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--warm-gray);
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .product-coloris {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .coloris-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .coloris-btn.active { border-color: var(--gold); }
+        .coloris-btn:hover { border-color: var(--warm-gray); }
+
+        .product-nav-cat {
+            display: flex;
+            justify-content: center;
+            border: 0.5px solid var(--border);
+            width: fit-content;
+            margin: 6rem auto 0;
+        }
+
+        .product-cat-btn {
+            padding: 0.65rem 2rem;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: var(--warm-gray);
+            transition: all 0.2s;
+        }
+
+        .product-cat-btn.active {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .product-prix {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .prix-barre {
+            font-size: 1rem;
+            color: var(--warm-gray);
+            text-decoration: line-through;
+        }
+
+        .prix-actuel {
+            font-size: 1.1rem;
+            color: var(--black);
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="nav-logo">
+        <img src="images/logo_waqar_2.jpeg" alt="WAQĀR" class="nav-logo-img">
+    </a>
+    <ul>
+        <li><a href="index.html#sunnah">Sunnah</a></li>
+        <li><a href="index.html#collection">Collection</a></li>
+        <li><a href="index.html#about">À propos</a></li>
+        <li><a href="index.html#commande">Commander</a></li>
+    </ul>
+</nav>
+
+<div class="product-nav-cat">
+    <button class="product-cat-btn" id="btn-adulte" onclick="switchCat('adulte')">Adulte</button>
+    <button class="product-cat-btn" id="btn-enfant" onclick="switchCat('enfant')">Enfant</button>
+</div>
+
+<div class="product-page">
+
+    <!-- GAUCHE : image + miniatures -->
+    <div class="product-left">
+        <div class="product-main-img">
+            <img id="main-img" src="" alt="">
+        </div>
+    </div>
+
+    <!-- DROITE : infos + commande -->
+    <div class="product-right">
+        <span class="product-cat" id="product-cat"></span>
+        <h1 class="product-title" id="product-title"></h1>
+
+        <p class="product-prix">
+            <span class="prix-barre" id="prix-barre"></span>
+            <span class="prix-actuel" id="prix-actuel"></span>
+        </p>
+
+        <span class="product-coloris-label">Coloris</span>
+        <div class="product-coloris" id="product-coloris"></div>
+
+        <span class="product-taille-label">Choisir une taille</span>
+        <div class="product-tailles">
+            <button class="taille-btn" onclick="selectTaille(this)">S</button>
+            <button class="taille-btn" onclick="selectTaille(this)">M</button>
+            <button class="taille-btn" onclick="selectTaille(this)">L</button>
+        </div>
+
+        <div class="product-divider"></div>
+        <p class="product-desc" id="product-desc"></p>
+
+        <div class="product-sunnah">
+            <p>✦ Longueur aux chevilles · Ample et couvrant · Sans logo ostentatoire · Conforme à la Sunnah du Prophète ﷺ</p>
+        </div>
+
+        <button class="btn-precommande" onclick="precommander()">Précommander →</button>
+        <p class="product-note">Vous serez contacté par email pour confirmer votre commande et le paiement.</p>
+    </div>
+</div>
+
+<script>
+    const products = [
+        { id:1, cat:'adulte', name:'Jubba Noire', prixBarre:'69,90 €', prixActuel:'59,90 €', img:'images/jubba_blk.png', desc:'La Jubba Noire adulte est taillée dans un tissu souple et léger, pensé pour être porté au quotidien comme pour la prière du vendredi. Sa coupe ample respecte scrupuleusement les critères de la Sunnah.' },
+        { id:2, cat:'adulte', name:'Jubba Blanche', prixBarre:'69,90 €', prixActuel:'59,90 €', img:'images/jubba_wht.png', desc:'La Jubba Blanche adulte incarne la pureté et la simplicité prophétique. Le Prophète ﷺ aimait le blanc — cette pièce en est le reflet, dans un tissu doux et respirant.' },
+        { id:3, cat:'enfant', name:'Jubba Noire', prixBarre:'39,90 €', prixActuel:'29,90 €', img:'images/jubba_blk_enfant.jpeg', desc:'La Jubba Noire enfant permet au fils de grandir dans la Sunnah dès le plus jeune âge. Même rigueur, même qualité, adaptée aux plus petits.' },
+        { id:4, cat:'enfant', name:'Jubba Gris clair', prixBarre:'39,90 €', prixActuel:'29,90 €', img:'images/jubba_gris_enfant.jpg', desc:'La Jubba Gris clair enfant offre une élégance sobre et naturelle. Une couleur douce, conforme aux teintes aimées du Prophète ﷺ.' }
+    ];
+
+    // Lire l'id dans l'URL
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get('id')) || 1;
+    const current = products.find(p => p.id === id) || products[0];
+
+    // Remplir les infos
+    document.getElementById('main-img').src = current.img;
+    document.getElementById('main-img').alt = current.name;
+    document.getElementById('product-title').textContent = current.name;
+    document.getElementById('product-cat').textContent = current.cat === 'adulte' ? 'Jubba Adulte' : 'Jubba Enfant';
+    document.getElementById('product-desc').textContent = current.desc;
+    // Coloris
+    const coloris = current.cat === 'adulte'
+        ? [{hex:'#1A1A1A', id:1}, {hex:'#F0EDE8', id:2}]
+        : [{hex:'#1A1A1A', id:3}, {hex:'#C8C3BA', id:4}];
+
+    const colorisDiv = document.getElementById('product-coloris');
+    coloris.forEach(c => {
+        const btn = document.createElement('button');
+        btn.className = 'coloris-btn' + (c.id === id ? ' active' : '');
+        btn.style.background = c.hex;
+        btn.style.outline = c.hex === '#F0EDE8' || c.hex === '#C8C3BA' ? '1px solid #ddd' : 'none';
+        btn.addEventListener('click', () => window.location.href = `product.html?id=${c.id}`);
+        colorisDiv.appendChild(btn);
+    });
+    document.title = `WAQĀR — ${current.name}`;
+
+    // Taille
+    let tailleChoisie = '';
+    function selectTaille(btn) {
+        document.querySelectorAll('.taille-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        tailleChoisie = btn.textContent;
+    }
+
+    // Précommander
+    function precommander() {
+        if (!tailleChoisie) {
+            alert('Veuillez choisir une taille.');
+            return;
+        }
+        const modele = (current.cat === 'adulte' ? 'Jubba Adulte' : 'Jubba Enfant') + ' — ' + current.name.replace('Jubba ', '');
+        window.location.href = `index.html#commande?modele=${encodeURIComponent(modele)}&taille=${tailleChoisie}`;
+    }
+
+    // Activer le bon bouton selon la catégorie actuelle
+    document.getElementById('btn-' + current.cat).classList.add('active');
+
+    function switchCat(cat) {
+        const first = products.find(p => p.cat === cat);
+        if (first) window.location.href = `product.html?id=${first.id}`;
+    }
+    document.getElementById('prix-barre').textContent = current.prixBarre;
+    document.getElementById('prix-actuel').textContent = current.prixActuel;
+</script>
+
+</body>
+</html>

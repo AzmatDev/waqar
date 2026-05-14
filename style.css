@@ -1,5 +1,5 @@
 .nav-logo-img {
-    height: 80px;
+    height: 58px;
     width: auto;
     display: block;
     filter: brightness(0);
@@ -69,14 +69,67 @@ nav ul a:hover { color: var(--gold); }
 .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 300; line-height: 1.15; }
 .section-sub { font-size: 0.85rem; color: var(--warm-gray); line-height: 1.8; margin-top: 1rem; max-width: 560px; margin-left: auto; margin-right: auto; }
 
-/* SAVIEZ-VOUS */
-#saviez-vous { background: var(--charcoal); padding: 5rem 3rem; text-align: center; }
-.savez-inner { max-width: 680px; margin: 0 auto; }
-.savez-label { font-size: 0.67rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; display: block; }
-.savez-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 300; color: var(--white); line-height: 1.3; margin-bottom: 1.5rem; }
-.savez-title em { font-style: italic; color: var(--gold); }
-.savez-text { font-size: 0.88rem; line-height: 1.95; color: rgba(255,255,255,0.5); }
-.savez-divider { width: 30px; height: 1px; background: var(--gold); margin: 2rem auto; opacity: 0.5; }
+.collection-left { min-width: 0; }
+
+.collection-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 0 3rem 6rem;
+    align-items: stretch;
+}
+
+.collection-right {
+    margin-top: 4.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.savez-inner-side {
+    background: var(--charcoal);
+    padding: 2.5rem;
+    margin-top: 2.4rem;
+    margin-bottom: 3.5rem;
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1; /* s'étire pour remplir collection-right */
+    /* pas d'aspect-ratio */
+}
+
+.savez-label-side {
+    font-size: 0.67rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem; display: block;
+}
+
+.savez-title-side {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 300;
+    color: var(--white); line-height: 1.3;
+    margin-bottom: 1.5rem;
+}
+
+.savez-title-side em { font-style: italic; color: var(--gold); }
+
+.savez-text-side {
+    font-size: 0.83rem; line-height: 1.9;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1rem;
+}
+
+.savez-divider-side {
+    width: 25px; height: 1px;
+    background: var(--gold);
+    margin: 1.5rem 0; opacity: 0.5;
+}
+
+.savez-quote-side {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem; font-style: italic;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+}
 
 /* SUNNAH */
 #sunnah { padding: 0 3rem 5rem; }
@@ -110,7 +163,11 @@ nav ul a:hover { color: var(--gold); }
 .tab-btn { padding: 0.65rem 2rem; font-family: 'Jost', sans-serif; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; background: transparent; border: none; cursor: pointer; color: var(--warm-gray); transition: all 0.2s; }
 .tab-btn.active { background: var(--black); color: var(--white); }
 .tab-btn:hover:not(.active) { color: var(--black); }
-.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2rem; }
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
 .product-card { cursor: pointer; transition: transform 0.3s; }
 .product-card:hover { transform: translateY(-4px); }
 .product-img { aspect-ratio: 3/4; overflow: hidden; margin-bottom: 1rem; background: #E2DDD5; }

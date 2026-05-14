@@ -15,13 +15,13 @@ const products = [
         id: 3, cat: 'enfant',
         name: 'Jubba Noire',
         sub: '50% Lycra · 50% Coton',
-        img: 'images/jubba-enfant-noir.jpg'
+        img: 'images/jubba_blk_enfant.jpeg'
     },
     {
         id: 4, cat: 'enfant',
         name: 'Jubba Gris clair',
         sub: '50% Lycra · 50% Coton',
-        img: 'images/jubba-enfant-gris.jpg'
+        img: 'images/jubba_gris_enfant.jpg'
     }
 ];
 
@@ -107,3 +107,8 @@ function observeFadeIns() {
 
 renderProducts('adulte');
 observeFadeIns();
+
+function scrollToOrder(nom, cat) {
+    const p = products.find(p => p.name === nom && p.cat === cat);
+    if (p) window.location.href = `product.html?id=${p.id}`;
+}
