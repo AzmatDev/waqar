@@ -241,18 +241,74 @@ footer .footer-devise { font-style: italic; color: var(--gold); margin-bottom: 1
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
+    /* NAV */
     nav { padding: 1.2rem 1.5rem; }
     nav ul { display: none; }
-    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 2rem; min-height: auto; }
-    .hero-visual { height: 60vw; }
-    .about-layout { grid-template-columns: 1fr; gap: 2rem; }
-    #about { padding: 4rem 1.5rem; }
-    #sunnah { padding: 0 1.5rem 4rem; }
-    #collection { padding: 0 1.5rem 4rem; }
-    .order-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-    #commande { padding: 4rem 1.5rem; }
-    .form-row { grid-template-columns: 1fr; }
-    #saviez-vous { padding: 3rem 1.5rem; }
+
+    /* HERO */
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 5rem 1.5rem 2rem;
+        gap: 1rem;
+        min-height: auto;
+    }
+    .hero-visual {
+        height: 60vw;
+    }
+    .bismillah {
+        font-size: 1.3rem;
+        text-align: right;
+    }
+
+    /* COLLECTION */
+    .collection-layout {
+        grid-template-columns: 1fr;
+        padding: 0 1.5rem 3rem;
+    }
+    .collection-right {
+        margin-top: 0;
+    }
+    .savez-inner-side {
+        margin-top: 0;
+        margin-bottom: 0;
+        aspect-ratio: auto;
+        padding: 1.5rem;
+    }
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    /* CONTACT */
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        padding: 0 1rem;
+    }
+    .contact-col:not(:last-child) {
+        border-right: none;
+        border-bottom: 0.5px solid rgba(255,255,255,0.08);
+        padding-right: 0;
+        padding-bottom: 2.5rem;
+    }
+    #contact-section { padding: 3rem 1.5rem; }
+
+    /* FOOTER */
+    .footer-bottom {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+    }
+    .legal-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    /* COLLECTION TABS */
+    .collection-tabs {
+        margin: 0 0 1.5rem;
+    }
 }
 
 .hero-visual {

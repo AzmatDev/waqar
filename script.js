@@ -61,7 +61,7 @@ if (orderForm) {
             `Pays : ${f('pays')}\n\n` +
             `Informations : ${f('message') || 'Aucune'}\n\n---\nwaqar.fr`
         );
-        window.location.href = `mailto:azmodu93@gmail.com?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:waqar_1447@outlook.com?subject=${subject}&body=${body}`;
         setTimeout(() => {
             document.getElementById('orderForm').style.display = 'none';
             document.getElementById('formSuccess').style.display = 'block';
