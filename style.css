@@ -205,7 +205,25 @@ nav ul a:hover { color: var(--gold); }
 .form-success p { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
 
 /* FOOTER */
-footer { background: #111; color: rgba(255,255,255,0.3); text-align: center; padding: 3rem; font-size: 0.7rem; letter-spacing: 0.1em; }
+footer {
+    background: #111;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    padding: 3rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    /* pas de max-width sur le footer lui-même */
+}
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 0.5px solid rgba(255,255,255,0.08);
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.2);
+}
 footer .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; letter-spacing: 0.25em; color: rgba(255,255,255,0.55); margin-bottom: 0.5rem; display: block; }
 footer .footer-devise { font-style: italic; color: var(--gold); margin-bottom: 1rem; font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; }
 
@@ -382,3 +400,83 @@ footer .footer-devise { font-style: italic; color: var(--gold); margin-bottom: 1
 }
 
 .legal-links a:hover { color: var(--gold); }
+
+/* À ajouter dans style.css */
+
+#contact-section {
+    background: var(--black);
+    color: var(--white);
+    padding: 6rem 3rem;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.contact-col-tag {
+    font-size: 0.67rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.8rem;
+}
+
+.contact-col-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 2rem;
+    line-height: 1.2;
+}
+
+.contact-col-desc {
+    font-size: 0.83rem;
+    line-height: 1.9;
+    color: rgba(255,255,255,0.45);
+}
+
+.instagram-link {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.2rem;
+    transition: opacity 0.2s;
+}
+
+.instagram-link:hover { opacity: 0.7; }
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+/* Séparateur vertical entre colonnes */
+.contact-col:not(:last-child) {
+    border-right: 0.5px solid rgba(255,255,255,0.08);
+    padding-right: 4rem;
+}
+
+@media (max-width: 900px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    .contact-col:not(:last-child) {
+        border-right: none;
+        border-bottom: 0.5px solid rgba(255,255,255,0.08);
+        padding-right: 0;
+        padding-bottom: 3rem;
+    }
+    #contact-section { padding: 4rem 1.5rem; }
+}
