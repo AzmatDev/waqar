@@ -41,29 +41,33 @@ function selectTaille(btn) {
 }
 
 // Précommander
-async function precommander() {
+function precommander() {
     if (!tailleChoisie) {
         alert('Veuillez choisir une taille.');
         return;
     }
+    document.getElementById('modal-product-name').textContent = current.name;
+    document.getElementById('modal-product-taille').textContent = 'Taille : ' + tailleChoisie;
+    document.getElementById('orderModal').classList.add('open');
+}
 
-    const nom = prompt('Votre nom complet :');
-    const email = prompt('Votre email :');
-    const adresse = prompt('Votre adresse :');
-    const codepostal = prompt('Code postal :');
-    const ville = prompt('Ville :');
-    const pays = prompt('Pays :');
+function closeOrderModal() {
+    document.getElementById('orderModal').classList.remove('open');
+}
 
-    if (!nom || !email || !adresse || !ville || !pays) {
-        alert('Veuillez remplir tous les champs.');
-        return;
-    }
-
-    const modele = (current.cat === 'adulte' ? 'Jubba Adulte' : 'Jubba Enfant') + ' — ' + current.name.replace('Jubba ', '');
-
-    const btn = document.querySelector('.btn-precommande');
+document.getElementById('orderModalForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('modal-submit-btn');
     btn.textContent = 'Envoi en cours...';
     btn.disabled = true;
+
+    const nom      = document.getElementById('m-nom').value;
+    const email    = document.getElementById('m-email').value;
+    const adresse  = document.getElementById('m-adresse').value;
+    const codepostal = document.getElementById('m-codepostal').value;
+    const ville    = document.getElementById('m-ville').value;
+    const pays     = document.getElementById('m-pays').value;
+    const modele   = (current.cat === 'adulte' ? 'Jubba Adulte' : 'Jubba Enfant') + ' — ' + current.name.replace('Jubba ', '');
 
     try {
         const response = await fetch('/api/send-mail', {
@@ -75,8 +79,8 @@ async function precommander() {
         const data = await response.json();
 
         if (data.success) {
-            btn.textContent = 'Précommande enregistrée ✦';
-            btn.style.background = 'var(--gold)';
+            document.getElementById('orderModalForm').style.display = 'none';
+            document.getElementById('orderModalSuccess').style.display = 'block';
         } else {
             btn.textContent = 'Erreur — réessayez';
             btn.disabled = false;
@@ -85,7 +89,7 @@ async function precommander() {
         btn.textContent = 'Erreur — réessayez';
         btn.disabled = false;
     }
-}
+});
 
 // Activer le bon bouton selon la catégorie actuelle
 document.getElementById('btn-' + current.cat).classList.add('active');

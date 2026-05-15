@@ -67,6 +67,56 @@
         <p class="product-note">Vous serez contacté par email pour confirmer votre commande et le paiement.</p>
     </div>
 </div>
+
+<div class="order-modal-overlay" id="orderModal">
+    <div class="order-modal">
+        <button class="order-modal-close" onclick="closeOrderModal()">✕</button>
+        <span class="product-cat">Précommande</span>
+        <h3 class="order-modal-title" id="modal-product-name"></h3>
+        <p class="order-modal-sub" id="modal-product-taille"></p>
+
+        <form id="orderModalForm" class="order-modal-form">
+            <div class="order-modal-row">
+                <div class="form-group">
+                    <label class="form-label">Prénom & Nom</label>
+                    <input type="text" class="form-control" id="m-nom" required placeholder="Ahmed Dupont">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" id="m-email" required placeholder="vous@email.com">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Adresse</label>
+                <input type="text" class="form-control" id="m-adresse" required placeholder="12 rue des Lilas">
+            </div>
+            <div class="order-modal-row">
+                <div class="form-group">
+                    <label class="form-label">Code postal</label>
+                    <input type="text" class="form-control" id="m-codepostal" required placeholder="75001">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Ville</label>
+                    <input type="text" class="form-control" id="m-ville" required placeholder="Paris">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Pays</label>
+                <input type="text" class="form-control" id="m-pays" required placeholder="France">
+            </div>
+            <button type="submit" class="btn-precommande" id="modal-submit-btn">
+                Confirmer la précommande →
+            </button>
+            <p class="product-note">Vous recevrez un email de confirmation. Paiement après contact.</p>
+        </form>
+
+        <div id="orderModalSuccess" style="display:none;text-align:center;padding:2rem 0;">
+            <p style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.4rem;">Précommande enregistrée ✦</p>
+            <p style="color:var(--warm-gray);font-size:0.85rem;margin-top:0.8rem;">Un email de confirmation vous a été envoyé.<br>Nous vous contacterons prochainement, incha'Allah.</p>
+        </div>
+    </div>
+</div>
+
 <script src="js/product.js"></script>
 </body>
 </html>
