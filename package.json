@@ -1,0 +1,23 @@
+{
+  "name": "waqar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js/script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AzmatDev/waqar.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AzmatDev/waqar/issues"
+  },
+  "homepage": "https://github.com/AzmatDev/waqar#readme",
+  "dependencies": {
+    "nodemailer": "^8.0.7"
+  }
+}
