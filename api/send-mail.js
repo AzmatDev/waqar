@@ -17,23 +17,25 @@ module.exports = async function handler(req, res) {
     const { nom, email, modele, taille, adresse, codepostal, ville, pays } = req.body;
 
     const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
         auth: {
-            user: process.env.MAIL_USER,
+            user: 'azmat.chwt@gmail.com',
             pass: process.env.MAIL_PASSWORD
         }
     });
 
     try {
         await transporter.sendMail({
-            from: 'azmat.chwt@gmail.com',
+            from: '"WAQĀR" <azmat.chwt@gmail.com>',
             to: 'azmat.chwt@gmail.com',
             subject: `[WAQĀR] Nouvelle précommande — ${nom}`,
             text: `NOUVELLE PRÉCOMMANDE\n\nClient : ${nom}\nEmail : ${email}\n\nModèle : ${modele}\nTaille : ${taille}\n\nAdresse : ${adresse}\nCode postal : ${codepostal}\nVille : ${ville}\nPays : ${pays}`
         });
 
         await transporter.sendMail({
-            from: 'azmat.chwt@gmail.com',
+            from: '"WAQĀR" <azmat.chwt@gmail.com>',
             to: email,
             subject: 'WAQĀR — Précommande enregistrée',
             text: `Barak Allahu fik ${nom},\n\nVotre précommande a bien été enregistrée.\n\nRécapitulatif :\nModèle : ${modele}\nTaille : ${taille}\n\nNous vous contacterons prochainement, incha'Allah.\n\nWAQĀR`
