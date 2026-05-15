@@ -32,6 +32,7 @@ module.exports = async function handler(req, res) {
 
         res.status(200).json({ success: true });
     } catch (err) {
+        console.error('ERREUR MAIL:', err.message, err.stack);
         res.status(500).json({ error: err.message });
     }
 };
