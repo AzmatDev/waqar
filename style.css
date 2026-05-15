@@ -259,6 +259,11 @@ footer .footer-devise { font-style: italic; color: var(--gold); margin-bottom: 1
     }
     .hero-visual {
         display: none;
+        height: 0;
+        overflow: hidden;
+    }
+    .jubba-svg {
+        display: none;
     }
     .bismillah {
         font-size: 1.3rem;
