@@ -14,7 +14,7 @@ module.exports = async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { nom, email, modele, taille, adresse, codepostal, ville, pays } = req.body;
+    const { nom, email, tel, modele, taille, adresse, codepostal, ville, pays } = req.body;
 
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
@@ -31,7 +31,7 @@ module.exports = async function handler(req, res) {
             from: '"WAQĀR" <azmat.chwt@gmail.com>',
             to: 'azmat.chwt@gmail.com',
             subject: `[WAQĀR] Nouvelle précommande — ${nom}`,
-            text: `NOUVELLE PRÉCOMMANDE\n\nClient : ${nom}\nEmail : ${email}\n\nModèle : ${modele}\nTaille : ${taille}\n\nAdresse : ${adresse}\nCode postal : ${codepostal}\nVille : ${ville}\nPays : ${pays}`
+            text: `NOUVELLE PRÉCOMMANDE\n\nClient : ${nom}\nEmail : ${email}\nTéléphone : ${tel}\n\nModèle : ${modele}\nTaille : ${taille}\n\nAdresse : ${adresse}\nCode postal : ${codepostal}\nVille : ${ville}\nPays : ${pays}`
         });
 
         await transporter.sendMail({

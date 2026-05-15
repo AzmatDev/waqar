@@ -63,6 +63,7 @@ document.getElementById('orderModalForm').addEventListener('submit', async funct
 
     const nom      = document.getElementById('m-nom').value;
     const email    = document.getElementById('m-email').value;
+    const tel = document.getElementById('m-tel').value;
     const adresse  = document.getElementById('m-adresse').value;
     const codepostal = document.getElementById('m-codepostal').value;
     const ville    = document.getElementById('m-ville').value;
@@ -73,7 +74,7 @@ document.getElementById('orderModalForm').addEventListener('submit', async funct
         const response = await fetch('/api/send-mail', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nom, email, modele, taille: tailleChoisie, adresse, codepostal, ville, pays })
+            body: JSON.stringify({ nom, email, tel, modele, taille: tailleChoisie, adresse, codepostal, ville, pays })
         });
 
         const data = await response.json();
