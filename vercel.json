@@ -1,7 +1,9 @@
 {
-  "functions": {
-    "api/send-mail.js": {
-      "runtime": "nodejs20.x"
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/send-mail.js",
+      "use": "@vercel/node"
     }
-  }
+  ]
 }
