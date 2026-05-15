@@ -26,14 +26,14 @@ module.exports = async function handler(req, res) {
 
     try {
         await transporter.sendMail({
-            from: process.env.MAIL_USER,
-            to: process.env.MAIL_USER,
+            from: 'azmat.chwt@gmail.com',
+            to: 'azmat.chwt@gmail.com',
             subject: `[WAQĀR] Nouvelle précommande — ${nom}`,
             text: `NOUVELLE PRÉCOMMANDE\n\nClient : ${nom}\nEmail : ${email}\n\nModèle : ${modele}\nTaille : ${taille}\n\nAdresse : ${adresse}\nCode postal : ${codepostal}\nVille : ${ville}\nPays : ${pays}`
         });
 
         await transporter.sendMail({
-            from: process.env.MAIL_USER,
+            from: 'azmat.chwt@gmail.com',
             to: email,
             subject: 'WAQĀR — Précommande enregistrée',
             text: `Barak Allahu fik ${nom},\n\nVotre précommande a bien été enregistrée.\n\nRécapitulatif :\nModèle : ${modele}\nTaille : ${taille}\n\nNous vous contacterons prochainement, incha'Allah.\n\nWAQĀR`
