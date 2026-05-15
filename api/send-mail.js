@@ -15,8 +15,6 @@ module.exports = async function handler(req, res) {
     }
 
     const { nom, email, modele, taille, adresse, codepostal, ville, pays } = req.body;
-    console.log('BODY RECU:', req.body);
-    console.log('EMAIL:', email);
 
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
