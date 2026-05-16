@@ -9,6 +9,15 @@ const products = [
 const params = new URLSearchParams(window.location.search);
 const id = parseInt(params.get('id')) || 1;
 const current = products.find(p => p.id === id) || products[0];
+// Après avoir défini current
+const taillesContainer = document.getElementById('tailles-container');
+const tailles = current.cat === 'enfant'
+    ? ['0-2 ans', '2-4 ans', '4-6 ans', '6-8 ans']
+    : ['S', 'M', 'L', 'XL'];
+
+taillesContainer.innerHTML = tailles.map(t => `
+    <button class="taille-btn" onclick="selectTaille(this)">${t}</button>
+`).join('');
 
 // Remplir les infos
 document.getElementById('main-img').src = current.img;
