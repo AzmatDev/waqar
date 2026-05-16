@@ -1,6 +1,6 @@
 .product-page {
     min-height: 100vh;
-    padding: 8rem 3rem 6rem;
+    padding: 2rem 3rem 6rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 5rem;
@@ -70,17 +70,17 @@
     width: 30px;
     height: 1px;
     background: var(--gold);
-    margin: 1.5rem 0;
+    margin: 1.2rem 0;
     opacity: 0.5;
 }
 
 .product-desc {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-style: italic;
-    line-height: 1.9;
+    line-height: 1.8;
     color: var(--charcoal);
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .product-taille-label {
@@ -116,7 +116,7 @@
 .product-sunnah {
     background: var(--cream-dark);
     padding: 1.2rem 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0.8rem;
     border-left: 2px solid var(--gold-light);
 }
 
@@ -124,6 +124,18 @@
     font-size: 0.78rem;
     color: var(--warm-gray);
     line-height: 1.7;
+}
+
+.precommande-notice {
+    font-size: 0.75rem;
+    color: var(--gold);
+    line-height: 1.7;
+    padding: 0.8rem 1rem;
+    background: rgba(184,149,106,0.08);
+    border: 0.5px solid var(--gold-light);
+    margin-bottom: 0.8rem;
+    text-align: center;
+    letter-spacing: 0.06em;
 }
 
 .btn-precommande {
@@ -205,7 +217,7 @@
     justify-content: center;
     border: 0.5px solid var(--border);
     width: fit-content;
-    margin: 6rem auto 0;
+    margin: 5rem auto 0;
 }
 
 .product-cat-btn {
