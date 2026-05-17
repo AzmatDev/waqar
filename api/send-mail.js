@@ -17,23 +17,20 @@ module.exports = async function handler(req, res) {
     const { nom, email, tel, modele, taille, adresse, codepostal, ville, pays } = req.body;
 
     const transporter = nodemailer.createTransport({
-        host: 'smtp-mail.outlook.com',
+        host: 'smtp.gmail.com',
         port: 587,
         secure: false,
         auth: {
-            user: 'waqar_1447@outlook.com',
+            user: 'waqar.1447h@gmail.com',
             pass: process.env.MAIL_PASSWORD
-        },
-        tls: {
-            ciphers: 'SSLv3'
         }
     });
 
     try {
         // Mail au frère
         await transporter.sendMail({
-            from: '"WAQĀR" <waqar_1447@outlook.com>',
-            to: 'waqar_1447@outlook.com',
+            from: '"WAQĀR" <waqar.1447h@gmail.com>',
+            to: 'waqar.1447h@gmail.com',
             subject: `[WAQĀR] Nouvelle précommande — ${nom}`,
             html: `
         <div style="font-family:Georgia,serif;max-width:600px;margin:0 auto;padding:40px 20px;color:#1C1C1C;">
@@ -74,7 +71,7 @@ module.exports = async function handler(req, res) {
 
 // Mail au client
         await transporter.sendMail({
-            from: '"WAQĀR" <waqar_1447@outlook.com>',
+            from: '"WAQĀR" <waqar.1447h@gmail.com>',
             to: email,
             subject: 'WAQĀR — Précommande confirmée',
             html: `
