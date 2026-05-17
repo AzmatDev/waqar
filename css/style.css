@@ -203,7 +203,7 @@ footer .footer-devise { font-style: italic; color: var(--gold); margin-bottom: 1
     .collection-right { margin-top: 0; }
     .savez-inner-side { margin-top: 0; margin-bottom: 0; padding: 1.5rem; }
     .products-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-    .collection-tabs { margin: 0 0 1.5rem; }
+    .collection-tabs { margin: 0 auto 1.5rem; }
 
     /* CONTACT */
     #contact-section { padding: 3rem 1.5rem; }
