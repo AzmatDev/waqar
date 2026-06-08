@@ -1,8 +1,8 @@
 const products = [
-    { id:1, cat:'adulte', name:'Jubba Noire', prixBarre:'69,90 €', prixActuel:'59,90 €', img:'images/jubba_blk.png', desc:'La Jubba Noire adulte est taillée dans un tissu souple et léger, pensé pour être porté au quotidien comme pour la prière du vendredi. Sa coupe ample respecte scrupuleusement les critères de la Sunnah.' },
-    { id:2, cat:'adulte', name:'Jubba Blanche', prixBarre:'69,90 €', prixActuel:'59,90 €', img:'images/jubba_wht.png', desc:'La Jubba Blanche adulte incarne la pureté et la simplicité prophétique. Le Prophète ﷺ aimait le blanc — cette pièce en est le reflet, dans un tissu doux et respirant.' },
-    { id:3, cat:'enfant', name:'Jubba Noire', prixBarre:'39,90 €', prixActuel:'29,90 €', img:'images/jubba_blk_enfant.jpeg', desc:'La Jubba Noire enfant permet au fils de grandir dans la Sunnah dès le plus jeune âge. Même rigueur, même qualité, adaptée aux plus petits.' },
-    { id:4, cat:'enfant', name:'Jubba Gris clair', prixBarre:'39,90 €', prixActuel:'29,90 €', img:'images/jubba_gris_enfant.jpg', desc:'La Jubba Gris clair enfant offre une élégance sobre et naturelle. Une couleur douce, conforme aux teintes aimées du Prophète ﷺ.' }
+    { id:1, cat:'adulte', name:'Jubba Noire', prixActuel:'69,90 €', img:'images/jubba_blk.png', desc:'La Jubba Noire adulte est taillée dans un tissu souple et léger, pensé pour être porté au quotidien comme pour la prière du vendredi. Sa coupe ample respecte scrupuleusement les critères de la Sunnah.' },
+    { id:2, cat:'adulte', name:'Jubba Blanche', prixActuel:'69,90 €', img:'images/jubba_wht.png', desc:'La Jubba Blanche adulte incarne la pureté et la simplicité prophétique. Le Prophète ﷺ aimait le blanc — cette pièce en est le reflet, dans un tissu doux et respirant.' },
+    { id:3, cat:'enfant', name:'Jubba Noire', prixActuel:'44,90 €', img:'images/jubba_blk_enfant.jpeg', desc:'La Jubba Noire enfant permet au fils de grandir dans la Sunnah dès le plus jeune âge. Même rigueur, même qualité, adaptée aux plus petits.' },
+    { id:4, cat:'enfant', name:'Jubba Gris clair', prixActuel:'44,90 €', img:'images/jubba_gris_enfant.jpg', desc:'La Jubba Gris clair enfant offre une élégance sobre et naturelle. Une couleur douce, conforme aux teintes aimées du Prophète ﷺ.' }
 ];
 
 // Lire l'id dans l'URL
@@ -23,6 +23,7 @@ taillesContainer.innerHTML = tailles.map(t => `
 document.getElementById('main-img').src = current.img;
 document.getElementById('main-img').alt = current.name;
 document.getElementById('product-title').textContent = current.name;
+document.getElementById('product-prix').textContent = current.prixActuel;
 document.getElementById('product-cat').textContent = current.cat === 'adulte' ? 'Jubba Adulte' : 'Jubba Enfant';
 document.getElementById('product-desc').textContent = current.desc;
 // Coloris
@@ -108,5 +109,3 @@ function switchCat(cat) {
     const first = products.find(p => p.cat === cat);
     if (first) window.location.href = `product.html?id=${first.id}`;
 }
-document.getElementById('prix-barre').textContent = current.prixBarre;
-document.getElementById('prix-actuel').textContent = current.prixActuel;
