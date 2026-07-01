@@ -36,8 +36,15 @@
 
 <section id="collection">
     <div class="section-header fade-in">
-        <h2 class="section-title">Collection WAQĀR 1447</h2>
-        <p class="section-sub">Hommes et enfants. Pour la prière, le vendredi, le quotidien.</p>
+        <div class="collection-switcher">
+            <button class="collection-arrow" onclick="switchCollection(-1)" aria-label="Collection précédente">‹</button>
+            <div class="collection-heading">
+                <h2 class="section-title" id="collection-title">Collection WAQĀR 1447</h2>
+                <p class="section-sub" id="collection-sub">Hommes et enfants. Pour la prière, le vendredi, le quotidien.</p>
+                <div class="collection-dots" id="collection-dots"></div>
+            </div>
+            <button class="collection-arrow" onclick="switchCollection(1)" aria-label="Collection suivante">›</button>
+        </div>
     </div>
 
     <div class="collection-layout">
@@ -53,12 +60,12 @@
 
         <div class="collection-right fade-in">
             <div class="savez-inner-side">
-                <span class="savez-label-side">Le saviez-vous ?</span>
-                <h3 class="savez-title-side">La Jubba — <em>l'habit du Prophète ﷺ</em></h3>
-                <p class="savez-text-side">La Jubba est le vêtement long et ample que l'on porte par-dessus le Qamis. Contrairement à ce que certains pensent, le Prophète ﷺ portait lui-même des Jubbas — cela est prouvé dans les hadiths authentiques.</p>
-                <p class="savez-text-side">Ce n'est pas un simple vêtement traditionnel. C'est un habit de la Sunnah, chargé de sens et de noblesse.</p>
+                <span class="savez-label-side" id="savez-label">Le saviez-vous ?</span>
+                <h3 class="savez-title-side" id="savez-title">La Jubba — <em>l'habit du Prophète ﷺ</em></h3>
+                <p class="savez-text-side" id="savez-text1">La Jubba est le vêtement long et ample que l'on porte par-dessus le Qamis. Contrairement à ce que certains pensent, le Prophète ﷺ portait lui-même des Jubbas — cela est prouvé dans les hadiths authentiques.</p>
+                <p class="savez-text-side" id="savez-text2">Ce n'est pas un simple vêtement traditionnel. C'est un habit de la Sunnah, chargé de sens et de noblesse.</p>
                 <div class="savez-divider-side"></div>
-                <p class="savez-quote-side">« Chaque Jubba que nous proposons est vérifiée selon les critères de la Sunnah. »</p>
+                <p class="savez-quote-side" id="savez-quote">« Chaque Jubba que nous proposons est vérifiée selon les critères de la Sunnah. »</p>
             </div>
         </div>
     </div>

@@ -92,6 +92,46 @@ nav ul a:hover { color: var(--gold); }
     flex-direction: column;
 }
 
+.collection-switcher {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.8rem;
+}
+.collection-heading { text-align: center; }
+.collection-arrow {
+    background: transparent;
+    border: 0.5px solid var(--border);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-family: 'Jost', sans-serif;
+    color: var(--warm-gray);
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    line-height: 1;
+}
+.collection-arrow:hover { border-color: var(--gold); color: var(--gold); }
+.collection-dots { display: flex; gap: 0.45rem; justify-content: center; margin-top: 0.9rem; }
+.collection-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: background 0.2s; }
+.collection-dot.active { background: var(--gold); }
+.collection-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3.5rem 1.5rem;
+    color: var(--warm-gray);
+    font-size: 0.85rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    border: 0.5px dashed var(--border);
+}
+
 .collection-tabs { display: flex; justify-content: center; border: 0.5px solid var(--border); width: fit-content; margin: 0 auto 1rem; }
 .tab-btn { padding: 0.65rem 2rem; font-family: 'Jost', sans-serif; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; background: transparent; border: none; cursor: pointer; color: var(--warm-gray); transition: all 0.2s; }
 .tab-btn.active { background: var(--black); color: var(--white); }
@@ -199,6 +239,8 @@ footer .footer-devise { font-style: italic; color: var(--gold); margin-bottom: 1
 
     /* COLLECTION */
     #collection { padding: 0 1.5rem 3rem; scroll-margin-top: 60px;}
+    .collection-switcher { gap: 0.8rem; }
+    .collection-arrow { width: 32px; height: 32px; font-size: 1rem; }
     .collection-layout { grid-template-columns: 1fr; padding: 0 1.5rem 3rem; }
     .collection-right { margin-top: 0; }
     .savez-inner-side { margin-top: 0; margin-bottom: 0; padding: 1.5rem; }
