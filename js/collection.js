@@ -5,6 +5,18 @@
 
 const clParams = new URLSearchParams(window.location.search);
 const activeCollection = collections.find(c => c.id === clParams.get('c')) || collections[0];
+
+// Raccourci : si la collection ne contient qu'une seule pièce, inutile de faire
+// choisir le client — on l'envoie directement sur la fiche produit. Dès qu'une
+// 2e pièce est ajoutée à cette collection, ce raccourci se désactive tout seul.
+const collectionFamilies = productFamilies.filter(f => f.collection === activeCollection.id);
+const singlePieceRedirect = collectionFamilies.length === 1;
+if (singlePieceRedirect) {
+    const onlyFamily = collectionFamilies[0];
+    const onlyColor = onlyFamily.colors[0].id;
+    window.location.replace(`product.html?id=${onlyFamily.id}&color=${onlyColor}`);
+}
+
 let currentCat = 'adulte';
 const cardColorState = {}; // familyId -> colorId sélectionné sur la carte
 
@@ -131,7 +143,9 @@ function observeFadeIns() {
     document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 }
 
-renderCollectionHeader();
-updateTabs();
-renderProducts(currentCat);
-observeFadeIns();
+if (!singlePieceRedirect) {
+    renderCollectionHeader();
+    updateTabs();
+    renderProducts(currentCat);
+    observeFadeIns();
+}

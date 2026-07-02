@@ -69,11 +69,11 @@ const productFamilies = [
         desc: "Le Sarouel Mizân, ample et confortable, conforme aux critères de pudeur de la Sunnah. Disponible en plusieurs coloris, avec possibilité d'Ajustement Sunnah sur mesure.",
         tailles: ['S', 'M', 'L', 'XL'],
         colors: [
-            { id: 'beige', label: 'Beige', hex: '#D8C8AE', images: ['images/sarouel/Beige 1.png', 'images/sarouel/Beige 2.png', 'images/sarouel/Beige 3.png', 'images/sarouel/Beige 4.png'] },
-            { id: 'kaki', label: 'Kaki', hex: '#6B6E4E', images: ['images/sarouel/kaki 1.png', 'images/sarouel/kaki 2.png', 'images/sarouel/kaki 3.png', 'images/sarouel/kaki 4.png'] },
-            { id: 'noir', label: 'Noir', hex: '#1A1A1A', images: ['images/sarouel/Noir 1.png', 'images/sarouel/Noir intense 2.png', 'images/sarouel/Noir intense 3.png'] },
-            { id: 'gris-chine', label: 'Gris chiné', hex: '#8C8C8C', images: ['images/sarouel/Gris chiné 1.png', 'images/sarouel/Gris chiné 2.png', 'images/sarouel/Gris chiné 3.png', 'images/sarouel/Gris chiné 4.png'] },
-            { id: 'bleu-marine', label: 'Bleu marine', hex: '#1B2A4A', images: ['images/sarouel/Bleu marine 1.png', 'images/sarouel/Bleu marine 2.png', 'images/sarouel/Bleu marine 3.png', 'images/sarouel/Bleu marine 4.png'] }
+            { id: 'beige', label: 'Beige', hex: '#D8C8AE', images: ['images/sarouel/beige-1.png', 'images/sarouel/beige-2.png', 'images/sarouel/beige-3.png', 'images/sarouel/beige-4.png'] },
+            { id: 'kaki', label: 'Kaki', hex: '#6B6E4E', images: ['images/sarouel/kaki-1.png', 'images/sarouel/kaki-2.png', 'images/sarouel/kaki-3.png', 'images/sarouel/kaki-4.png'] },
+            { id: 'noir', label: 'Noir', hex: '#1A1A1A', images: ['images/sarouel/noir-1.png', 'images/sarouel/noir-2.png', 'images/sarouel/noir-3.png'] },
+            { id: 'gris-chine', label: 'Gris chiné', hex: '#8C8C8C', images: ['images/sarouel/gris-chine-1.png', 'images/sarouel/gris-chine-2.png', 'images/sarouel/gris-chine-3.png', 'images/sarouel/gris-chine-4.png'] },
+            { id: 'bleu-marine', label: 'Bleu marine', hex: '#1B2A4A', images: ['images/sarouel/bleu-marine-1.png', 'images/sarouel/bleu-marine-2.png', 'images/sarouel/bleu-marine-3.png', 'images/sarouel/Bleu-marine-4.png'] }
         ]
     }
     // TODO : ajouter ici la 2e famille de produit de la collection ISTIQĀMAH
