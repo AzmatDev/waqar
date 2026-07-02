@@ -21,7 +21,6 @@ taillesContainer.innerHTML = family.tailles.map(t => `
 // Infos générales
 document.getElementById('product-title').textContent = family.name;
 document.getElementById('product-prix').textContent = family.prix;
-document.getElementById('product-cat').textContent = `${family.name} ${family.cat === 'adulte' ? 'Adulte' : 'Enfant'}`;
 document.getElementById('product-desc').textContent = family.desc;
 document.title = `WAQĀR — ${family.name}`;
 
@@ -157,17 +156,64 @@ document.getElementById('orderModalForm').addEventListener('submit', async funct
     }
 });
 
-// Navigation Adulte/Enfant en haut de page (masque ce qui n'existe pas dans cette collection)
+// Navigation Adulte/Enfant en haut de page — n'apparaît que s'il y a un vrai choix
 const hasAdulte = productFamilies.some(f => f.collection === family.collection && f.cat === 'adulte');
 const hasEnfant = productFamilies.some(f => f.collection === family.collection && f.cat === 'enfant');
-const btnAdulte = document.getElementById('btn-adulte');
-const btnEnfant = document.getElementById('btn-enfant');
-if (btnAdulte) btnAdulte.style.display = hasAdulte ? '' : 'none';
-if (btnEnfant) btnEnfant.style.display = hasEnfant ? '' : 'none';
-const activeBtn = document.getElementById('btn-' + family.cat);
-if (activeBtn) activeBtn.classList.add('active');
+const navWrapper = document.getElementById('product-nav-cat-wrapper');
+if (hasAdulte && hasEnfant) {
+    const activeBtn = document.getElementById('btn-' + family.cat);
+    if (activeBtn) activeBtn.classList.add('active');
+} else if (navWrapper) {
+    navWrapper.style.display = 'none';
+}
 
 function switchCat(cat) {
     const first = productFamilies.find(f => f.collection === family.collection && f.cat === cat);
     if (first) window.location.href = `product.html?id=${first.id}`;
 }
+
+// Cross-sell : met en avant les pièces des AUTRES collections en bas de fiche produit
+function renderCrossSell() {
+    const section = document.getElementById('cross-sell');
+    const grid = document.getElementById('cross-sell-grid');
+    const titleEl = document.getElementById('cross-sell-title');
+    if (!section || !grid) return;
+
+    const otherFamilies = productFamilies.filter(f => f.collection !== family.collection);
+    if (otherFamilies.length === 0) {
+        section.style.display = 'none';
+        return;
+    }
+
+    const otherCollectionIds = [...new Set(otherFamilies.map(f => f.collection))];
+    if (otherCollectionIds.length === 1) {
+        const otherCol = collections.find(c => c.id === otherCollectionIds[0]);
+        titleEl.textContent = otherCol ? `Découvrez ${otherCol.title.replace(/^Collection\s+/i, '')}` : 'Vous aimerez aussi';
+    } else {
+        titleEl.textContent = 'Vous aimerez aussi';
+    }
+
+    grid.innerHTML = otherFamilies.map(f => {
+        const color = f.colors[0];
+        const hasImg = color.images && color.images[0];
+        return `
+        <a class="product-card fade-in" href="product.html?id=${f.id}&color=${color.id}">
+            <div class="product-img" style="${hasImg ? '' : `background:${color.hex}`}">
+                ${hasImg ? `<img src="${color.images[0]}" alt="${f.name}" loading="lazy">` : ''}
+            </div>
+            <p class="product-name">${f.name}</p>
+            <p class="product-meta">${color.label}${f.matiere ? ' · ' + f.matiere : ''}</p>
+        </a>`;
+    }).join('');
+
+    observeFadeIns();
+}
+
+function observeFadeIns() {
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+}
+
+renderCrossSell();

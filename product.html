@@ -19,7 +19,7 @@
     </ul>
 </nav>
 
-<div class="product-nav-cat">
+<div class="product-nav-cat" id="product-nav-cat-wrapper">
     <button class="product-cat-btn" id="btn-adulte" onclick="switchCat('adulte')">Adulte</button>
     <button class="product-cat-btn" id="btn-enfant" onclick="switchCat('enfant')">Enfant</button>
 </div>
@@ -36,7 +36,6 @@
 
     <!-- DROITE : infos + commande -->
     <div class="product-right">
-        <span class="product-cat" id="product-cat"></span>
         <h1 class="product-title" id="product-title"></h1>
 
         <p class="product-prix" id="product-prix"></p>
@@ -63,6 +62,11 @@
         <p class="product-note">Vous serez contacté par email pour confirmer votre commande et le paiement.</p>
     </div>
 </div>
+
+<section class="cross-sell fade-in" id="cross-sell">
+    <h3 class="cross-sell-title" id="cross-sell-title">Découvrez aussi</h3>
+    <div class="products-grid" id="cross-sell-grid"></div>
+</section>
 
 <div class="order-modal-overlay" id="orderModal">
     <div class="order-modal">

@@ -128,7 +128,7 @@ nav ul a:hover { color: var(--gold); }
 
 /* Grille adaptative : jamais de carte isolée, que ce soit 1, 2, 3 ou 5 produits */
 .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 280px)); justify-content: center; gap: 2rem; }
-.product-card { cursor: pointer; transition: transform 0.3s; }
+.product-card { cursor: pointer; transition: transform 0.3s; text-decoration: none; color: inherit; display: block; }
 .product-card:hover { transform: translateY(-4px); }
 .product-img { aspect-ratio: 3/4; overflow: hidden; margin-bottom: 1rem; background: #E2DDD5; }
 .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.55s ease; }
