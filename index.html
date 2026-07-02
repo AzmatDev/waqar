@@ -36,37 +36,29 @@
 
 <section id="collection">
     <div class="section-header fade-in">
-        <div class="collection-switcher">
-            <button class="collection-arrow" onclick="switchCollection(-1)" aria-label="Collection précédente">‹</button>
-            <div class="collection-heading">
-                <h2 class="section-title" id="collection-title">Collection WAQĀR 1447</h2>
-                <p class="section-sub" id="collection-sub">Hommes et enfants. Pour la prière, le vendredi, le quotidien.</p>
-                <div class="collection-dots" id="collection-dots"></div>
-            </div>
-            <button class="collection-arrow" onclick="switchCollection(1)" aria-label="Collection suivante">›</button>
-        </div>
+        <h2 class="section-title">Nos collections</h2>
+        <p class="section-sub">Chaque collection, son univers.</p>
     </div>
 
-    <div class="collection-layout">
-        <div class="collection-left">
-            <div style="display:flex;" class="fade-in">
-                <div class="collection-tabs">
-                    <button class="tab-btn active" onclick="filterProducts('adulte',this)">Adulte</button>
-                    <button class="tab-btn" onclick="filterProducts('enfant',this)">Enfant</button>
-                </div>
+    <div class="collections-gallery">
+        <a href="collection.html?c=waqar" class="collection-card fade-in">
+            <div class="collection-card-img">
+                <img src="images/jubba_blk.png" alt="Collection WAQĀR 1447">
             </div>
-            <div class="products-grid" id="products-grid" style="margin-top:2rem;"></div>
-        </div>
+            <h3 class="collection-card-title">WAQĀR 1447</h3>
+            <span class="collection-card-link">Découvrir →</span>
+        </a>
 
-        <div class="collection-right fade-in">
-            <div class="savez-inner-side">
-                <span class="savez-label-side" id="savez-label">Le saviez-vous ?</span>
-                <h3 class="savez-title-side" id="savez-title">La Jubba — <em>l'habit du Prophète ﷺ</em></h3>
-                <p class="savez-text-side" id="savez-text1">La Jubba est le vêtement long et ample que l'on porte par-dessus le Qamis. Contrairement à ce que certains pensent, le Prophète ﷺ portait lui-même des Jubbas — cela est prouvé dans les hadiths authentiques.</p>
-                <p class="savez-text-side" id="savez-text2">Ce n'est pas un simple vêtement traditionnel. C'est un habit de la Sunnah, chargé de sens et de noblesse.</p>
-                <div class="savez-divider-side"></div>
-                <p class="savez-quote-side" id="savez-quote">« Chaque Jubba que nous proposons est vérifiée selon les critères de la Sunnah. »</p>
-            </div>
+        <a href="collection.html?c=istiqamah" class="collection-card fade-in">
+            <div class="collection-card-img" style="background:#6B6E4E;"></div>
+            <h3 class="collection-card-title">ISTIQĀMAH</h3>
+            <span class="collection-card-link">Découvrir →</span>
+        </a>
+
+        <div class="collection-card collection-card-future fade-in">
+            <div class="collection-card-img collection-card-img-future"></div>
+            <h3 class="collection-card-title">Prochainement</h3>
+            <span class="collection-card-link">À venir</span>
         </div>
     </div>
 </section>

@@ -1,0 +1,53 @@
+.collection-hero {
+    padding: 9rem 3rem 3rem;
+    text-align: center;
+}
+.collection-hero-tag {
+    font-size: 0.67rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.8rem;
+}
+.collection-hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    margin-bottom: 0.8rem;
+    line-height: 1.1;
+}
+.collection-hero-sub {
+    font-size: 0.88rem;
+    color: var(--warm-gray);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+.collection-page {
+    padding: 1rem 3rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.collection-tabs-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+}
+
+/* SAVIEZ-VOUS — bloc pleine largeur, sous la grille, plus de zigzag produit/texte */
+.savez-full {
+    background: var(--charcoal);
+    padding: 4.5rem 3rem;
+}
+.savez-full-inner {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+    .collection-hero { padding: 6.5rem 1.5rem 2rem; }
+    .collection-page { padding: 1rem 1.5rem 3rem; }
+    .savez-full { padding: 3rem 1.5rem; }
+}

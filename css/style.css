@@ -75,57 +75,46 @@ nav ul a:hover { color: var(--gold); }
 #collection .section-title { font-size: clamp(1.4rem, 2.5vw, 2rem); }
 #collection .section-sub { font-size: 0.78rem; margin-top: 0.5rem; }
 
-.collection-layout {
+/* GALERIE DE COLLECTIONS (page d'accueil) */
+.collections-gallery {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    padding: 0 3rem 6rem;
-    align-items: stretch;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 3rem;
 }
-
-.collection-left { min-width: 0; }
-
-.collection-right {
-    margin-top: 0;
-    padding-top: 49px; /* hauteur du header+onglets */
-    display: flex;
-    flex-direction: column;
-}
-
-.collection-switcher {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.8rem;
-}
-.collection-heading { text-align: center; }
-.collection-arrow {
-    background: transparent;
-    border: 0.5px solid var(--border);
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    font-family: 'Jost', sans-serif;
-    color: var(--warm-gray);
+.collection-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
     cursor: pointer;
-    transition: all 0.2s;
-    flex-shrink: 0;
-    line-height: 1;
+    transition: transform 0.3s;
 }
-.collection-arrow:hover { border-color: var(--gold); color: var(--gold); }
-.collection-dots { display: flex; gap: 0.45rem; justify-content: center; margin-top: 0.9rem; }
-.collection-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: background 0.2s; }
-.collection-dot.active { background: var(--gold); }
+.collection-card:hover { transform: translateY(-4px); }
+.collection-card-img {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    margin-bottom: 1.2rem;
+    background: #E2DDD5;
+    display: flex; align-items: center; justify-content: center;
+}
+.collection-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.55s ease; }
+.collection-card:hover .collection-card-img img { transform: scale(1.04); }
+.collection-card-img-future {
+    background: repeating-linear-gradient(45deg, var(--cream-dark), var(--cream-dark) 8px, var(--border) 8px, var(--border) 9px);
+}
+.collection-card-future { cursor: default; }
+.collection-card-future:hover { transform: none; }
+.collection-card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 300; margin-bottom: 0.4rem; text-align: center; }
+.collection-card-link { display: block; text-align: center; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+.collection-card-future .collection-card-link { color: var(--warm-gray); }
+
 .collection-empty {
     grid-column: 1 / -1;
     text-align: center;
     padding: 3.5rem 1.5rem;
     color: var(--warm-gray);
-    font-size: 0.85rem;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: 1.05rem;
@@ -137,7 +126,8 @@ nav ul a:hover { color: var(--gold); }
 .tab-btn.active { background: var(--black); color: var(--white); }
 .tab-btn:hover:not(.active) { color: var(--black); }
 
-.products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+/* Grille adaptative : jamais de carte isolée, que ce soit 1, 2, 3 ou 5 produits */
+.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 2rem; }
 .product-card { cursor: pointer; transition: transform 0.3s; }
 .product-card:hover { transform: translateY(-4px); }
 .product-img { aspect-ratio: 3/4; overflow: hidden; margin-bottom: 1rem; background: #E2DDD5; }
@@ -145,19 +135,19 @@ nav ul a:hover { color: var(--gold); }
 .product-card:hover .product-img img { transform: scale(1.04); }
 .product-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; margin-bottom: 0.25rem; }
 .product-meta { font-size: 0.7rem; letter-spacing: 0.06em; color: var(--warm-gray); }
-
-/* SAVIEZ-VOUS */
-.savez-inner-side {
-    background: var(--charcoal);
-    padding: 2.5rem;
-    margin-top: 2.4rem;
-    margin-bottom: 3.5rem;
-    color: var(--white);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex: 1;
+.product-swatches { display: flex; gap: 0.5rem; margin-top: 0.7rem; }
+.swatch-dot {
+    width: 17px; height: 17px; border-radius: 50%;
+    border: 1.5px solid transparent;
+    outline: 1px solid rgba(0,0,0,0.08);
+    outline-offset: 1px;
+    padding: 0; cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
 }
+.swatch-dot:hover { transform: scale(1.15); }
+.swatch-dot.active { border-color: var(--gold); }
+
+/* SAVIEZ-VOUS — textes réutilisés dans collection.html (voir css/collection.css pour le conteneur) */
 .savez-label-side { font-size: 0.67rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; display: block; }
 .savez-title-side { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; color: var(--white); line-height: 1.3; margin-bottom: 1.5rem; }
 .savez-title-side em { font-style: italic; color: var(--gold); }
@@ -239,11 +229,7 @@ footer .footer-devise { font-style: italic; color: var(--gold); margin-bottom: 1
 
     /* COLLECTION */
     #collection { padding: 0 1.5rem 3rem; scroll-margin-top: 60px;}
-    .collection-switcher { gap: 0.8rem; }
-    .collection-arrow { width: 32px; height: 32px; font-size: 1rem; }
-    .collection-layout { grid-template-columns: 1fr; padding: 0 1.5rem 3rem; }
-    .collection-right { margin-top: 0; }
-    .savez-inner-side { margin-top: 0; margin-bottom: 0; padding: 1.5rem; }
+    .collections-gallery { grid-template-columns: 1fr; padding: 0 1.5rem; gap: 1.5rem; }
     .products-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
     .collection-tabs { margin: 0 auto 1.5rem; }
 

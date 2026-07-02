@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAQĀR — Collection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/collection.css">
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="nav-logo">
+        <img src="images/logo_waqar.jpeg" alt="WAQĀR" class="nav-logo-img">
+    </a>
+    <ul>
+        <li><a href="index.html#collection">Collections</a></li>
+        <li><a href="index.html#contact-section">Contact</a></li>
+    </ul>
+</nav>
+
+<section class="collection-hero">
+    <span class="collection-hero-tag">Collection</span>
+    <h1 class="collection-hero-title" id="collection-page-title">Collection</h1>
+    <p class="collection-hero-sub" id="collection-page-sub"></p>
+</section>
+
+<section class="collection-page">
+    <div id="tabs-wrapper" class="collection-tabs-wrap fade-in">
+        <div class="collection-tabs">
+            <button class="tab-btn active" data-cat="adulte" onclick="filterProducts('adulte',this)">Adulte</button>
+            <button class="tab-btn" data-cat="enfant" onclick="filterProducts('enfant',this)">Enfant</button>
+        </div>
+    </div>
+
+    <div class="products-grid" id="products-grid"></div>
+</section>
+
+<section class="savez-full fade-in">
+    <div class="savez-full-inner">
+        <span class="savez-label-side" id="savez-label">Le saviez-vous ?</span>
+        <h3 class="savez-title-side" id="savez-title"></h3>
+        <p class="savez-text-side" id="savez-text1"></p>
+        <p class="savez-text-side" id="savez-text2"></p>
+        <div class="savez-divider-side"></div>
+        <p class="savez-quote-side" id="savez-quote"></p>
+    </div>
+</section>
+
+<footer>
+    <span class="footer-logo">WAQĀR — ١٤٤٧</span>
+    <p class="footer-devise">« Porter la Sunnah avec dignité »</p>
+    <p>Confection artisanale · Turquie · Expédition internationale</p>
+    <div class="footer-bottom">
+        <span>© 1447 / 2025 WAQĀR</span>
+        <div class="legal-links">
+            <a href="mentions-legales.html">Mentions légales</a>
+            <a href="confidentialite.html">Confidentialité</a>
+            <a href="cgv.html">CGV</a>
+        </div>
+    </div>
+</footer>
+
+<script src="js/products-data.js"></script>
+<script src="js/collection.js"></script>
+</body>
+</html>
