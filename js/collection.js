@@ -18,6 +18,14 @@ function renderCollectionHeader() {
     document.getElementById('collection-page-sub').textContent = activeCollection.sub;
     document.title = `WAQĀR — ${shortTitle}`;
 
+    const pieceCount = productFamilies.filter(f => f.collection === activeCollection.id).length;
+    const metaEl = document.getElementById('collection-page-meta');
+    if (metaEl) {
+        metaEl.textContent = pieceCount > 0
+            ? `${pieceCount} pièce${pieceCount > 1 ? 's' : ''} · Depuis 1447`
+            : 'Depuis 1447';
+    }
+
     document.getElementById('savez-label').textContent = activeCollection.savezLabel;
     document.getElementById('savez-title').innerHTML = activeCollection.savezTitle;
     document.getElementById('savez-text1').textContent = activeCollection.savezText1;
