@@ -193,15 +193,33 @@ function renderCrossSell() {
         titleEl.textContent = 'Vous aimerez aussi';
     }
 
-    grid.innerHTML = otherFamilies.map(f => {
-        const color = f.colors[0];
+    // Ambiguïté Adulte/Enfant : on ne l'affiche que si l'autre collection mélange les deux
+    const needsCatLabel = new Set(otherFamilies.map(f => f.cat)).size > 1;
+
+    // Un "candidat" = une combinaison produit + couleur, pour varier l'affichage
+    // même quand une collection n'a qu'un seul produit (ses différentes couleurs
+    // comptent comme autant de candidats). Reste valable quand vous en ajouterez d'autres.
+    const candidates = [];
+    otherFamilies.forEach(f => {
+        f.colors.forEach(c => candidates.push({ family: f, color: c }));
+    });
+
+    // Mélange aléatoire (Fisher-Yates), puis on garde 5 maximum
+    for (let i = candidates.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [candidates[i], candidates[j]] = [candidates[j], candidates[i]];
+    }
+    const picked = candidates.slice(0, 5);
+
+    grid.innerHTML = picked.map(({ family: f, color }) => {
         const hasImg = color.images && color.images[0];
+        const label = needsCatLabel ? `${f.name} ${f.cat === 'adulte' ? 'Adulte' : 'Enfant'}` : f.name;
         return `
         <a class="product-card fade-in" href="product.html?id=${f.id}&color=${color.id}">
             <div class="product-img" style="${hasImg ? '' : `background:${color.hex}`}">
                 ${hasImg ? `<img src="${color.images[0]}" alt="${f.name}" loading="lazy">` : ''}
             </div>
-            <p class="product-name">${f.name}</p>
+            <p class="product-name">${label}</p>
             <p class="product-meta">${color.label}${f.matiere ? ' · ' + f.matiere : ''}</p>
         </a>`;
     }).join('');

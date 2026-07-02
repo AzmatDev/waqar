@@ -1,6 +1,6 @@
 .product-page {
     min-height: 100vh;
-    padding: 2rem 3rem 6rem;
+    padding: 7rem 3rem 6rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 5rem;
@@ -249,10 +249,6 @@
     .product-nav-cat {
         margin-top: 6rem;
         margin-bottom: 1rem;
-    }
-
-    .product-page {
-        padding: 2rem 1.5rem 4rem;
     }
 }
 
