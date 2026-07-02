@@ -8,6 +8,12 @@
     margin: 0 auto;
 }
 
+/* Quand le toggle Adulte/Enfant est visible au-dessus, il dégage déjà la nav :
+   pas besoin du padding-top complet, sinon l'écart devient énorme. */
+.product-page.has-nav-cat {
+    padding-top: 2rem;
+}
+
 .product-main-img {
     width: 100%;
     aspect-ratio: 3/4;
@@ -76,10 +82,10 @@
 
 .product-desc {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 0.9rem;
+    font-size: 1.02rem;
     font-style: italic;
     line-height: 1.8;
-    color: var(--charcoal);
+    color: var(--black);
     margin-bottom: 1rem;
 }
 
@@ -87,7 +93,7 @@
     font-size: 0.67rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--warm-gray);
+    color: var(--black);
     margin-bottom: 0.8rem;
     display: block;
 }
@@ -121,14 +127,14 @@
 }
 
 .product-sunnah p {
-    font-size: 0.78rem;
-    color: var(--warm-gray);
+    font-size: 0.86rem;
+    color: var(--black);
     line-height: 1.7;
 }
 
 .precommande-notice {
-    font-size: 0.75rem;
-    color: var(--gold);
+    font-size: 0.83rem;
+    color: var(--black);
     line-height: 1.7;
     padding: 0.8rem 1rem;
     background: rgba(184,149,106,0.08);
@@ -170,6 +176,9 @@
         padding: 7rem 1.5rem 4rem;
         gap: 2.5rem;
     }
+    .product-page.has-nav-cat {
+        padding-top: 1.5rem;
+    }
 }
 
 .product-right {
@@ -189,7 +198,7 @@
     font-size: 0.67rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--warm-gray);
+    color: var(--black);
     margin-bottom: 0.8rem;
     display: block;
 }
@@ -324,7 +333,12 @@
 }
 
 .order-modal .form-label {
+    color: var(--black);
+}
+
+.order-modal .form-control::placeholder {
     color: var(--warm-gray);
+    opacity: 1;
 }
 
 @media (max-width: 600px) {
@@ -346,6 +360,7 @@
     text-align: center;
     margin-bottom: 2.5rem;
 }
+.cross-sell .cross-sell-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 200px)); justify-content: center; gap: 1.5rem; }
 
 @media (max-width: 900px) {
     .cross-sell { padding: 3rem 1.5rem 4rem; }

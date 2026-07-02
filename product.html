@@ -15,6 +15,7 @@
         <img src="images/logo_waqar.jpeg" alt="WAQĀR" class="nav-logo-img">
     </a>
     <ul>
+        <li><a href="index.html#collection">Collections</a></li>
         <li><a href="index.html#contact-section">Contact</a></li>
     </ul>
 </nav>
@@ -65,7 +66,71 @@
 
 <section class="cross-sell fade-in" id="cross-sell">
     <h3 class="cross-sell-title" id="cross-sell-title">Découvrez aussi</h3>
-    <div class="products-grid" id="cross-sell-grid"></div>
+    <div class="products-grid cross-sell-grid" id="cross-sell-grid"></div>
+</section>
+
+<section id="contact-section">
+    <div class="contact-grid">
+
+        <!-- COLONNE 1 : Infos pratiques -->
+        <div class="contact-col fade-in">
+            <span class="contact-col-tag">Informations</span>
+            <h3 class="contact-col-title">Comment ça marche</h3>
+            <div class="order-detail">
+                <span class="order-detail-icon">✦</span>
+                <div class="order-detail-text"><strong>Fabrication artisanale</strong>Chaque pièce vérifiée selon les critères de la Sunnah.</div>
+            </div>
+            <div class="order-detail">
+                <span class="order-detail-icon">✉</span>
+                <div class="order-detail-text"><strong>Suivi par email</strong>Vous serez contacté pour le paiement et l'expédition.</div>
+            </div>
+            <div class="order-detail">
+                <span class="order-detail-icon">◎</span>
+                <div class="order-detail-text"><strong>Tailles disponibles</strong>S — M — L</div>
+            </div>
+        </div>
+
+        <!-- COLONNE 2 : Réseaux -->
+        <div class="contact-col fade-in">
+            <span class="contact-col-tag">Nous suivre</span>
+            <h3 class="contact-col-title">Sur les réseaux</h3>
+            <a href="https://instagram.com/waqar_1447" target="_blank" class="instagram-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                    <circle cx="12" cy="12" r="4"/>
+                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                </svg>
+                <span>@waqar_1447</span>
+            </a>
+            <p class="contact-col-desc">Retrouvez nos dernières pièces, nos coulisses et l'actualité de la marque sur Instagram.</p>
+        </div>
+
+        <!-- COLONNE 3 : Contact -->
+        <div class="contact-col fade-in">
+            <span class="contact-col-tag">Contact</span>
+            <h3 class="contact-col-title">Nous écrire</h3>
+            <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                    <label class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="contact-nom" required placeholder="Votre nom">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" id="contact-email" required placeholder="vous@email.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Message</label>
+                    <textarea class="form-control" id="contact-message" rows="3" required placeholder="Votre message..." style="resize:vertical;"></textarea>
+                </div>
+                <button type="submit" class="btn-order" style="margin-top:0.5rem;">Envoyer →</button>
+            </form>
+            <div id="contactSuccess" style="display:none;text-align:center;padding:2rem 0;">
+                <p style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.2rem;">Message envoyé ✦</p>
+                <p style="color:rgba(255,255,255,0.4);font-size:0.8rem;margin-top:0.5rem;">Nous vous répondrons prochainement, incha'Allah.</p>
+            </div>
+        </div>
+
+    </div>
 </section>
 
 <div class="order-modal-overlay" id="orderModal">

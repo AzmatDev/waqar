@@ -163,6 +163,8 @@ const navWrapper = document.getElementById('product-nav-cat-wrapper');
 if (hasAdulte && hasEnfant) {
     const activeBtn = document.getElementById('btn-' + family.cat);
     if (activeBtn) activeBtn.classList.add('active');
+    const productPageEl = document.querySelector('.product-page');
+    if (productPageEl) productPageEl.classList.add('has-nav-cat');
 } else if (navWrapper) {
     navWrapper.style.display = 'none';
 }
@@ -223,8 +225,6 @@ function renderCrossSell() {
             <p class="product-meta">${color.label}${f.matiere ? ' · ' + f.matiere : ''}</p>
         </a>`;
     }).join('');
-
-    observeFadeIns();
 }
 
 function observeFadeIns() {
@@ -234,4 +234,24 @@ function observeFadeIns() {
     document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 }
 
+// Formulaire contact (identique à script.js — nécessaire car product.html
+// n'inclut pas script.js et possède maintenant sa propre section contact)
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const nom     = document.getElementById('contact-nom').value;
+        const email   = document.getElementById('contact-email').value;
+        const message = document.getElementById('contact-message').value;
+        const subject = encodeURIComponent(`[WAQĀR] Message de ${nom}`);
+        const body    = encodeURIComponent(`Nom : ${nom}\nEmail : ${email}\n\nMessage :\n${message}\n\n---\nwaqar.fr`);
+        window.location.href = `mailto:waqar_1447@outlook.com?subject=${subject}&body=${body}`;
+        setTimeout(() => {
+            document.getElementById('contactForm').style.display = 'none';
+            document.getElementById('contactSuccess').style.display = 'block';
+        }, 800);
+    });
+}
+
 renderCrossSell();
+observeFadeIns();

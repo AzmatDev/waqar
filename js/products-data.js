@@ -16,14 +16,14 @@ const collections = [
     },
     {
         id: 'istiqamah',
-        title: 'Collection ISTIQĀMAH',
+        title: 'Collection ISTIQĀMA 1448',
         sub: "Avancer avec droiture, à travers les vêtements du quotidien.",
-        savezLabel: "L'esprit d'ISTIQĀMAH",
-        savezTitle: `Al-Istiqâmah — <em>la droiture constante</em>`,
-        savezText1: "L'Istiqâmah désigne la constance sur le droit chemin : rester droit dans sa foi et ses actes, jour après jour, sans dévier.",
+        savezLabel: "L'esprit d'ISTIQĀMA",
+        savezTitle: `Al-Istiqâma — <em>la droiture constante</em>`,
+        savezText1: "L'Istiqâma désigne la constance sur le droit chemin : rester droit dans sa foi et ses actes, jour après jour, sans dévier.",
         savezText2: "Chaque pièce de cette collection est pensée pour accompagner cette constance au quotidien — sobre, pudique, et conforme aux critères de la Sunnah.",
         savezQuote: '« Dis : "Je crois en Allah", puis sois droit (istaqim). » — hadith rapporté par Sufyân ibn ʿAbdillah (Sahîh Muslim).',
-        emptyMessage: "De nouvelles pièces ISTIQĀMAH arrivent bientôt, incha'Allah."
+        emptyMessage: "De nouvelles pièces ISTIQĀMA arrivent bientôt, incha'Allah."
     }
 ];
 
@@ -76,7 +76,7 @@ const productFamilies = [
             { id: 'bleu-marine', label: 'Bleu marine', hex: '#1B2A4A', images: ['images/sarouel/bleu-marine-1.png', 'images/sarouel/bleu-marine-2.png', 'images/sarouel/bleu-marine-3.png', 'images/sarouel/Bleu-marine-4.png'] }
         ]
     }
-    // TODO : ajouter ici la 2e famille de produit de la collection ISTIQĀMAH
+    // TODO : ajouter ici la 2e famille de produit de la collection ISTIQĀMA
     // (le "autre vêtement" mentionné par le frère) dès que ses infos seront connues.
     // Reprendre la même structure : { id, collection:'istiqamah', cat, name, prix, matiere, desc, tailles, colors }
 ];
