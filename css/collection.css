@@ -1,5 +1,5 @@
 .collection-hero {
-    padding: 9rem 3rem 3rem;
+    padding: 7rem 3rem 2.5rem;
     text-align: center;
 }
 .collection-hero-tag {
@@ -47,7 +47,7 @@
 }
 
 @media (max-width: 900px) {
-    .collection-hero { padding: 6.5rem 1.5rem 2rem; }
+    .collection-hero { padding: 5.5rem 1.5rem 1.8rem; }
     .collection-page { padding: 1rem 1.5rem 3rem; }
     .savez-full { padding: 3rem 1.5rem; }
 }

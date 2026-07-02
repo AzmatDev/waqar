@@ -127,7 +127,7 @@ nav ul a:hover { color: var(--gold); }
 .tab-btn:hover:not(.active) { color: var(--black); }
 
 /* Grille adaptative : jamais de carte isolée, que ce soit 1, 2, 3 ou 5 produits */
-.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 2rem; }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 280px)); justify-content: center; gap: 2rem; }
 .product-card { cursor: pointer; transition: transform 0.3s; }
 .product-card:hover { transform: translateY(-4px); }
 .product-img { aspect-ratio: 3/4; overflow: hidden; margin-bottom: 1rem; background: #E2DDD5; }
@@ -230,7 +230,7 @@ footer .footer-devise { font-style: italic; color: var(--gold); margin-bottom: 1
     /* COLLECTION */
     #collection { padding: 0 1.5rem 3rem; scroll-margin-top: 60px;}
     .collections-gallery { grid-template-columns: 1fr; padding: 0 1.5rem; gap: 1.5rem; }
-    .products-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .products-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 220px)); justify-content: center; gap: 1rem; }
     .collection-tabs { margin: 0 auto 1.5rem; }
 
     /* CONTACT */
