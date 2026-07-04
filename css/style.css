@@ -33,32 +33,17 @@ nav ul a:hover { color: var(--gold); }
 }
 
 /* ===================== HERO ===================== */
-.hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 8rem 3rem 4rem; gap: 4rem; }
-.hero-text { max-width: 520px; }
+.hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 8rem 3rem 4rem; }
+.hero-text { max-width: 620px; text-align: center; }
 .bismillah { text-align: center; font-size: 2rem; display: block; color: var(--gold); margin-bottom: 1.5rem; }
 .hero-tag { font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--warm-gray); margin-bottom: 1.2rem; display: block; }
 .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5.5vw, 4.5rem); font-weight: 300; line-height: 1.08; margin-bottom: 1rem; }
 .hero-title em { font-style: italic; color: var(--gold); }
-.hero-devise { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-style: italic; color: var(--warm-gray); margin-bottom: 2rem; padding-left: 1rem; border-left: 2px solid var(--gold-light); }
-.hero-desc { font-size: 0.88rem; line-height: 1.9; color: var(--warm-gray); margin-bottom: 2.5rem; max-width: 380px; }
+.hero-devise { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-style: italic; color: var(--warm-gray); margin: 0 auto 2rem; padding-left: 1rem; border-left: 2px solid var(--gold-light); max-width: 460px; text-align: left; }
+.hero-desc { font-size: 0.88rem; line-height: 1.9; color: var(--warm-gray); margin: 0 auto 2.5rem; max-width: 460px; }
 
 .btn-primary { display: inline-block; padding: 0.9rem 2.5rem; background: var(--black); color: var(--white); font-family: 'Jost', sans-serif; font-size: 0.7rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: background 0.25s; }
 .btn-primary:hover { background: var(--gold); }
-
-.hero-visual { display: flex; align-items: center; justify-content: center; }
-
-.jubba-svg {
-    width: 100%; max-width: 420px;
-    opacity: 0.13;
-    animation: float 6s ease-in-out infinite;
-    transition: opacity 0.8s ease;
-}
-.jubba-svg:hover { opacity: 0.32; }
-
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50%       { transform: translateY(-8px); }
-}
 
 /* ===================== SECTIONS BASE ===================== */
 .section-header { text-align: center; padding: 5rem 2rem 2.5rem; }
@@ -98,6 +83,21 @@ nav ul a:hover { color: var(--gold); }
     margin-bottom: 1.2rem;
     background: #E2DDD5;
     display: flex; align-items: center; justify-content: center;
+    position: relative;
+}
+.collection-card-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 2;
+    background: var(--gold);
+    color: var(--white);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
 }
 .collection-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.55s ease; }
 .collection-card:hover .collection-card-img img { transform: scale(1.04); }
@@ -222,10 +222,8 @@ footer .footer-devise { font-style: italic; color: var(--gold); margin-bottom: 1
     .nav-logo-img { position: static; transform: none; height: 45px; }
 
     /* HERO */
-    .hero { grid-template-columns: 1fr; padding: 5rem 1.5rem 2rem; gap: 1rem; min-height: auto; }
+    .hero { padding: 5rem 1.5rem 2rem; gap: 1rem; min-height: auto; }
     .bismillah { font-size: 1.3rem; text-align: right; }
-    .hero-visual { display: none; }
-    .jubba-svg { display: none; }
 
     /* COLLECTION */
     #collection { padding: 0 1.5rem 3rem; scroll-margin-top: 60px;}

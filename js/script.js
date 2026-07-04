@@ -4,14 +4,6 @@
 // désormais dans collection.html (js/collection.js).
 // ============================================================
 
-// Hover jubba SVG
-const btnHero = document.querySelector('.btn-primary');
-const jubba = document.querySelector('.jubba-svg');
-if (btnHero && jubba) {
-    btnHero.addEventListener('mouseenter', () => jubba.style.opacity = '0.32');
-    btnHero.addEventListener('mouseleave', () => jubba.style.opacity = '0.13');
-}
-
 // Formulaire commande
 const orderForm = document.getElementById('orderForm');
 if (orderForm) {
