@@ -44,7 +44,10 @@
         <span class="product-coloris-label">Coloris</span>
         <div class="product-coloris" id="product-coloris"></div>
 
-        <span class="product-taille-label">Choisir une taille</span>
+        <div class="taille-label-row">
+            <span class="product-taille-label" style="margin-bottom:0;">Choisir une taille</span>
+            <button type="button" class="size-guide-link" id="size-guide-link" onclick="openSizeGuide()" style="display:none;">Guide des tailles</button>
+        </div>
         <div class="product-tailles" id="tailles-container">
             <button class="taille-btn" onclick="selectTaille(this)">S</button>
             <button class="taille-btn" onclick="selectTaille(this)">M</button>
@@ -132,6 +135,15 @@
 
     </div>
 </section>
+
+<div class="order-modal-overlay" id="sizeGuideModal">
+    <div class="order-modal">
+        <button class="order-modal-close" onclick="closeSizeGuide()">✕</button>
+        <span class="product-cat">Guide des tailles</span>
+        <h3 class="order-modal-title" id="size-guide-title"></h3>
+        <table class="size-guide-table" id="size-guide-table"></table>
+    </div>
+</div>
 
 <div class="order-modal-overlay" id="orderModal">
     <div class="order-modal">

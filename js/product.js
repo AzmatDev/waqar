@@ -119,6 +119,28 @@ function closeOrderModal() {
     document.getElementById('orderModal').classList.remove('open');
 }
 
+// Guide des tailles — n'apparaît que si ce produit a un tailleGuide défini
+const sizeGuideLink = document.getElementById('size-guide-link');
+if (family.tailleGuide && sizeGuideLink) {
+    sizeGuideLink.style.display = '';
+}
+
+function openSizeGuide() {
+    if (!family.tailleGuide) return;
+    document.getElementById('size-guide-title').textContent = family.name;
+
+    const { columns, rows } = family.tailleGuide;
+    const thead = `<tr><th>Taille</th>${columns.map(c => `<th>${c}</th>`).join('')}</tr>`;
+    const tbody = rows.map(r => `<tr><td>${r.taille}</td>${r.values.map(v => `<td>${v}</td>`).join('')}</tr>`).join('');
+    document.getElementById('size-guide-table').innerHTML = thead + tbody;
+
+    document.getElementById('sizeGuideModal').classList.add('open');
+}
+
+function closeSizeGuide() {
+    document.getElementById('sizeGuideModal').classList.remove('open');
+}
+
 document.getElementById('orderModalForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('modal-submit-btn');

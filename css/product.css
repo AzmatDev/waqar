@@ -98,6 +98,50 @@
     display: block;
 }
 
+.taille-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+}
+
+.size-guide-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-decoration: underline;
+    color: var(--gold);
+    cursor: pointer;
+}
+.size-guide-link:hover { color: var(--black); }
+
+.size-guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+}
+.size-guide-table th, .size-guide-table td {
+    padding: 0.7rem 0.5rem;
+    text-align: center;
+    border-bottom: 0.5px solid var(--border);
+}
+.size-guide-table th {
+    font-size: 0.64rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    font-weight: 400;
+}
+.size-guide-table td:first-child, .size-guide-table th:first-child {
+    text-align: left;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+}
+
 .product-tailles {
     display: flex;
     gap: 0.8rem;

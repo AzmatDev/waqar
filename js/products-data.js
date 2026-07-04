@@ -68,6 +68,16 @@ const productFamilies = [
         matiere: '',
         desc: "Le Sarouel Mizân, ample et confortable, conforme aux critères de pudeur de la Sunnah. Disponible en plusieurs coloris, avec possibilité d'Ajustement Sunnah sur mesure.",
         tailles: ['S', 'M', 'L', 'XL'],
+        // Valeurs à compléter dès que les mesures exactes sont disponibles ('—' = à venir)
+        tailleGuide: {
+            columns: ['Tour de hanches (cm)', 'Longueur entrejambe (cm)'],
+            rows: [
+                { taille: 'S', values: ['—', '—'] },
+                { taille: 'M', values: ['—', '—'] },
+                { taille: 'L', values: ['—', '—'] },
+                { taille: 'XL', values: ['—', '—'] }
+            ]
+        },
         colors: [
             { id: 'beige', label: 'Beige', hex: '#D8C8AE', images: ['images/sarouel/beige-1.png', 'images/sarouel/beige-2.png', 'images/sarouel/beige-3.png', 'images/sarouel/beige-4.png'] },
             { id: 'kaki', label: 'Kaki', hex: '#6B6E4E', images: ['images/sarouel/kaki-1.png', 'images/sarouel/kaki-2.png', 'images/sarouel/kaki-3.png', 'images/sarouel/kaki-4.png'] },
