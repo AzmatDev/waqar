@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/AzmatDev/waqar#readme",
   "dependencies": {
+    "@vercel/speed-insights": "^2.0.0",
     "nodemailer": "^8.0.7"
   }
 }
