@@ -49,8 +49,20 @@
     <div class="product-right">
         <h1 class="product-title" id="product-title"></h1>
 
-        <div id="product-prix-block"></div>
-        <div class="precommande-notice" id="product-offre-bundle" style="display:none;"></div>
+        <p class="product-prix-main" id="product-prix-main"></p>
+        <p class="product-offer-line" id="product-offer-line" style="display:none;"></p>
+
+        <div class="reception-choice" id="reception-choice" style="display:none;">
+            <span class="product-taille-label">Mode de réception</span>
+            <label class="reception-option">
+                <input type="radio" name="reception" id="reception-propre" value="propre" checked>
+                <span>Remise en main propre</span>
+            </label>
+            <label class="reception-option">
+                <input type="radio" name="reception" id="reception-livraison" value="livraison">
+                <span>Livraison <span class="reception-supplement" id="reception-supplement"></span></span>
+            </label>
+        </div>
 
         <span class="product-coloris-label">Coloris</span>
         <div class="product-coloris" id="product-coloris"></div>

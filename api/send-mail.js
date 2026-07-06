@@ -14,7 +14,7 @@ module.exports = async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { nom, email, tel, modele, taille, adresse, codepostal, ville, pays, tailleCm, poidsKg, ajustementSunnah } = req.body;
+    const { nom, email, tel, modele, taille, adresse, codepostal, ville, pays, tailleCm, poidsKg, ajustementSunnah, modeReception, prixFinal } = req.body;
 
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
@@ -54,6 +54,11 @@ module.exports = async function handler(req, res) {
                     <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Modèle</td>
                     <td style="padding:16px 20px;font-size:14px;font-weight:bold;">${modele}</td>
                 </tr>
+                ${(modeReception || prixFinal) ? `
+                <tr>
+                    <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Réception</td>
+                    <td style="padding:16px 20px;font-size:14px;">${modeReception || '—'} ${prixFinal ? '· ' + prixFinal : ''}</td>
+                </tr>` : ''}
                 <tr style="background:#F5F1EA;">
                     <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Taille</td>
                     <td style="padding:16px 20px;font-size:14px;">${taille}</td>

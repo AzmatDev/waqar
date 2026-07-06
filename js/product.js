@@ -20,25 +20,42 @@ taillesContainer.innerHTML = family.tailles.map(t => `
 
 // Infos générales
 document.getElementById('product-title').textContent = family.name;
-// Prix : simple (1 tarif) ou détaillé (remise en main propre / livraison), selon le produit
-const prixBlock = document.getElementById('product-prix-block');
-if (prixBlock) {
-    if (family.prixLivraison) {
-        prixBlock.innerHTML = `
-            <p class="product-prix">${family.prix} <span class="product-prix-tag">${family.prixNote || ''}</span></p>
-            <p class="product-prix">${family.prixLivraison} <span class="product-prix-tag">${family.prixLivraisonNote || ''}</span></p>
-        `;
-    } else {
-        prixBlock.innerHTML = `<p class="product-prix">${family.prix}</p>`;
-    }
+
+// Prix : un seul prix affiché, la livraison est un MODE DE RÉCEPTION, pas un 2e produit
+const prixMainEl = document.getElementById('product-prix-main');
+const receptionChoice = document.getElementById('reception-choice');
+const receptionSupplement = document.getElementById('reception-supplement');
+let receptionMode = 'propre'; // valeur par défaut
+
+function updatePrixAffiche() {
+    if (!prixMainEl) return;
+    prixMainEl.textContent = receptionMode === 'livraison' ? family.prixLivraison : family.prix;
 }
 
-// Offre groupée (ex: 2 sarouels = livraison offerte) — n'apparaît que si définie
-const offreEl = document.getElementById('product-offre-bundle');
-if (offreEl && family.offre) {
-    offreEl.style.display = '';
-    offreEl.innerHTML = `✦ <strong>${family.offre.titre}</strong><br>${family.offre.detail}`;
+if (family.prixLivraison) {
+    if (receptionChoice) receptionChoice.style.display = '';
+    // Calcule le supplément affiché, ex: "(+3,00 €)"
+    const base = parseFloat(family.prix.replace(',', '.').replace(/[^\d.]/g, ''));
+    const avecLivraison = parseFloat(family.prixLivraison.replace(',', '.').replace(/[^\d.]/g, ''));
+    const supplement = (avecLivraison - base).toFixed(2).replace('.', ',');
+    if (receptionSupplement) receptionSupplement.textContent = `(+${supplement} €)`;
+
+    document.querySelectorAll('input[name="reception"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            receptionMode = radio.value;
+            updatePrixAffiche();
+        });
+    });
 }
+updatePrixAffiche();
+
+// Offre groupée (ex: 2 sarouels = livraison offerte) — ligne compacte sous le prix
+const offerLineEl = document.getElementById('product-offer-line');
+if (offerLineEl && family.offre) {
+    offerLineEl.style.display = '';
+    offerLineEl.innerHTML = `✦ ${family.offre.titre}<span class="product-offer-detail">${family.offre.detail}</span>`;
+}
+
 document.getElementById('product-desc').textContent = family.desc;
 document.title = `WAQĀR — ${family.name}`;
 
@@ -129,7 +146,11 @@ function precommander() {
         return;
     }
     document.getElementById('modal-product-name').textContent = `${family.name} — ${currentColor.label}`;
-    document.getElementById('modal-product-taille').textContent = 'Taille : ' + tailleChoisie;
+    const prixActuel = receptionMode === 'livraison' ? family.prixLivraison : family.prix;
+    const receptionLabel = receptionMode === 'livraison' ? 'Livraison' : 'Remise en main propre';
+    document.getElementById('modal-product-taille').textContent = family.prixLivraison
+        ? `Taille : ${tailleChoisie} · ${receptionLabel} · ${prixActuel}`
+        : `Taille : ${tailleChoisie}`;
     document.getElementById('orderModal').classList.add('open');
 }
 
@@ -198,12 +219,14 @@ document.getElementById('orderModalForm').addEventListener('submit', async funct
     const tailleCm = tailleCmCheck ? tailleCmCheck.value : '';
     const poidsKg  = poidsKgCheck ? poidsKgCheck.value : '';
     const ajustementSunnah = document.getElementById('m-ajustement-sunnah') ? document.getElementById('m-ajustement-sunnah').checked : false;
+    const modeReception = family.prixLivraison ? (receptionMode === 'livraison' ? 'Livraison' : 'Remise en main propre') : '';
+    const prixFinal = family.prixLivraison ? (receptionMode === 'livraison' ? family.prixLivraison : family.prix) : family.prix;
 
     try {
         const response = await fetch('/api/send-mail', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nom, email, tel, modele, taille: tailleChoisie, adresse, codepostal, ville, pays, tailleCm, poidsKg, ajustementSunnah })
+            body: JSON.stringify({ nom, email, tel, modele, taille: tailleChoisie, adresse, codepostal, ville, pays, tailleCm, poidsKg, ajustementSunnah, modeReception, prixFinal })
         });
 
         const data = await response.json();
