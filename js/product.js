@@ -125,6 +125,16 @@ if (family.tailleGuide && sizeGuideLink) {
     sizeGuideLink.style.display = '';
 }
 
+// Champs Taille/Poids et Ajustement Sunnah — uniquement sur les produits qui le proposent
+if (family.ajustementSunnah) {
+    const row = document.getElementById('m-taille-poids-row');
+    const note = document.getElementById('m-taille-poids-note');
+    const ajustementRow = document.getElementById('m-ajustement-sunnah-row');
+    if (row) row.style.display = '';
+    if (note) note.style.display = '';
+    if (ajustementRow) ajustementRow.style.display = '';
+}
+
 function openSizeGuide() {
     if (!family.tailleGuide) return;
     document.getElementById('size-guide-title').textContent = family.name;
@@ -155,12 +165,15 @@ document.getElementById('orderModalForm').addEventListener('submit', async funct
     const ville    = document.getElementById('m-ville').value;
     const pays     = document.getElementById('m-pays').value;
     const modele   = `${family.name} ${family.cat === 'adulte' ? 'Adulte' : 'Enfant'} — ${currentColor.label}`;
+    const tailleCm = document.getElementById('m-taille-cm') ? document.getElementById('m-taille-cm').value : '';
+    const poidsKg  = document.getElementById('m-poids-kg') ? document.getElementById('m-poids-kg').value : '';
+    const ajustementSunnah = document.getElementById('m-ajustement-sunnah') ? document.getElementById('m-ajustement-sunnah').checked : false;
 
     try {
         const response = await fetch('/api/send-mail', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nom, email, tel, modele, taille: tailleChoisie, adresse, codepostal, ville, pays })
+            body: JSON.stringify({ nom, email, tel, modele, taille: tailleChoisie, adresse, codepostal, ville, pays, tailleCm, poidsKg, ajustementSunnah })
         });
 
         const data = await response.json();

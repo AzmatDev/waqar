@@ -14,7 +14,7 @@ module.exports = async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { nom, email, tel, modele, taille, adresse, codepostal, ville, pays } = req.body;
+    const { nom, email, tel, modele, taille, adresse, codepostal, ville, pays, tailleCm, poidsKg, ajustementSunnah } = req.body;
 
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
@@ -58,6 +58,16 @@ module.exports = async function handler(req, res) {
                     <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Taille</td>
                     <td style="padding:16px 20px;font-size:14px;">${taille}</td>
                 </tr>
+                ${(tailleCm || poidsKg) ? `
+                <tr>
+                    <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Gabarit client</td>
+                    <td style="padding:16px 20px;font-size:14px;">${tailleCm ? tailleCm + ' cm' : '—'} · ${poidsKg ? poidsKg + ' kg' : '—'}</td>
+                </tr>` : ''}
+                ${ajustementSunnah ? `
+                <tr style="background:#F5F1EA;">
+                    <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Ajustement Sunnah</td>
+                    <td style="padding:16px 20px;font-size:14px;font-weight:bold;color:#B8956A;">Demandé (longueur, gratuit)</td>
+                </tr>` : ''}
                 <tr>
                     <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Adresse</td>
                     <td style="padding:16px 20px;font-size:14px;">${adresse}, ${codepostal} ${ville}, ${pays}</td>

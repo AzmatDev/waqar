@@ -177,6 +177,26 @@
                     <input type="tel" class="form-control" id="m-tel" required placeholder="+33 6 00 00 00 00">
                 </div>
             </div>
+
+            <div class="order-modal-row" id="m-taille-poids-row" style="display:none;">
+                <div class="form-group">
+                    <label class="form-label">Votre taille (cm)</label>
+                    <input type="number" class="form-control" id="m-taille-cm" placeholder="175">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Votre poids (kg)</label>
+                    <input type="number" class="form-control" id="m-poids-kg" placeholder="70">
+                </div>
+            </div>
+            <p class="product-note" id="m-taille-poids-note" style="display:none;text-align:left;margin-top:-0.5rem;">Pour mieux vous conseiller sur la taille à choisir.</p>
+
+            <div class="form-group" id="m-ajustement-sunnah-row" style="display:none;">
+                <label style="display:flex;align-items:center;gap:0.6rem;font-size:0.85rem;color:var(--black);cursor:pointer;">
+                    <input type="checkbox" id="m-ajustement-sunnah" style="width:auto;">
+                    Je souhaite l'Ajustement Sunnah <span style="color:var(--warm-gray);font-size:0.78rem;">(gratuit — longueur uniquement)</span>
+                </label>
+            </div>
+
             <div class="form-group">
                 <label class="form-label">Adresse</label>
                 <input type="text" class="form-control" id="m-adresse" required placeholder="12 rue des Lilas">

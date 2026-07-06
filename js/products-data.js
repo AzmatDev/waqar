@@ -66,18 +66,21 @@ const productFamilies = [
         name: 'Sarouel Mizân',
         prix: 'Prix à venir',
         matiere: '',
-        desc: "Le Sarouel Mizân, ample et confortable, conforme aux critères de pudeur de la Sunnah. Disponible en plusieurs coloris, avec possibilité d'Ajustement Sunnah sur mesure.",
+        desc: "Le Sarouel Mizân, ample et confortable, conforme aux critères de pudeur de la Sunnah. Disponible en plusieurs coloris, avec possibilité d'Ajustement Sunnah — un ajustement gratuit de la longueur, sur simple demande.",
         tailles: ['S', 'M', 'L', 'XL'],
         // Valeurs à compléter dès que les mesures exactes sont disponibles ('—' = à venir)
+        // Valeurs standards à titre indicatif (exemple donné par le frère) — à ajuster
+        // dès que les vraies plages seront confirmées, pas de mesure précise par client.
         tailleGuide: {
-            columns: ['Tour de hanches (cm)', 'Longueur entrejambe (cm)'],
+            columns: ['Tour de taille (cm)'],
             rows: [
-                { taille: 'S', values: ['—', '—'] },
-                { taille: 'M', values: ['—', '—'] },
-                { taille: 'L', values: ['—', '—'] },
-                { taille: 'XL', values: ['—', '—'] }
+                { taille: 'S', values: ['76-84'] },
+                { taille: 'M', values: ['84-92'] },
+                { taille: 'L', values: ['92-100'] },
+                { taille: 'XL', values: ['100-108'] }
             ]
         },
+        ajustementSunnah: true, // proposé uniquement sur ce produit pour l'instant
         colors: [
             { id: 'beige', label: 'Beige', hex: '#D8C8AE', images: ['images/sarouel/beige-1.png', 'images/sarouel/beige-2.png', 'images/sarouel/beige-3.png', 'images/sarouel/beige-4.png'] },
             { id: 'kaki', label: 'Kaki', hex: '#6B6E4E', images: ['images/sarouel/kaki-1.png', 'images/sarouel/kaki-2.png', 'images/sarouel/kaki-3.png', 'images/sarouel/kaki-4.png'] },
