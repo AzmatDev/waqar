@@ -20,7 +20,25 @@ taillesContainer.innerHTML = family.tailles.map(t => `
 
 // Infos générales
 document.getElementById('product-title').textContent = family.name;
-document.getElementById('product-prix').textContent = family.prix;
+// Prix : simple (1 tarif) ou détaillé (remise en main propre / livraison), selon le produit
+const prixBlock = document.getElementById('product-prix-block');
+if (prixBlock) {
+    if (family.prixLivraison) {
+        prixBlock.innerHTML = `
+            <p class="product-prix">${family.prix} <span class="product-prix-tag">${family.prixNote || ''}</span></p>
+            <p class="product-prix">${family.prixLivraison} <span class="product-prix-tag">${family.prixLivraisonNote || ''}</span></p>
+        `;
+    } else {
+        prixBlock.innerHTML = `<p class="product-prix">${family.prix}</p>`;
+    }
+}
+
+// Offre groupée (ex: 2 sarouels = livraison offerte) — n'apparaît que si définie
+const offreEl = document.getElementById('product-offre-bundle');
+if (offreEl && family.offre) {
+    offreEl.style.display = '';
+    offreEl.innerHTML = `✦ <strong>${family.offre.titre}</strong><br>${family.offre.detail}`;
+}
 document.getElementById('product-desc').textContent = family.desc;
 document.title = `WAQĀR — ${family.name}`;
 
@@ -153,6 +171,18 @@ function closeSizeGuide() {
 
 document.getElementById('orderModalForm').addEventListener('submit', async function(e) {
     e.preventDefault();
+
+    const tailleCmCheck = document.getElementById('m-taille-cm');
+    const poidsKgCheck = document.getElementById('m-poids-kg');
+    if (tailleCmCheck && tailleCmCheck.value && (tailleCmCheck.value < 100 || tailleCmCheck.value > 230)) {
+        alert('Merci de renseigner une taille réaliste, entre 100 et 230 cm.');
+        return;
+    }
+    if (poidsKgCheck && poidsKgCheck.value && (poidsKgCheck.value < 20 || poidsKgCheck.value > 250)) {
+        alert('Merci de renseigner un poids réaliste, entre 20 et 250 kg.');
+        return;
+    }
+
     const btn = document.getElementById('modal-submit-btn');
     btn.textContent = 'Envoi en cours...';
     btn.disabled = true;
@@ -165,8 +195,8 @@ document.getElementById('orderModalForm').addEventListener('submit', async funct
     const ville    = document.getElementById('m-ville').value;
     const pays     = document.getElementById('m-pays').value;
     const modele   = `${family.name} ${family.cat === 'adulte' ? 'Adulte' : 'Enfant'} — ${currentColor.label}`;
-    const tailleCm = document.getElementById('m-taille-cm') ? document.getElementById('m-taille-cm').value : '';
-    const poidsKg  = document.getElementById('m-poids-kg') ? document.getElementById('m-poids-kg').value : '';
+    const tailleCm = tailleCmCheck ? tailleCmCheck.value : '';
+    const poidsKg  = poidsKgCheck ? poidsKgCheck.value : '';
     const ajustementSunnah = document.getElementById('m-ajustement-sunnah') ? document.getElementById('m-ajustement-sunnah').checked : false;
 
     try {

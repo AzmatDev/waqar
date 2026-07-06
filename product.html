@@ -49,7 +49,8 @@
     <div class="product-right">
         <h1 class="product-title" id="product-title"></h1>
 
-        <p class="product-prix" id="product-prix"></p>
+        <div id="product-prix-block"></div>
+        <div class="precommande-notice" id="product-offre-bundle" style="display:none;"></div>
 
         <span class="product-coloris-label">Coloris</span>
         <div class="product-coloris" id="product-coloris"></div>
@@ -181,11 +182,11 @@
             <div class="order-modal-row" id="m-taille-poids-row" style="display:none;">
                 <div class="form-group">
                     <label class="form-label">Votre taille (cm)</label>
-                    <input type="number" class="form-control" id="m-taille-cm" placeholder="175">
+                    <input type="number" class="form-control" id="m-taille-cm" min="100" max="230" placeholder="175">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Votre poids (kg)</label>
-                    <input type="number" class="form-control" id="m-poids-kg" placeholder="70">
+                    <input type="number" class="form-control" id="m-poids-kg" min="20" max="250" placeholder="70">
                 </div>
             </div>
             <p class="product-note" id="m-taille-poids-note" style="display:none;text-align:left;margin-top:-0.5rem;">Pour mieux vous conseiller sur la taille à choisir.</p>

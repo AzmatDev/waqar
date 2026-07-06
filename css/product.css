@@ -208,7 +208,7 @@
 
 .product-note {
     font-size: 0.68rem;
-    color: var(--warm-gray);
+    color: var(--black);
     text-align: center;
     margin-top: 0.8rem;
     line-height: 1.6;
@@ -289,6 +289,15 @@
 .product-cat-btn.active {
     background: var(--black);
     color: var(--white);
+}
+
+#product-offre-bundle { margin-top: -0.4rem; margin-bottom: 1.8rem; text-align: left; }
+#product-prix-block .product-prix { margin-bottom: 0.3rem; font-size: 1.05rem; }
+.product-prix-tag {
+    font-size: 0.66rem;
+    color: var(--warm-gray);
+    letter-spacing: 0.04em;
+    font-weight: 400;
 }
 
 .product-prix {
@@ -378,6 +387,7 @@
 
 .order-modal .form-label {
     color: var(--black);
+    font-weight: 500;
 }
 
 .order-modal .form-control::placeholder {

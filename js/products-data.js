@@ -64,7 +64,14 @@ const productFamilies = [
         collection: 'istiqamah',
         cat: 'adulte',
         name: 'Sarouel Mizân',
-        prix: 'Prix à venir',
+        prix: '59,90 €',
+        prixNote: 'Remise en main propre',
+        prixLivraison: '62,90 €',
+        prixLivraisonNote: 'Livraison incluse',
+        offre: {
+            titre: 'Offre 2 sarouels',
+            detail: '2 sarouels achetés = livraison offerte — soit 119,80 € au lieu de 125,80 €'
+        },
         matiere: '',
         desc: "Le Sarouel Mizân, ample et confortable, conforme aux critères de pudeur de la Sunnah. Disponible en plusieurs coloris, avec possibilité d'Ajustement Sunnah — un ajustement gratuit de la longueur, sur simple demande.",
         tailles: ['S', 'M', 'L', 'XL'],
