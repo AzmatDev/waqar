@@ -16,6 +16,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="css/collection.css">
 </head>
 <body>
@@ -28,6 +29,13 @@
         <li><a href="/#collection">Collections</a></li>
         <li><a href="/#contact-section">Contact</a></li>
     </ul>
+    <button type="button" class="nav-cart-btn" onclick="cartOpen()" aria-label="Panier">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 7h12l-1 13a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1L6 7z"/>
+            <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
+        </svg>
+        <span class="cart-badge" id="cart-badge" style="display:none;">0</span>
+    </button>
 </nav>
 
 <section class="collection-hero">
@@ -75,6 +83,7 @@
 </footer>
 
 <script src="js/products-data.js"></script>
+<script src="js/cart.js"></script>
 <script src="js/collection.js"></script>
 </body>
 </html>

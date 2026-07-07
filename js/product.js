@@ -150,25 +150,15 @@ function selectTaille(btn) {
     tailleChoisie = btn.textContent;
 }
 
-// Précommander
-function precommander() {
+// Ajouter au panier
+function addCurrentToCart() {
     if (!tailleChoisie) {
         alert('Veuillez choisir une taille.');
         return;
     }
-    document.getElementById('modal-product-name').textContent = `${family.name} — ${currentColor.label}`;
-    const prixActuel = receptionMode === 'livraison' ? family.prixLivraison : family.prix;
-    const receptionLabel = receptionMode === 'livraison' ? 'Livraison' : 'Remise en main propre';
     const ajustementCheckbox = document.getElementById('ajustement-sunnah-checkbox');
-    const ajustementSuffix = (ajustementCheckbox && ajustementCheckbox.checked) ? ' · Ajustement Sunnah' : '';
-    document.getElementById('modal-product-taille').textContent = family.prixLivraison
-        ? `Taille : ${tailleChoisie} · ${receptionLabel} · ${prixActuel}${ajustementSuffix}`
-        : `Taille : ${tailleChoisie}${ajustementSuffix}`;
-    document.getElementById('orderModal').classList.add('open');
-}
-
-function closeOrderModal() {
-    document.getElementById('orderModal').classList.remove('open');
+    const ajustementSunnah = ajustementCheckbox ? ajustementCheckbox.checked : false;
+    cartAddItem(family.id, currentColor.id, tailleChoisie, ajustementSunnah);
 }
 
 // Guide des tailles — n'apparaît que si ce produit a un tailleGuide défini
@@ -214,59 +204,6 @@ function closeSizeGuide() {
     document.getElementById('sizeGuideModal').classList.remove('open');
 }
 
-document.getElementById('orderModalForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    const tailleCmCheck = document.getElementById('m-taille-cm');
-    const poidsKgCheck = document.getElementById('m-poids-kg');
-    if (tailleCmCheck && tailleCmCheck.value && (tailleCmCheck.value < 100 || tailleCmCheck.value > 230)) {
-        alert('Merci de renseigner une taille réaliste, entre 100 et 230 cm.');
-        return;
-    }
-    if (poidsKgCheck && poidsKgCheck.value && (poidsKgCheck.value < 20 || poidsKgCheck.value > 250)) {
-        alert('Merci de renseigner un poids réaliste, entre 20 et 250 kg.');
-        return;
-    }
-
-    const btn = document.getElementById('modal-submit-btn');
-    btn.textContent = 'Envoi en cours...';
-    btn.disabled = true;
-
-    const nom      = document.getElementById('m-nom').value;
-    const email    = document.getElementById('m-email').value;
-    const tel = document.getElementById('m-tel').value;
-    const adresse  = document.getElementById('m-adresse').value;
-    const codepostal = document.getElementById('m-codepostal').value;
-    const ville    = document.getElementById('m-ville').value;
-    const pays     = document.getElementById('m-pays').value;
-    const modele   = `${family.name} ${family.cat === 'adulte' ? 'Adulte' : 'Enfant'} — ${currentColor.label}`;
-    const tailleCm = tailleCmCheck ? tailleCmCheck.value : '';
-    const poidsKg  = poidsKgCheck ? poidsKgCheck.value : '';
-    const ajustementSunnah = document.getElementById('ajustement-sunnah-checkbox') ? document.getElementById('ajustement-sunnah-checkbox').checked : false;
-    const modeReception = family.prixLivraison ? (receptionMode === 'livraison' ? 'Livraison' : 'Remise en main propre') : '';
-    const prixFinal = family.prixLivraison ? (receptionMode === 'livraison' ? family.prixLivraison : family.prix) : family.prix;
-
-    try {
-        const response = await fetch('/api/send-mail', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nom, email, tel, modele, taille: tailleChoisie, adresse, codepostal, ville, pays, tailleCm, poidsKg, ajustementSunnah, modeReception, prixFinal })
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-            document.getElementById('orderModalForm').style.display = 'none';
-            document.getElementById('orderModalSuccess').style.display = 'block';
-        } else {
-            btn.textContent = 'Erreur — réessayez';
-            btn.disabled = false;
-        }
-    } catch (err) {
-        btn.textContent = 'Erreur — réessayez';
-        btn.disabled = false;
-    }
-});
 
 // Navigation Adulte/Enfant en haut de page — n'apparaît que s'il y a un vrai choix
 const hasAdulte = productFamilies.some(f => f.collection === family.collection && f.cat === 'adulte');

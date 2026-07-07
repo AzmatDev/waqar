@@ -1,0 +1,203 @@
+/* ===================== BOUTON PANIER (NAV) ===================== */
+.nav-cart-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    color: var(--charcoal);
+    padding: 0;
+}
+.nav-cart-btn:hover { color: var(--gold); }
+.cart-badge {
+    position: absolute;
+    top: -7px;
+    right: -9px;
+    background: var(--gold);
+    color: var(--white);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem;
+    line-height: 1;
+    min-width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+}
+
+/* ===================== OVERLAY + PANNEAU ===================== */
+.cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 400;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+.cart-overlay.open { opacity: 1; pointer-events: auto; }
+
+.cart-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 420px;
+    background: var(--cream);
+    z-index: 401;
+    transform: translateX(100%);
+    transition: transform 0.35s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -8px 0 30px rgba(0,0,0,0.12);
+}
+.cart-drawer.open { transform: translateX(0); }
+
+.cart-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-bottom: 0.5px solid var(--border);
+    flex-shrink: 0;
+}
+.cart-drawer-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+}
+.cart-drawer-close {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: var(--warm-gray);
+}
+.cart-drawer-close:hover { color: var(--black); }
+
+.cart-drawer-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* ===================== ARTICLES ===================== */
+.cart-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--warm-gray);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+.cart-empty a { color: var(--gold); }
+
+.cart-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 0.5px solid var(--border);
+    position: relative;
+}
+.cart-item-img {
+    width: 64px;
+    height: 82px;
+    flex-shrink: 0;
+    background: #E2DDD5;
+    overflow: hidden;
+}
+.cart-item-img img { width: 100%; height: 100%; object-fit: cover; }
+.cart-item-info { flex: 1; min-width: 0; }
+.cart-item-name { font-family: 'Cormorant Garamond', serif; font-size: 1rem; margin-bottom: 0.15rem; }
+.cart-item-meta { font-size: 0.72rem; color: var(--warm-gray); margin-bottom: 0.3rem; }
+.cart-item-price { font-size: 0.85rem; color: var(--black); margin-bottom: 0.5rem; }
+.cart-item-qty { display: flex; align-items: center; gap: 0.7rem; }
+.cart-item-qty button {
+    width: 22px; height: 22px;
+    border: 0.5px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--black);
+    display: flex; align-items: center; justify-content: center;
+}
+.cart-item-qty button:hover { border-color: var(--gold); color: var(--gold); }
+.cart-item-qty span { font-size: 0.85rem; min-width: 14px; text-align: center; }
+.cart-item-remove {
+    position: absolute;
+    top: 1rem;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--warm-gray);
+    cursor: pointer;
+    font-size: 0.75rem;
+}
+.cart-item-remove:hover { color: var(--black); }
+
+/* ===================== TOTAL & OFFRE ===================== */
+.cart-offer-note {
+    font-size: 0.78rem;
+    color: var(--gold);
+    margin-top: 1rem;
+}
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 0.5px solid var(--border);
+    font-size: 1rem;
+}
+.cart-total-note {
+    font-size: 0.68rem;
+    color: var(--warm-gray);
+    margin-top: 0.5rem;
+    line-height: 1.6;
+}
+
+/* ===================== CHECKOUT (formulaire) ===================== */
+.cart-back-btn {
+    background: none;
+    border: none;
+    color: var(--warm-gray);
+    font-size: 0.75rem;
+    cursor: pointer;
+    margin-bottom: 1.2rem;
+    padding: 0;
+}
+.cart-back-btn:hover { color: var(--gold); }
+.cart-checkout-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 300;
+    margin-bottom: 1.2rem;
+}
+.cart-drawer .form-control {
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    color: var(--black);
+}
+.cart-drawer .form-control:focus { border-color: var(--gold); }
+.cart-drawer .form-label { color: var(--black); font-weight: 500; }
+.cart-drawer .form-control::placeholder { color: var(--warm-gray); opacity: 1; }
+.cart-drawer .reception-option { margin-top: 0.6rem; }
+
+.cart-success { text-align: center; padding: 3rem 1rem; }
+.cart-success-title {
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+}
+.cart-success-text { color: var(--warm-gray); font-size: 0.85rem; line-height: 1.7; }
+
+@media (max-width: 480px) {
+    .cart-drawer { max-width: 100%; }
+}
