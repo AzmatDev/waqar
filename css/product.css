@@ -330,22 +330,18 @@
 }
 
 .info-tooltip-btn {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 1px solid var(--warm-gray);
     background: transparent;
+    border: none;
     color: var(--warm-gray);
-    font-size: 0.62rem;
+    font-size: 1rem;
     line-height: 1;
     cursor: pointer;
     padding: 0;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     flex-shrink: 0;
 }
-.info-tooltip-btn:hover { border-color: var(--gold); color: var(--gold); }
+.info-tooltip-btn:hover { color: var(--gold); }
 
 .reception-info {
     font-size: 0.76rem;
@@ -357,7 +353,23 @@
     margin: 0.5rem 0 1.2rem;
     line-height: 1.7;
 }
-.reception-info--centered { text-align: center; }
+.reception-info--split {
+    display: flex;
+    align-items: center;
+    gap: 1.3rem;
+}
+.reception-info--split .ajustement-sunnah-img {
+    margin: 0;
+    flex-shrink: 0;
+    max-width: 85px;
+}
+
+@media (max-width: 600px) {
+    .reception-info--split {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
 
 .ajustement-sunnah-block { margin-bottom: 1.6rem; }
 .ajustement-sunnah-block .reception-option { margin-top: 0; }
