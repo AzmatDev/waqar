@@ -356,6 +356,25 @@
     line-height: 1.6;
 }
 
+.ajustement-sunnah-block { margin-bottom: 1.6rem; }
+.ajustement-sunnah-block .reception-option { margin-top: 0; }
+.ajustement-sunnah-block input[type="checkbox"] { width: auto; accent-color: var(--gold); }
+.ajustement-sunnah-free-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 0.5px solid var(--gold-light);
+    padding: 0.15rem 0.5rem;
+}
+.ajustement-sunnah-img {
+    display: block;
+    max-width: 220px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 0.6rem;
+}
+
 .product-prix {
     font-size: 1.1rem;
     color: var(--black);

@@ -159,9 +159,11 @@ function precommander() {
     document.getElementById('modal-product-name').textContent = `${family.name} — ${currentColor.label}`;
     const prixActuel = receptionMode === 'livraison' ? family.prixLivraison : family.prix;
     const receptionLabel = receptionMode === 'livraison' ? 'Livraison' : 'Remise en main propre';
+    const ajustementCheckbox = document.getElementById('ajustement-sunnah-checkbox');
+    const ajustementSuffix = (ajustementCheckbox && ajustementCheckbox.checked) ? ' · Ajustement Sunnah' : '';
     document.getElementById('modal-product-taille').textContent = family.prixLivraison
-        ? `Taille : ${tailleChoisie} · ${receptionLabel} · ${prixActuel}`
-        : `Taille : ${tailleChoisie}`;
+        ? `Taille : ${tailleChoisie} · ${receptionLabel} · ${prixActuel}${ajustementSuffix}`
+        : `Taille : ${tailleChoisie}${ajustementSuffix}`;
     document.getElementById('orderModal').classList.add('open');
 }
 
@@ -175,14 +177,25 @@ if (family.tailleGuide && sizeGuideLink) {
     sizeGuideLink.style.display = '';
 }
 
-// Champs Taille/Poids et Ajustement Sunnah — uniquement sur les produits qui le proposent
+// Champs Taille/Poids (modale) et Ajustement Sunnah (page produit) — uniquement sur les produits qui le proposent
 if (family.ajustementSunnah) {
     const row = document.getElementById('m-taille-poids-row');
     const note = document.getElementById('m-taille-poids-note');
-    const ajustementRow = document.getElementById('m-ajustement-sunnah-row');
+    const ajustementBlock = document.getElementById('ajustement-sunnah-block');
     if (row) row.style.display = '';
     if (note) note.style.display = '';
-    if (ajustementRow) ajustementRow.style.display = '';
+    if (ajustementBlock) ajustementBlock.style.display = '';
+}
+
+// Info-bulle "Ajustement Sunnah" : clic pour afficher/masquer, sans cocher la case
+const infoAjustementBtn = document.getElementById('info-ajustement-btn');
+const infoAjustementText = document.getElementById('info-ajustement-text');
+if (infoAjustementBtn && infoAjustementText) {
+    infoAjustementBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        infoAjustementText.style.display = infoAjustementText.style.display === 'none' ? '' : 'none';
+    });
 }
 
 function openSizeGuide() {
@@ -229,7 +242,7 @@ document.getElementById('orderModalForm').addEventListener('submit', async funct
     const modele   = `${family.name} ${family.cat === 'adulte' ? 'Adulte' : 'Enfant'} — ${currentColor.label}`;
     const tailleCm = tailleCmCheck ? tailleCmCheck.value : '';
     const poidsKg  = poidsKgCheck ? poidsKgCheck.value : '';
-    const ajustementSunnah = document.getElementById('m-ajustement-sunnah') ? document.getElementById('m-ajustement-sunnah').checked : false;
+    const ajustementSunnah = document.getElementById('ajustement-sunnah-checkbox') ? document.getElementById('ajustement-sunnah-checkbox').checked : false;
     const modeReception = family.prixLivraison ? (receptionMode === 'livraison' ? 'Livraison' : 'Remise en main propre') : '';
     const prixFinal = family.prixLivraison ? (receptionMode === 'livraison' ? family.prixLivraison : family.prix) : family.prix;
 

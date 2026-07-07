@@ -80,6 +80,19 @@
             <button class="taille-btn" onclick="selectTaille(this)">XL</button>
         </div>
 
+        <div class="ajustement-sunnah-block" id="ajustement-sunnah-block" style="display:none;">
+            <label class="reception-option">
+                <input type="checkbox" id="ajustement-sunnah-checkbox">
+                <span>Ajustement Sunnah</span>
+                <span class="ajustement-sunnah-free-tag">Gratuit</span>
+                <button type="button" class="info-tooltip-btn" id="info-ajustement-btn">?</button>
+            </label>
+            <div class="reception-info" id="info-ajustement-text" style="display:none;">
+                <img src="images/guide-longueur-sarouel.png" alt="Schéma de l'ajustement de longueur" class="ajustement-sunnah-img" id="ajustement-sunnah-img" onerror="this.style.display='none'" style="display:none;">
+                <p>Ajustement gratuit de la <strong>longueur uniquement</strong> (la coupe générale du sarouel ne change pas), pour dégager la cheville conformément à la Sunnah.</p>
+            </div>
+        </div>
+
         <div class="product-divider"></div>
         <p class="product-desc" id="product-desc"></p>
 
@@ -204,13 +217,6 @@
                 </div>
             </div>
             <p class="product-note" id="m-taille-poids-note" style="display:none;text-align:left;margin-top:-0.5rem;">Pour mieux vous conseiller sur la taille à choisir.</p>
-
-            <div class="form-group" id="m-ajustement-sunnah-row" style="display:none;">
-                <label style="display:flex;align-items:center;gap:0.6rem;font-size:0.85rem;color:var(--black);cursor:pointer;">
-                    <input type="checkbox" id="m-ajustement-sunnah" style="width:auto;">
-                    Je souhaite l'Ajustement Sunnah <span style="color:var(--warm-gray);font-size:0.78rem;">(gratuit — longueur uniquement)</span>
-                </label>
-            </div>
 
             <div class="form-group">
                 <label class="form-label">Adresse</label>
