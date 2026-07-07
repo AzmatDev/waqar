@@ -369,10 +369,10 @@
 }
 .ajustement-sunnah-img {
     display: block;
-    max-width: 220px;
+    max-width: 110px;
     width: 100%;
     height: auto;
-    margin-bottom: 0.6rem;
+    margin: 0 auto 0.8rem;
 }
 
 .product-prix {
