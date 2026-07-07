@@ -329,6 +329,33 @@
     font-size: 0.78rem;
 }
 
+.info-tooltip-btn {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid var(--warm-gray);
+    background: transparent;
+    color: var(--warm-gray);
+    font-size: 0.62rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.info-tooltip-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+.reception-info {
+    font-size: 0.76rem;
+    color: var(--black);
+    background: var(--cream-dark);
+    padding: 0.7rem 0.9rem;
+    margin: 0.4rem 0 0.8rem;
+    line-height: 1.6;
+}
+
 .product-prix {
     font-size: 1.1rem;
     color: var(--black);

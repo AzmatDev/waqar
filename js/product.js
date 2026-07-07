@@ -49,6 +49,17 @@ if (family.prixLivraison) {
 }
 updatePrixAffiche();
 
+// Info-bulle "Remise en main propre" : clic pour afficher/masquer, sans cocher le radio
+const infoPropreBtn = document.getElementById('info-propre-btn');
+const infoPropreText = document.getElementById('info-propre-text');
+if (infoPropreBtn && infoPropreText) {
+    infoPropreBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        infoPropreText.style.display = infoPropreText.style.display === 'none' ? '' : 'none';
+    });
+}
+
 // Offre groupée (ex: 2 sarouels = livraison offerte) — ligne compacte sous le prix
 const offerLineEl = document.getElementById('product-offer-line');
 if (offerLineEl && family.offre) {
