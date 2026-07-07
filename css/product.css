@@ -350,11 +350,14 @@
 .reception-info {
     font-size: 0.76rem;
     color: var(--black);
-    background: var(--cream-dark);
-    padding: 0.7rem 0.9rem;
-    margin: 0.4rem 0 0.8rem;
-    line-height: 1.6;
+    background: transparent;
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+    padding: 1.1rem 0;
+    margin: 0.5rem 0 1.2rem;
+    line-height: 1.7;
 }
+.reception-info--centered { text-align: center; }
 
 .ajustement-sunnah-block { margin-bottom: 1.6rem; }
 .ajustement-sunnah-block .reception-option { margin-top: 0; }
@@ -369,10 +372,10 @@
 }
 .ajustement-sunnah-img {
     display: block;
-    max-width: 110px;
+    max-width: 72px;
     width: 100%;
     height: auto;
-    margin: 0 auto 0.8rem;
+    margin: 0 auto 0.9rem;
 }
 
 .product-prix {
