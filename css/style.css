@@ -223,7 +223,7 @@ footer .footer-devise { font-style: italic; color: var(--gold); margin-bottom: 1
     .nav-logo-img { position: static; transform: none; height: 45px; }
 
     /* HERO */
-    .hero { padding: 5rem 1.5rem 2rem; gap: 1rem; min-height: auto; }
+    .hero { padding: 7rem 1.5rem 2rem; gap: 1rem; min-height: auto; }
     .bismillah { font-size: 1.3rem; text-align: right; }
 
     /* COLLECTION */

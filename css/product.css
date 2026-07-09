@@ -223,6 +223,8 @@
     .product-page.has-nav-cat {
         padding-top: 1.5rem;
     }
+    .product-thumbnails { gap: 0.6rem; }
+    .product-thumb { width: auto; flex: 1 1 0; min-width: 0; }
 }
 
 .product-right {

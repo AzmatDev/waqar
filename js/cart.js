@@ -36,7 +36,25 @@ function cartAddItem(familyId, colorId, taille, ajustementSunnah) {
         items.push({ familyId, colorId, taille, ajustementSunnah: !!ajustementSunnah, quantity: 1 });
     }
     cartSave(items);
-    cartOpen();
+
+    // Sur mobile, le panneau prend tout l'écran — on n'ouvre pas automatiquement
+    // pour ne pas couper la navigation. On anime juste le badge, l'utilisateur
+    // ouvre le panier quand il le souhaite. Sur desktop (simple panneau latéral,
+    // moins intrusif), on ouvre directement comme avant.
+    if (window.innerWidth <= 480) {
+        cartPulseBadge();
+    } else {
+        cartOpen();
+    }
+}
+
+function cartPulseBadge() {
+    cartInjectPanel();
+    const badge = document.getElementById('cart-badge');
+    if (!badge) return;
+    badge.classList.remove('cart-badge-pulse');
+    void badge.offsetWidth; // force le reflow pour pouvoir rejouer l'animation
+    badge.classList.add('cart-badge-pulse');
 }
 
 function cartRemoveItem(index) {
