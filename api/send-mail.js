@@ -56,7 +56,7 @@ module.exports = async function handler(req, res) {
         // Mail au frère
         await transporter.sendMail({
             from: '"WAQĀR" <waqar.1447h@gmail.com>',
-            to: 'waqar.1447h@gmail.com',
+            to: 'azmodu93@gmail.com', // TODO: remettre 'waqar.1447h@gmail.com' une fois les tests terminés
             subject: `[WAQĀR] Nouvelle commande — ${nom}`,
             html: `
         <div style="font-family:Georgia,serif;max-width:600px;margin:0 auto;padding:40px 20px;color:#1C1C1C;">
