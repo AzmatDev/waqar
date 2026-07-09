@@ -316,10 +316,17 @@ async function cartSubmitOrder(e) {
         if (data.success) {
             localStorage.removeItem(CART_STORAGE_KEY);
             cartUpdateBadge();
+
+            const waLines = items.map(i => `- ${i.nom} (${i.couleur}, taille ${i.taille}) x${i.quantite} — ${i.prixUnitaire}`).join('\n');
+            const waMessage = `Bonjour, je viens de passer une commande sur le site WAQĀR :\n${waLines}\n\nNom : ${payload.nom}\nMerci de me recontacter pour finaliser ma commande.`;
+            const waLink = `https://wa.me/33743773555?text=${encodeURIComponent(waMessage)}`;
+
             document.getElementById('cart-drawer-body').innerHTML = `
                 <div class="cart-success">
                     <p class="cart-success-title">Commande enregistrée ✦</p>
                     <p class="cart-success-text">Un email de confirmation vous a été envoyé.<br>Nous vous contacterons prochainement, incha'Allah.</p>
+                    <a href="${waLink}" target="_blank" class="btn-precommande" style="display:block;text-decoration:none;text-align:center;margin-top:1.5rem;">Continuer sur WhatsApp →</a>
+                    <p class="cart-total-note" style="margin-top:0.6rem;">Un message avec votre commande est déjà rédigé, il ne vous reste qu'à l'envoyer.</p>
                 </div>
             `;
         } else {
