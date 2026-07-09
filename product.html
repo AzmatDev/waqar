@@ -115,7 +115,11 @@
 
 <section class="cross-sell fade-in" id="cross-sell">
     <h3 class="cross-sell-title" id="cross-sell-title">Découvrez aussi</h3>
-    <div class="products-grid cross-sell-grid" id="cross-sell-grid"></div>
+    <div class="cross-sell-carousel">
+        <button type="button" class="cross-sell-arrow cross-sell-arrow-left" onclick="crossSellScroll(-1)" aria-label="Précédent">‹</button>
+        <div class="products-grid cross-sell-grid" id="cross-sell-grid"></div>
+        <button type="button" class="cross-sell-arrow cross-sell-arrow-right" onclick="crossSellScroll(1)" aria-label="Suivant">›</button>
+    </div>
 </section>
 
 <section id="contact-section">

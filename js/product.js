@@ -224,6 +224,14 @@ function switchCat(cat) {
 }
 
 // Cross-sell : met en avant les pièces des AUTRES collections en bas de fiche produit
+function crossSellScroll(direction) {
+    const grid = document.getElementById('cross-sell-grid');
+    if (!grid) return;
+    const card = grid.querySelector('.product-card');
+    const step = card ? card.getBoundingClientRect().width + 20 : 220;
+    grid.scrollBy({ left: direction * step * 2, behavior: 'smooth' });
+}
+
 function renderCrossSell() {
     const section = document.getElementById('cross-sell');
     const grid = document.getElementById('cross-sell-grid');
