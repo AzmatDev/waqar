@@ -325,7 +325,7 @@ async function cartSubmitOrder(e) {
                 <div class="cart-success">
                     <p class="cart-success-title">Commande enregistrée ✦</p>
                     <p class="cart-success-text">Un email de confirmation vous a été envoyé.<br>Nous vous contacterons prochainement, incha'Allah.</p>
-                    <a href="${waLink}" target="_blank" class="btn-precommande" style="display:block;text-decoration:none;text-align:center;margin-top:1.5rem;">Continuer sur WhatsApp →</a>
+                    <a href="${waLink}" target="_blank" class="btn-whatsapp">Continuer sur WhatsApp →</a>
                     <p class="cart-total-note" style="margin-top:0.6rem;">Un message avec votre commande est déjà rédigé, il ne vous reste qu'à l'envoyer.</p>
                 </div>
             `;

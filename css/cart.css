@@ -198,6 +198,30 @@
 }
 .cart-success-text { color: var(--warm-gray); font-size: 0.85rem; line-height: 1.7; }
 
+.btn-whatsapp {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    padding: 1.1rem;
+    background: #25D366;
+    color: #fff;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 1.6rem;
+    border-radius: 3px;
+    animation: whatsapp-pulse 2s ease-in-out infinite;
+    transition: transform 0.15s;
+}
+.btn-whatsapp:hover { transform: translateY(-1px); }
+
+@keyframes whatsapp-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55); }
+    50% { box-shadow: 0 0 0 9px rgba(37, 211, 102, 0); }
+}
+
 @media (max-width: 480px) {
     .cart-drawer { max-width: 100%; }
 }
