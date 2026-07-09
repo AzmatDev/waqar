@@ -20,7 +20,32 @@
     overflow: hidden;
     background: #E2DDD5;
     margin-bottom: 1.5rem;
+    position: relative;
 }
+
+.gallery-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(245,241,234,0.85);
+    color: var(--charcoal);
+    font-family: 'Jost', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: background 0.2s, color 0.2s;
+}
+.gallery-arrow:hover { background: var(--gold); color: var(--white); }
+.gallery-arrow-left { left: 0.8rem; }
+.gallery-arrow-right { right: 0.8rem; }
 
 .product-main-img img {
     width: 100%;
@@ -550,6 +575,11 @@
     justify-content: center;
 }
 .cross-sell-arrow:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Sur desktop, les 5 recommandations tiennent déjà à l'écran — flèches inutiles */
+@media (min-width: 901px) {
+    .cross-sell-arrow { display: none; }
+}
 
 @media (max-width: 900px) {
     .cross-sell { padding: 3rem 1.5rem 4rem; }
