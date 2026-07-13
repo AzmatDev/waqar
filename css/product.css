@@ -542,6 +542,12 @@
     -ms-overflow-style: none;
 }
 .cross-sell .cross-sell-grid::-webkit-scrollbar { display: none; }
+
+/* Sur desktop, tout tient toujours à l'écran (jamais de débordement) —
+   on peut centrer sans risquer de recréer le bug de carte coupée sur mobile. */
+@media (min-width: 901px) {
+    .cross-sell .cross-sell-grid { justify-content: center; }
+}
 .cross-sell .cross-sell-grid .product-card {
     flex: 0 0 150px;
 }
