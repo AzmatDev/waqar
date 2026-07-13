@@ -391,11 +391,9 @@
     max-width: 85px;
 }
 
-@media (max-width: 600px) {
-    .reception-info--split {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+@media (max-width: 380px) {
+    .reception-info--split .ajustement-sunnah-img { max-width: 64px; }
+    .reception-info--split { gap: 0.9rem; }
 }
 
 .ajustement-sunnah-block { margin-bottom: 1.6rem; }
