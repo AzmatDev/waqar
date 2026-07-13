@@ -534,8 +534,6 @@
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
     gap: 1.2rem;
     padding: 0.3rem 0.1rem 0.8rem;
     /* masque la barre de scroll tout en gardant le défilement tactile */
@@ -545,7 +543,6 @@
 .cross-sell .cross-sell-grid::-webkit-scrollbar { display: none; }
 .cross-sell .cross-sell-grid .product-card {
     flex: 0 0 150px;
-    scroll-snap-align: start;
 }
 
 @media (max-width: 900px) {
