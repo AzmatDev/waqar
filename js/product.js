@@ -293,21 +293,17 @@ function renderCrossSell() {
     const titleEl = document.getElementById('cross-sell-title');
     if (!section || !grid) return;
 
-    const otherFamilies = productFamilies.filter(f => f.collection !== family.collection);
+    // On recommande tous les autres produits du site (peu importe la collection),
+    // seul le produit actuellement affiché est exclu.
+    const otherFamilies = productFamilies.filter(f => f.id !== family.id);
     if (otherFamilies.length === 0) {
         section.style.display = 'none';
         return;
     }
 
-    const otherCollectionIds = [...new Set(otherFamilies.map(f => f.collection))];
-    if (otherCollectionIds.length === 1) {
-        const otherCol = collections.find(c => c.id === otherCollectionIds[0]);
-        titleEl.textContent = otherCol ? `Découvrez ${otherCol.title.replace(/^Collection\s+/i, '')}` : 'Vous aimerez aussi';
-    } else {
-        titleEl.textContent = 'Vous aimerez aussi';
-    }
+    titleEl.textContent = 'Vous aimerez aussi';
 
-    // Ambiguïté Adulte/Enfant : on ne l'affiche que si l'autre collection mélange les deux
+    // Ambiguïté Adulte/Enfant : on ne l'affiche que si les recommandations mélangent les deux
     const needsCatLabel = new Set(otherFamilies.map(f => f.cat)).size > 1;
 
     // Un "candidat" = une combinaison produit + couleur, pour varier l'affichage
