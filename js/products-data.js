@@ -89,7 +89,7 @@ const productFamilies = [
         },
         ajustementSunnah: 'optionnel',
         ajustementSunnahTexte: "Nous ajustons gratuitement la longueur du sarouel afin de dégager la cheville, conformément à la Sunnah. La coupe et l'ampleur du vêtement restent inchangées.",
-        ajustementSunnahImage: 'images/guide-longueur-sarouel.png',
+        ajustementSunnahImage: 'images/sarouel/guide-longueur-sarouel.png',
         colors: [
             { id: 'beige', label: 'Beige', hex: '#D8C8AE', images: ['images/sarouel/beige-1.png', 'images/sarouel/beige-2.png', 'images/sarouel/beige-3.png', 'images/sarouel/beige-4.png'] },
             { id: 'kaki', label: 'Kaki', hex: '#6B6E4E', images: ['images/sarouel/kaki-1.png', 'images/sarouel/kaki-2.png', 'images/sarouel/kaki-3.png', 'images/sarouel/kaki-4.png'] },
