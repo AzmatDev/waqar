@@ -95,8 +95,20 @@ const productFamilies = [
             { id: 'gris-chine', label: 'Gris chiné', hex: '#8C8C8C', images: ['images/sarouel/gris-chine-1.png', 'images/sarouel/gris-chine-2.png', 'images/sarouel/gris-chine-3.png', 'images/sarouel/gris-chine-4.png'] },
             { id: 'bleu-marine', label: 'Bleu marine', hex: '#1B2A4A', images: ['images/sarouel/bleu-marine-1.png', 'images/sarouel/bleu-marine-2.png', 'images/sarouel/bleu-marine-3.png', 'images/sarouel/Bleu-marine-4.png'] }
         ]
+    },
+    {
+        id: 'chemise-sakina-adulte',
+        collection: 'istiqamah',
+        cat: 'adulte',
+        name: 'Chemise Sakīna',
+        prix: '44,90 €',
+        matiere: '100% Lin',
+        desc: "La Chemise Sakīna, légère et respirante, taillée dans un lin 100% pour une allure pudique et confortable au quotidien. Col Hakim, coupe oversize, manches longues, sans poches.",
+        tailles: ['S', 'M', 'L', 'XL', 'XXL'],
+        colors: [
+            { id: 'vert-sauge', label: 'Vert Sauge', hex: '#9CAF88', images: ['images/sakina/kaki-1.jpeg', 'images/sakina/kaki-2.jpeg', 'images/sakina/kaki-3.jpeg'] },
+            { id: 'marron', label: "Marron terre d'ombre", hex: '#6F4E37', images: ['images/sakina/marron-1.jpeg', 'images/sakina/marron-2.jpeg', 'images/sakina/marron-3.jpeg'] },
+            { id: 'beige-lin', label: 'Beige lin naturel', hex: '#E8DCC8', images: ['images/sakina/beige-1.jpeg', 'images/sakina/beige-2.jpeg', 'images/sakina/beige-3.jpeg'] }
+        ]
     }
-    // TODO : ajouter ici la 2e famille de produit de la collection ISTIQĀMA
-    // (le "autre vêtement" mentionné par le frère) dès que ses infos seront connues.
-    // Reprendre la même structure : { id, collection:'istiqamah', cat, name, prix, matiere, desc, tailles, colors }
 ];
