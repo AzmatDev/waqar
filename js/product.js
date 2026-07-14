@@ -225,7 +225,10 @@ if (family.ajustementSunnah) {
     const tagEl = document.getElementById('ajustement-sunnah-tag');
     const checkboxEl = document.getElementById('ajustement-sunnah-checkbox');
 
-    if (imgEl && family.ajustementSunnahImage) imgEl.src = family.ajustementSunnahImage;
+    if (imgEl && family.ajustementSunnahImage) {
+        imgEl.style.display = ''; // retire le display:none laissé par l'erreur du src="" initial
+        imgEl.src = family.ajustementSunnahImage;
+    }
     if (texteEl) texteEl.textContent = family.ajustementSunnahTexte || '';
 
     const estObligatoire = family.ajustementSunnah === 'obligatoire';
