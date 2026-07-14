@@ -109,7 +109,7 @@ const productFamilies = [
         tailles: ['S', 'M', 'L', 'XL', 'XXL'],
         ajustementSunnah: 'obligatoire',
         ajustementSunnahTexte: "Chaque Chemise Sakīna est ajustée sur la longueur des manches, conformément à la Sunnah. Seule la longueur des manches est concernée — la coupe générale ne change pas.",
-        ajustementSunnahImage: 'images/guide-manches-chemise.png',
+        ajustementSunnahImage: 'images/sakina/guide-manches-chemise.png',
         colors: [
             { id: 'vert-sauge', label: 'Vert Sauge', hex: '#9CAF88', images: ['images/sakina/kaki-1.jpeg', 'images/sakina/kaki-2.jpeg', 'images/sakina/kaki-3.jpeg'] },
             { id: 'marron', label: "Marron terre d'ombre", hex: '#6F4E37', images: ['images/sakina/marron-1.jpeg', 'images/sakina/marron-2.jpeg', 'images/sakina/marron-3.jpeg'] },
