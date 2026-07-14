@@ -87,7 +87,9 @@ const productFamilies = [
                 { taille: 'XL', values: ['100-108'] }
             ]
         },
-        ajustementSunnah: true, // proposé uniquement sur ce produit pour l'instant
+        ajustementSunnah: 'optionnel',
+        ajustementSunnahTexte: "Nous ajustons gratuitement la longueur du sarouel afin de dégager la cheville, conformément à la Sunnah. La coupe et l'ampleur du vêtement restent inchangées.",
+        ajustementSunnahImage: 'images/guide-longueur-sarouel.png',
         colors: [
             { id: 'beige', label: 'Beige', hex: '#D8C8AE', images: ['images/sarouel/beige-1.png', 'images/sarouel/beige-2.png', 'images/sarouel/beige-3.png', 'images/sarouel/beige-4.png'] },
             { id: 'kaki', label: 'Kaki', hex: '#6B6E4E', images: ['images/sarouel/kaki-1.png', 'images/sarouel/kaki-2.png', 'images/sarouel/kaki-3.png', 'images/sarouel/kaki-4.png'] },
@@ -105,6 +107,9 @@ const productFamilies = [
         matiere: '100% Lin',
         desc: "La Chemise Sakīna, légère et respirante, taillée dans un lin 100% pour une allure pudique et confortable au quotidien. Col Hakim, coupe oversize, manches longues, sans poches.",
         tailles: ['S', 'M', 'L', 'XL', 'XXL'],
+        ajustementSunnah: 'obligatoire',
+        ajustementSunnahTexte: "Chaque Chemise Sakīna est ajustée sur la longueur des manches, conformément à la Sunnah. Seule la longueur des manches est concernée — la coupe générale ne change pas.",
+        ajustementSunnahImage: 'images/guide-manches-chemise.png',
         colors: [
             { id: 'vert-sauge', label: 'Vert Sauge', hex: '#9CAF88', images: ['images/sakina/kaki-1.jpeg', 'images/sakina/kaki-2.jpeg', 'images/sakina/kaki-3.jpeg'] },
             { id: 'marron', label: "Marron terre d'ombre", hex: '#6F4E37', images: ['images/sakina/marron-1.jpeg', 'images/sakina/marron-2.jpeg', 'images/sakina/marron-3.jpeg'] },

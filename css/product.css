@@ -399,6 +399,7 @@
 .ajustement-sunnah-block { margin-bottom: 1.6rem; }
 .ajustement-sunnah-block .reception-option { margin-top: 0; }
 .ajustement-sunnah-block input[type="checkbox"] { width: auto; accent-color: var(--gold); }
+.ajustement-sunnah-block input[type="checkbox"]:disabled { cursor: not-allowed; opacity: 0.85; }
 .ajustement-sunnah-free-tag {
     font-size: 0.6rem;
     letter-spacing: 0.08em;

@@ -219,6 +219,21 @@ if (family.ajustementSunnah) {
     if (row) row.style.display = '';
     if (note) note.style.display = '';
     if (ajustementBlock) ajustementBlock.style.display = '';
+
+    const imgEl = document.getElementById('ajustement-sunnah-img');
+    const texteEl = document.getElementById('ajustement-sunnah-texte');
+    const tagEl = document.getElementById('ajustement-sunnah-tag');
+    const checkboxEl = document.getElementById('ajustement-sunnah-checkbox');
+
+    if (imgEl && family.ajustementSunnahImage) imgEl.src = family.ajustementSunnahImage;
+    if (texteEl) texteEl.textContent = family.ajustementSunnahTexte || '';
+
+    const estObligatoire = family.ajustementSunnah === 'obligatoire';
+    if (tagEl) tagEl.textContent = estObligatoire ? 'Inclus' : 'Gratuit';
+    if (checkboxEl && estObligatoire) {
+        checkboxEl.checked = true;
+        checkboxEl.disabled = true; // impossible à décocher, c'est inclus d'office
+    }
 }
 
 // Info-bulle "Ajustement Sunnah" : clic pour afficher/masquer, sans cocher la case
