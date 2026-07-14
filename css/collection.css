@@ -1,5 +1,5 @@
 .collection-hero {
-    padding: 9rem 3rem 3rem;
+    padding: 7rem 3rem 2rem;
     text-align: center;
 }
 .collection-hero-tag {
@@ -39,7 +39,7 @@
     font-style: italic;
     text-align: center;
     color: var(--warm-gray);
-    margin-bottom: 1.8rem;
+    margin-bottom: 1.2rem;
 }
 
 .collection-page {
