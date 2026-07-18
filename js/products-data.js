@@ -106,7 +106,7 @@ const productFamilies = [
         prix: '44,90 €',
         matiere: '100% Lin',
         desc: "La Chemise Sakīna, légère et respirante, taillée dans un lin 100% pour une allure pudique et confortable au quotidien. Col Hakim, coupe oversize, manches longues, sans poches.",
-        tailles: ['S', 'M', 'L', 'XL', 'XXL'],
+        tailles: ['S', 'M', 'L', 'XL'],
         ajustementSunnah: 'obligatoire',
         ajustementSunnahTexte: "Chaque Chemise Sakīna est ajustée sur la longueur des manches, conformément à la Sunnah. Seule la longueur des manches est concernée — la coupe générale ne change pas.",
         ajustementSunnahImage: 'images/sakina/guide-manches-chemise.png',
