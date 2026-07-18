@@ -1,6 +1,19 @@
-.collection-hero {
-    padding: 3rem 3rem 1rem;
-    text-align: center;
+.collection-page--split {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 3rem;
+    align-items: start;
+    padding: 7rem 3rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.collection-intro {
+    text-align: left;
+    position: sticky;
+    top: 7rem;
 }
 .collection-hero-tag {
     font-size: 0.67rem;
@@ -12,16 +25,14 @@
 }
 .collection-hero-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-size: clamp(1.9rem, 3vw, 2.6rem);
     font-weight: 300;
     margin-bottom: 0.8rem;
     line-height: 1.1;
 }
 .collection-hero-sub {
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     color: var(--warm-gray);
-    max-width: 520px;
-    margin: 0 auto;
     line-height: 1.7;
 }
 .collection-hero-meta {
@@ -30,27 +41,13 @@
     text-transform: uppercase;
     color: var(--gold);
     margin-top: 1.1rem;
+    display: block;
 }
 
-.collection-pieces-heading {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.05rem;
-    font-weight: 400;
-    font-style: italic;
-    text-align: center;
-    color: var(--warm-gray);
-    margin-bottom: 1.2rem;
-}
-
-.collection-page {
-    padding: 1rem 3rem 4rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
 .collection-tabs-wrap {
     display: flex;
-    justify-content: center;
-    margin-bottom: 2.5rem;
+    justify-content: flex-start;
+    margin-top: 1.8rem;
 }
 
 /* SAVIEZ-VOUS — bloc pleine largeur, sous la grille, plus de zigzag produit/texte */
@@ -64,7 +61,15 @@
 }
 
 @media (max-width: 900px) {
-    .collection-hero { padding: 6.5rem 1.5rem 2rem; }
-    .collection-page { padding: 1rem 1.5rem 3rem; }
+    .collection-page--split {
+        grid-template-columns: 1fr;
+        padding: 6.5rem 1.5rem 3rem;
+        gap: 1.8rem;
+    }
+    .collection-intro {
+        text-align: center;
+        position: static;
+    }
+    .collection-tabs-wrap { justify-content: center; }
     .savez-full { padding: 3rem 1.5rem; }
 }

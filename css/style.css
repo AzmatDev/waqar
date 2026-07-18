@@ -56,6 +56,10 @@ nav ul a:hover { color: var(--gold); }
 #collection {
     scroll-margin-top: 1.8rem;
     padding: 0 3rem 6rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 #collection .section-header { padding: 3rem 2rem 1.5rem; }
 #collection .section-title { font-size: clamp(1.4rem, 2.5vw, 2rem); }
@@ -128,7 +132,7 @@ nav ul a:hover { color: var(--gold); }
 .tab-btn:hover:not(.active) { color: var(--black); }
 
 /* Grille adaptative : jamais de carte isolée, que ce soit 1, 2, 3 ou 5 produits */
-.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 280px)); justify-content: center; gap: 2rem; }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 340px)); justify-content: start; gap: 2rem; }
 .product-card { cursor: pointer; transition: transform 0.3s; text-decoration: none; color: inherit; display: block; }
 .product-card:hover { transform: translateY(-4px); }
 .product-img { aspect-ratio: 3/4; overflow: hidden; margin-bottom: 1rem; background: #E2DDD5; }
