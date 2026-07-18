@@ -34,8 +34,8 @@ function renderCollectionHeader() {
     const metaEl = document.getElementById('collection-page-meta');
     if (metaEl) {
         metaEl.textContent = pieceCount > 0
-            ? `${pieceCount} pièce${pieceCount > 1 ? 's' : ''} · Depuis 1447`
-            : 'Depuis 1447';
+            ? `${pieceCount} pièce${pieceCount > 1 ? 's' : ''}`
+            : '';
     }
 
     document.getElementById('savez-label').textContent = activeCollection.savezLabel;

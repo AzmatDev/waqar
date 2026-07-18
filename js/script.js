@@ -26,7 +26,7 @@ if (orderForm) {
             `Pays : ${f('pays')}\n\n` +
             `Informations : ${f('message') || 'Aucune'}\n\n---\nwaqar.fr`
         );
-        window.location.href = `mailto:waqar_1447@outlook.com?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:waqar.1447h@gmail.com?subject=${subject}&body=${body}`;
         setTimeout(() => {
             document.getElementById('orderForm').style.display = 'none';
             document.getElementById('formSuccess').style.display = 'block';
@@ -44,7 +44,7 @@ if (contactForm) {
         const message = document.getElementById('contact-message').value;
         const subject = encodeURIComponent(`[WAQĀR] Message de ${nom}`);
         const body    = encodeURIComponent(`Nom : ${nom}\nEmail : ${email}\n\nMessage :\n${message}\n\n---\nwaqar.fr`);
-        window.location.href = `mailto:waqar_1447@outlook.com?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:waqar.1447h@gmail.com?subject=${subject}&body=${body}`;
         setTimeout(() => {
             document.getElementById('contactForm').style.display = 'none';
             document.getElementById('contactSuccess').style.display = 'block';

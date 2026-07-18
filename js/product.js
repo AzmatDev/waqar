@@ -98,11 +98,39 @@ function renderColorSwatches() {
 }
 
 // Image principale + miniatures (carousel)
+let galleryImages = [];
+let galleryIndex = 0;
+
 function renderGallery() {
     const mainImg = document.getElementById('main-img');
     const mainImgWrap = document.querySelector('.product-main-img');
     const thumbsContainer = document.getElementById('product-thumbnails');
     const images = (currentColor.images && currentColor.images.length) ? currentColor.images : [];
+    galleryImages = images;
+    galleryIndex = 0;
+
+    // Flèches (créées une seule fois, réutilisées à chaque changement de couleur)
+    let prevBtn = document.getElementById('gallery-prev');
+    let nextBtn = document.getElementById('gallery-next');
+    if (!prevBtn && mainImgWrap) {
+        prevBtn = document.createElement('button');
+        prevBtn.type = 'button';
+        prevBtn.id = 'gallery-prev';
+        prevBtn.className = 'gallery-arrow gallery-arrow-left';
+        prevBtn.setAttribute('aria-label', 'Photo précédente');
+        prevBtn.textContent = '‹';
+        prevBtn.addEventListener('click', () => goToImage(galleryIndex - 1));
+        mainImgWrap.appendChild(prevBtn);
+
+        nextBtn = document.createElement('button');
+        nextBtn.type = 'button';
+        nextBtn.id = 'gallery-next';
+        nextBtn.className = 'gallery-arrow gallery-arrow-right';
+        nextBtn.setAttribute('aria-label', 'Photo suivante');
+        nextBtn.textContent = '›';
+        nextBtn.addEventListener('click', () => goToImage(galleryIndex + 1));
+        mainImgWrap.appendChild(nextBtn);
+    }
 
     if (images.length === 0) {
         mainImg.style.display = 'none';
@@ -110,6 +138,8 @@ function renderGallery() {
         mainImgWrap.style.background = currentColor.hex;
         thumbsContainer.innerHTML = '';
         thumbsContainer.style.display = 'none';
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
         return;
     }
 
@@ -117,6 +147,10 @@ function renderGallery() {
     mainImg.style.display = '';
     mainImg.src = images[0];
     mainImg.alt = `${family.name} — ${currentColor.label}`;
+
+    const showArrows = images.length > 1;
+    if (prevBtn) prevBtn.style.display = showArrows ? '' : 'none';
+    if (nextBtn) nextBtn.style.display = showArrows ? '' : 'none';
 
     if (images.length > 1) {
         thumbsContainer.style.display = 'flex';
@@ -127,15 +161,25 @@ function renderGallery() {
         `).join('');
         thumbsContainer.querySelectorAll('.product-thumb').forEach(thumb => {
             thumb.addEventListener('click', () => {
-                const idx = parseInt(thumb.dataset.index, 10);
-                mainImg.src = images[idx];
-                thumbsContainer.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
-                thumb.classList.add('active');
+                goToImage(parseInt(thumb.dataset.index, 10));
             });
         });
     } else {
         thumbsContainer.style.display = 'none';
         thumbsContainer.innerHTML = '';
+    }
+}
+
+function goToImage(index) {
+    if (!galleryImages.length) return;
+    galleryIndex = (index + galleryImages.length) % galleryImages.length; // boucle en continu
+    const mainImg = document.getElementById('main-img');
+    const thumbsContainer = document.getElementById('product-thumbnails');
+    mainImg.src = galleryImages[galleryIndex];
+    if (thumbsContainer) {
+        thumbsContainer.querySelectorAll('.product-thumb').forEach(t => {
+            t.classList.toggle('active', parseInt(t.dataset.index, 10) === galleryIndex);
+        });
     }
 }
 
@@ -150,25 +194,15 @@ function selectTaille(btn) {
     tailleChoisie = btn.textContent;
 }
 
-// Précommander
-function precommander() {
+// Ajouter au panier
+function addCurrentToCart() {
     if (!tailleChoisie) {
         alert('Veuillez choisir une taille.');
         return;
     }
-    document.getElementById('modal-product-name').textContent = `${family.name} — ${currentColor.label}`;
-    const prixActuel = receptionMode === 'livraison' ? family.prixLivraison : family.prix;
-    const receptionLabel = receptionMode === 'livraison' ? 'Livraison' : 'Remise en main propre';
     const ajustementCheckbox = document.getElementById('ajustement-sunnah-checkbox');
-    const ajustementSuffix = (ajustementCheckbox && ajustementCheckbox.checked) ? ' · Ajustement Sunnah' : '';
-    document.getElementById('modal-product-taille').textContent = family.prixLivraison
-        ? `Taille : ${tailleChoisie} · ${receptionLabel} · ${prixActuel}${ajustementSuffix}`
-        : `Taille : ${tailleChoisie}${ajustementSuffix}`;
-    document.getElementById('orderModal').classList.add('open');
-}
-
-function closeOrderModal() {
-    document.getElementById('orderModal').classList.remove('open');
+    const ajustementSunnah = ajustementCheckbox ? ajustementCheckbox.checked : false;
+    cartAddItem(family.id, currentColor.id, tailleChoisie, ajustementSunnah);
 }
 
 // Guide des tailles — n'apparaît que si ce produit a un tailleGuide défini
@@ -185,6 +219,24 @@ if (family.ajustementSunnah) {
     if (row) row.style.display = '';
     if (note) note.style.display = '';
     if (ajustementBlock) ajustementBlock.style.display = '';
+
+    const imgEl = document.getElementById('ajustement-sunnah-img');
+    const texteEl = document.getElementById('ajustement-sunnah-texte');
+    const tagEl = document.getElementById('ajustement-sunnah-tag');
+    const checkboxEl = document.getElementById('ajustement-sunnah-checkbox');
+
+    if (imgEl && family.ajustementSunnahImage) {
+        imgEl.style.display = ''; // retire le display:none laissé par l'erreur du src="" initial
+        imgEl.src = family.ajustementSunnahImage;
+    }
+    if (texteEl) texteEl.textContent = family.ajustementSunnahTexte || '';
+
+    const estObligatoire = family.ajustementSunnah === 'obligatoire';
+    if (tagEl) tagEl.textContent = estObligatoire ? 'Inclus' : 'Gratuit';
+    if (checkboxEl && estObligatoire) {
+        checkboxEl.checked = true;
+        checkboxEl.disabled = true; // impossible à décocher, c'est inclus d'office
+    }
 }
 
 // Info-bulle "Ajustement Sunnah" : clic pour afficher/masquer, sans cocher la case
@@ -214,59 +266,6 @@ function closeSizeGuide() {
     document.getElementById('sizeGuideModal').classList.remove('open');
 }
 
-document.getElementById('orderModalForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    const tailleCmCheck = document.getElementById('m-taille-cm');
-    const poidsKgCheck = document.getElementById('m-poids-kg');
-    if (tailleCmCheck && tailleCmCheck.value && (tailleCmCheck.value < 100 || tailleCmCheck.value > 230)) {
-        alert('Merci de renseigner une taille réaliste, entre 100 et 230 cm.');
-        return;
-    }
-    if (poidsKgCheck && poidsKgCheck.value && (poidsKgCheck.value < 20 || poidsKgCheck.value > 250)) {
-        alert('Merci de renseigner un poids réaliste, entre 20 et 250 kg.');
-        return;
-    }
-
-    const btn = document.getElementById('modal-submit-btn');
-    btn.textContent = 'Envoi en cours...';
-    btn.disabled = true;
-
-    const nom      = document.getElementById('m-nom').value;
-    const email    = document.getElementById('m-email').value;
-    const tel = document.getElementById('m-tel').value;
-    const adresse  = document.getElementById('m-adresse').value;
-    const codepostal = document.getElementById('m-codepostal').value;
-    const ville    = document.getElementById('m-ville').value;
-    const pays     = document.getElementById('m-pays').value;
-    const modele   = `${family.name} ${family.cat === 'adulte' ? 'Adulte' : 'Enfant'} — ${currentColor.label}`;
-    const tailleCm = tailleCmCheck ? tailleCmCheck.value : '';
-    const poidsKg  = poidsKgCheck ? poidsKgCheck.value : '';
-    const ajustementSunnah = document.getElementById('ajustement-sunnah-checkbox') ? document.getElementById('ajustement-sunnah-checkbox').checked : false;
-    const modeReception = family.prixLivraison ? (receptionMode === 'livraison' ? 'Livraison' : 'Remise en main propre') : '';
-    const prixFinal = family.prixLivraison ? (receptionMode === 'livraison' ? family.prixLivraison : family.prix) : family.prix;
-
-    try {
-        const response = await fetch('/api/send-mail', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nom, email, tel, modele, taille: tailleChoisie, adresse, codepostal, ville, pays, tailleCm, poidsKg, ajustementSunnah, modeReception, prixFinal })
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-            document.getElementById('orderModalForm').style.display = 'none';
-            document.getElementById('orderModalSuccess').style.display = 'block';
-        } else {
-            btn.textContent = 'Erreur — réessayez';
-            btn.disabled = false;
-        }
-    } catch (err) {
-        btn.textContent = 'Erreur — réessayez';
-        btn.disabled = false;
-    }
-});
 
 // Navigation Adulte/Enfant en haut de page — n'apparaît que s'il y a un vrai choix
 const hasAdulte = productFamilies.some(f => f.collection === family.collection && f.cat === 'adulte');
@@ -287,27 +286,24 @@ function switchCat(cat) {
 }
 
 // Cross-sell : met en avant les pièces des AUTRES collections en bas de fiche produit
+
 function renderCrossSell() {
     const section = document.getElementById('cross-sell');
     const grid = document.getElementById('cross-sell-grid');
     const titleEl = document.getElementById('cross-sell-title');
     if (!section || !grid) return;
 
-    const otherFamilies = productFamilies.filter(f => f.collection !== family.collection);
+    // On recommande tous les autres produits du site (peu importe la collection),
+    // seul le produit actuellement affiché est exclu.
+    const otherFamilies = productFamilies.filter(f => f.id !== family.id);
     if (otherFamilies.length === 0) {
         section.style.display = 'none';
         return;
     }
 
-    const otherCollectionIds = [...new Set(otherFamilies.map(f => f.collection))];
-    if (otherCollectionIds.length === 1) {
-        const otherCol = collections.find(c => c.id === otherCollectionIds[0]);
-        titleEl.textContent = otherCol ? `Découvrez ${otherCol.title.replace(/^Collection\s+/i, '')}` : 'Vous aimerez aussi';
-    } else {
-        titleEl.textContent = 'Vous aimerez aussi';
-    }
+    titleEl.textContent = 'Vous aimerez aussi';
 
-    // Ambiguïté Adulte/Enfant : on ne l'affiche que si l'autre collection mélange les deux
+    // Ambiguïté Adulte/Enfant : on ne l'affiche que si les recommandations mélangent les deux
     const needsCatLabel = new Set(otherFamilies.map(f => f.cat)).size > 1;
 
     // Un "candidat" = une combinaison produit + couleur, pour varier l'affichage
@@ -357,7 +353,7 @@ if (contactForm) {
         const message = document.getElementById('contact-message').value;
         const subject = encodeURIComponent(`[WAQĀR] Message de ${nom}`);
         const body    = encodeURIComponent(`Nom : ${nom}\nEmail : ${email}\n\nMessage :\n${message}\n\n---\nwaqar.fr`);
-        window.location.href = `mailto:waqar_1447@outlook.com?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:waqar.1447h@gmail.com?subject=${subject}&body=${body}`;
         setTimeout(() => {
             document.getElementById('contactForm').style.display = 'none';
             document.getElementById('contactSuccess').style.display = 'block';

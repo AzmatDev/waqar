@@ -20,7 +20,32 @@
     overflow: hidden;
     background: #E2DDD5;
     margin-bottom: 1.5rem;
+    position: relative;
 }
+
+.gallery-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(245,241,234,0.85);
+    color: var(--charcoal);
+    font-family: 'Jost', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: background 0.2s, color 0.2s;
+}
+.gallery-arrow:hover { background: var(--gold); color: var(--white); }
+.gallery-arrow-left { left: 0.8rem; }
+.gallery-arrow-right { right: 0.8rem; }
 
 .product-main-img img {
     width: 100%;
@@ -223,6 +248,8 @@
     .product-page.has-nav-cat {
         padding-top: 1.5rem;
     }
+    .product-thumbnails { gap: 0.6rem; }
+    .product-thumb { width: auto; flex: 1 1 0; min-width: 0; }
 }
 
 .product-right {
@@ -364,16 +391,15 @@
     max-width: 85px;
 }
 
-@media (max-width: 600px) {
-    .reception-info--split {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+@media (max-width: 380px) {
+    .reception-info--split .ajustement-sunnah-img { max-width: 64px; }
+    .reception-info--split { gap: 0.9rem; }
 }
 
 .ajustement-sunnah-block { margin-bottom: 1.6rem; }
 .ajustement-sunnah-block .reception-option { margin-top: 0; }
 .ajustement-sunnah-block input[type="checkbox"] { width: auto; accent-color: var(--gold); }
+.ajustement-sunnah-block input[type="checkbox"]:disabled { cursor: not-allowed; opacity: 0.85; }
 .ajustement-sunnah-free-tag {
     font-size: 0.6rem;
     letter-spacing: 0.08em;
@@ -504,8 +530,30 @@
     text-align: center;
     margin-bottom: 2.5rem;
 }
-.cross-sell .cross-sell-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 200px)); justify-content: center; gap: 1.5rem; }
+
+.cross-sell .cross-sell-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    gap: 1.2rem;
+    padding: 0.3rem 0.1rem 0.8rem;
+    /* masque la barre de scroll tout en gardant le défilement tactile */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.cross-sell .cross-sell-grid::-webkit-scrollbar { display: none; }
+
+/* Sur desktop, tout tient toujours à l'écran (jamais de débordement) —
+   on peut centrer sans risquer de recréer le bug de carte coupée sur mobile. */
+@media (min-width: 901px) {
+    .cross-sell .cross-sell-grid { justify-content: center; }
+}
+.cross-sell .cross-sell-grid .product-card {
+    flex: 0 0 150px;
+}
 
 @media (max-width: 900px) {
     .cross-sell { padding: 3rem 1.5rem 4rem; }
+    .cross-sell .cross-sell-grid .product-card { flex-basis: 130px; }
 }

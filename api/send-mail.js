@@ -14,7 +14,11 @@ module.exports = async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { nom, email, tel, modele, taille, adresse, codepostal, ville, pays, tailleCm, poidsKg, ajustementSunnah, modeReception, prixFinal } = req.body;
+    const { items, nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg, modeReception } = req.body;
+
+    if (!Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ error: 'Panier vide' });
+    }
 
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
@@ -26,18 +30,40 @@ module.exports = async function handler(req, res) {
         }
     });
 
+    // Total estimé (indicatif — le frère confirme le montant final par email)
+    let total = 0;
+    const itemsRowsHtml = items.map(item => {
+        const unitPrice = parseFloat(String(item.prixUnitaire).replace(',', '.').replace(/[^\d.]/g, '')) || 0;
+        total += unitPrice * (item.quantite || 1);
+        return `
+                <tr>
+                    <td style="padding:14px 20px;font-size:13px;border-bottom:1px solid #EDE8DF;">
+                        <strong>${item.nom}</strong><br>
+                        <span style="color:#8C887F;font-size:12px;">${item.couleur} · Taille ${item.taille}${item.ajustementSunnah ? ' · Ajustement Sunnah' : ''}</span>
+                    </td>
+                    <td style="padding:14px 20px;font-size:13px;border-bottom:1px solid #EDE8DF;text-align:center;">x${item.quantite}</td>
+                    <td style="padding:14px 20px;font-size:13px;border-bottom:1px solid #EDE8DF;text-align:right;">${item.prixUnitaire}</td>
+                </tr>`;
+    }).join('');
+
+    const itemsRowsPlain = items.map(item =>
+        `- ${item.nom} (${item.couleur}, taille ${item.taille}${item.ajustementSunnah ? ', Ajustement Sunnah' : ''}) x${item.quantite} — ${item.prixUnitaire}`
+    ).join('\n');
+
+    const totalStr = total.toFixed(2).replace('.', ',') + ' €';
+
     try {
         // Mail au frère
         await transporter.sendMail({
             from: '"WAQĀR" <waqar.1447h@gmail.com>',
             to: 'waqar.1447h@gmail.com',
-            subject: `[WAQĀR] Nouvelle précommande — ${nom}`,
+            subject: `[WAQĀR] Nouvelle commande — ${nom}`,
             html: `
         <div style="font-family:Georgia,serif;max-width:600px;margin:0 auto;padding:40px 20px;color:#1C1C1C;">
             <h1 style="font-size:28px;font-weight:300;letter-spacing:4px;margin-bottom:4px;">WAQĀR</h1>
-            <p style="color:#B8956A;font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:40px;">Nouvelle précommande</p>
-            
-            <table style="width:100%;border-collapse:collapse;margin-bottom:30px;">
+            <p style="color:#B8956A;font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:40px;">Nouvelle commande</p>
+
+            <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
                 <tr style="background:#F5F1EA;">
                     <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Client</td>
                     <td style="padding:16px 20px;font-size:14px;">${nom}</td>
@@ -50,28 +76,15 @@ module.exports = async function handler(req, res) {
                     <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Téléphone</td>
                     <td style="padding:16px 20px;font-size:14px;">${tel}</td>
                 </tr>
-                <tr>
-                    <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Modèle</td>
-                    <td style="padding:16px 20px;font-size:14px;font-weight:bold;">${modele}</td>
-                </tr>
-                ${(modeReception || prixFinal) ? `
+                ${modeReception ? `
                 <tr>
                     <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Réception</td>
-                    <td style="padding:16px 20px;font-size:14px;">${modeReception || '—'} ${prixFinal ? '· ' + prixFinal : ''}</td>
+                    <td style="padding:16px 20px;font-size:14px;">${modeReception}</td>
                 </tr>` : ''}
-                <tr style="background:#F5F1EA;">
-                    <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Taille</td>
-                    <td style="padding:16px 20px;font-size:14px;">${taille}</td>
-                </tr>
                 ${(tailleCm || poidsKg) ? `
-                <tr>
+                <tr style="background:#F5F1EA;">
                     <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Gabarit client</td>
                     <td style="padding:16px 20px;font-size:14px;">${tailleCm ? tailleCm + ' cm' : '—'} · ${poidsKg ? poidsKg + ' kg' : '—'}</td>
-                </tr>` : ''}
-                ${ajustementSunnah ? `
-                <tr style="background:#F5F1EA;">
-                    <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Ajustement Sunnah</td>
-                    <td style="padding:16px 20px;font-size:14px;font-weight:bold;color:#B8956A;">Demandé (longueur, gratuit)</td>
                 </tr>` : ''}
                 <tr>
                     <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Adresse</td>
@@ -79,28 +92,39 @@ module.exports = async function handler(req, res) {
                 </tr>
             </table>
 
-            <p style="font-size:11px;color:#8C887F;text-align:center;border-top:1px solid #EDE8DF;padding-top:20px;">WAQĀR · ١٤٤٧ · Porter la Sunnah avec dignité</p>
+            <p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;margin:30px 0 10px;">Articles commandés</p>
+            <table style="width:100%;border-collapse:collapse;margin-bottom:10px;">
+                ${itemsRowsHtml}
+                <tr>
+                    <td style="padding:14px 20px;font-size:13px;font-weight:bold;">Total estimé</td>
+                    <td></td>
+                    <td style="padding:14px 20px;font-size:14px;font-weight:bold;text-align:right;">${totalStr}</td>
+                </tr>
+            </table>
+            <p style="font-size:11px;color:#8C887F;">Montant indicatif — à confirmer avec le client (offres groupées, ajustements éventuels).</p>
+
+            <p style="font-size:11px;color:#8C887F;text-align:center;border-top:1px solid #EDE8DF;padding-top:20px;margin-top:30px;">WAQĀR · ١٤٤٧ · Porter la Sunnah avec dignité</p>
         </div>
     `
         });
 
-// Mail au client
+        // Mail au client
         await transporter.sendMail({
             from: '"WAQĀR" <waqar.1447h@gmail.com>',
             to: email,
-            subject: 'WAQĀR — Précommande confirmée',
+            subject: 'WAQĀR — Commande confirmée',
             html: `
         <div style="font-family:Georgia,serif;max-width:600px;margin:0 auto;padding:40px 20px;color:#1C1C1C;">
             <h1 style="font-size:28px;font-weight:300;letter-spacing:4px;margin-bottom:4px;">WAQĀR</h1>
-            <p style="color:#B8956A;font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:40px;">Précommande confirmée</p>
+            <p style="color:#B8956A;font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:40px;">Commande confirmée</p>
 
             <p style="font-size:16px;font-style:italic;margin-bottom:30px;">Barak Allahu fik ${nom},</p>
-            <p style="font-size:14px;line-height:1.8;color:#5A5651;margin-bottom:30px;">Votre précommande a bien été enregistrée. Nous vous contacterons prochainement pour le paiement et les détails d'expédition, incha'Allah.</p>
+            <p style="font-size:14px;line-height:1.8;color:#5A5651;margin-bottom:30px;">Votre commande a bien été enregistrée. Nous vous contacterons prochainement pour le paiement et les détails d'expédition, incha'Allah.</p>
 
             <div style="background:#F5F1EA;padding:24px;margin-bottom:30px;">
                 <p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;margin-bottom:16px;">Récapitulatif</p>
-                <p style="font-size:14px;margin-bottom:8px;"><strong>Modèle :</strong> ${modele}</p>
-                <p style="font-size:14px;margin-bottom:8px;"><strong>Taille :</strong> ${taille}</p>
+                <pre style="font-family:Georgia,serif;font-size:13px;white-space:pre-wrap;margin:0 0 12px;">${itemsRowsPlain}</pre>
+                <p style="font-size:14px;margin-bottom:8px;"><strong>Total estimé :</strong> ${totalStr}</p>
                 <p style="font-size:14px;"><strong>Adresse :</strong> ${adresse}, ${codepostal} ${ville}, ${pays}</p>
             </div>
 
