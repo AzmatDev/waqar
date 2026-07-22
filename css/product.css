@@ -92,16 +92,6 @@
     margin-bottom: 0.5rem;
 }
 
-/* Nom arabe du coloris choisi — affiché juste sous le titre, change avec la couleur
-   (ex: Sarouel Tawādu'). Masqué par défaut, n'apparaît que si le produit le fournit. */
-.product-title-arabe {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 1.2rem;
-    color: var(--gold);
-    margin-bottom: 1.2rem;
-}
-
 .product-matiere {
     font-size: 0.75rem;
     color: var(--warm-gray);
