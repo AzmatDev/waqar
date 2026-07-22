@@ -128,6 +128,51 @@ const productFamilies = [
         ]
     },
     {
+        id: 'sarouel-tawadu-adulte',
+        collection: 'istiqamah',
+        cat: 'adulte',
+        name: "Sarouel Tawādu'",
+        prix: '62,90 €',
+        matiere: 'Coton Stretch Premium',
+        desc: "Le vrai sarouel : 7 plis pour un volume authentique, taillé en Coton Stretch Premium. Fermeture éclair, bouton, passants, poche principale et poche ticket intégrée.",
+        tailles: ['S', 'M', 'L', 'XL'],
+        ajustementSunnah: 'optionnel',
+        ajustementSunnahTexte: "Nous retouchons à la main la longueur du sarouel, au-dessus de la cheville, conformément à la Sunnah.",
+        ajustementSunnahImage: 'images/collection-istiqama/mizan/guide-longueur-sarouel.png',
+        colors: [
+            {
+                id: 'marron-clair', label: 'Marron Clair', hex: '#9C7A54',
+                nomArabe: 'الوفي', nomTranslit: 'le fidèle',
+                texte: "Le marron clair ne cherche pas à en dire trop. Il est là, chaleureux, ancré, comme celui qui connaît ses racines et n'a jamais eu besoin de les justifier.",
+                images: ['images/collection-istiqama/tawadu/marron-1.jpeg', 'images/collection-istiqama/tawadu/marron-2.jpeg', 'images/collection-istiqama/tawadu/marron-3.jpeg', 'images/collection-istiqama/tawadu/marron-4.jpeg']
+            },
+            {
+                id: 'kaki', label: 'Kaki', hex: '#6B6E4E',
+                nomArabe: 'الثبات', nomTranslit: 'la constance',
+                texte: "Le kaki ne choisit pas entre la nature et l'authenticité. Il appartient aux deux — la couleur de celui qui s'adapte sans jamais se perdre. Discret en surface. Solide en profondeur.",
+                images: ['images/collection-istiqama/tawadu/kaki-1.jpeg', 'images/collection-istiqama/tawadu/kaki-2.jpeg', 'images/collection-istiqama/tawadu/kaki-3.jpeg', 'images/collection-istiqama/tawadu/kaki-4.jpeg']
+            },
+            {
+                id: 'noir-intense', label: 'Noir Intense', hex: '#1A1A1A',
+                nomArabe: 'الوقار', nomTranslit: 'la noblesse',
+                texte: "Le noir n'explique pas. Il n'a pas besoin. Absolu. Certain. Le volume du Tawādu' dans sa version la plus authentique — la couleur de celui qui est arrivé sans avoir eu besoin de le crier.",
+                images: ['images/collection-istiqama/tawadu/noir-1.jpeg', 'images/collection-istiqama/tawadu/noir-2.jpeg', 'images/collection-istiqama/tawadu/noir-3.jpeg', 'images/collection-istiqama/tawadu/noir-4.jpeg']
+            },
+            {
+                id: 'gris-clair', label: 'Gris Clair', hex: '#C8C3BA',
+                nomArabe: 'النور', nomTranslit: 'la lumière',
+                texte: "Le gris clair ne s'impose pas. Il s'installe. Doux en apparence. Profond en réalité — la couleur de celui qui n'a pas besoin de la force pour convaincre, sa présence suffit.",
+                images: ['images/collection-istiqama/tawadu/gris-1.jpeg', 'images/collection-istiqama/tawadu/gris-2.jpeg', 'images/collection-istiqama/tawadu/gris-3.jpeg', 'images/collection-istiqama/tawadu/gris-4.jpeg']
+            },
+            {
+                id: 'bleu-marine', label: 'Bleu Marine', hex: '#1B2A4A',
+                nomArabe: 'العمق', nomTranslit: 'la profondeur',
+                texte: "Le bleu marine ne crie pas. Il n'a jamais eu besoin. Comme l'océan — calme en surface, immense en profondeur. La couleur de celui qui avance avec certitude, les yeux baissés, le cœur élevé.",
+                images: ['images/collection-istiqama/tawadu/bleu-1.jpeg', 'images/collection-istiqama/tawadu/bleu-2.jpeg', 'images/collection-istiqama/tawadu/bleu-3.jpeg', 'images/collection-istiqama/tawadu/bleu-4.jpeg']
+            }
+        ]
+    },
+    {
         id: 'wiqaya',
         collection: 'accessoires',
         cat: 'adulte',
