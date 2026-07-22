@@ -134,6 +134,8 @@ const productFamilies = [
         name: 'La Wiqāya',
         prix: '14,90 €',
         matiere: 'Toile Coton · 1ère qualité',
+        // Pas un vêtement : le crop portrait (3/4) écrase la photo, on préfère du 4:3.
+        imageRatio: '4/3',
         desc: "La Wiqāya n'est pas une simple taqiyya. Conçue pour l'homme qui ne fait aucun compromis sur la qualité, même dans ce qui ne se voit pas au premier regard. Toile tissée de première qualité — respirante, légère et durable, confortable en toutes saisons : elle garde la tête au frais en été et protège des courants d'air en hiver.",
         // Tailles = tour de tête exact en cm, pas de taille unique qui se détend.
         tailles: ['54', '55', '56', '57', '58', '59', '60'],

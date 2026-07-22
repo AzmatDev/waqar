@@ -81,9 +81,10 @@ function renderProducts(cat) {
         cardColorState[family.id] = defaultColor.id;
         const hasImg = defaultColor.images && defaultColor.images[0];
 
+        const imgStyle = `${family.imageRatio ? `aspect-ratio:${family.imageRatio};` : ''}${hasImg ? '' : `background:${defaultColor.hex}`}`;
         return `
         <div class="product-card fade-in" data-family="${family.id}">
-            <div class="product-img" onclick="goToProduct('${family.id}')" style="${hasImg ? '' : `background:${defaultColor.hex}`}">
+            <div class="product-img" onclick="goToProduct('${family.id}')" style="${imgStyle}">
                 ${hasImg ? `<img id="card-img-${family.id}" src="${defaultColor.images[0]}" alt="${family.name}" loading="lazy" onerror="this.style.display='none'; this.parentElement.style.background='${defaultColor.hex}'">` : ''}
             </div>
             <p class="product-name">${family.name}</p>
