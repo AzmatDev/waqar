@@ -190,30 +190,6 @@
 .taille-btn:hover { border-color: var(--black); }
 .taille-btn.selected { background: var(--black); color: var(--white); border-color: var(--black); }
 
-/* Bloc poétique : change selon la couleur choisie (utilisé pour les produits qui le proposent,
-   ex: Sarouel Tawādu' — nom arabe + texte évocateur par coloris). */
-.product-poetic {
-    margin-bottom: 1.2rem;
-    padding: 1.2rem 1.5rem;
-    background: var(--cream-dark);
-    border-left: 2px solid var(--gold-light);
-}
-.product-poetic-arabe {
-    display: block;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.95rem;
-    letter-spacing: 0.05em;
-    color: var(--gold);
-    margin-bottom: 0.6rem;
-}
-.product-poetic-texte {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 1rem;
-    line-height: 1.85;
-    color: var(--black);
-}
-
 .product-sunnah {
     background: var(--cream-dark);
     padding: 1.2rem 1.5rem;

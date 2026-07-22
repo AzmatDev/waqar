@@ -98,27 +98,9 @@ function renderColorSwatches() {
             history.replaceState(null, '', `product.html?id=${family.id}&color=${c.id}`);
             renderColorSwatches();
             renderGallery();
-            updatePoeticBlock();
         });
         colorisDiv.appendChild(btn);
     });
-}
-
-// Bloc poétique par coloris (ex: Sarouel Tawādu') — masqué si le produit ne s'en sert pas.
-const poeticBlockEl = document.getElementById('product-poetic');
-const poeticArabeEl = document.getElementById('product-poetic-arabe');
-const poeticTexteEl = document.getElementById('product-poetic-texte');
-function updatePoeticBlock() {
-    if (!poeticBlockEl) return;
-    if (currentColor.texte) {
-        poeticBlockEl.style.display = '';
-        if (poeticArabeEl) poeticArabeEl.textContent = currentColor.nomArabe
-            ? `${currentColor.nomArabe}${currentColor.nomTranslit ? ' · ' + currentColor.nomTranslit : ''}`
-            : '';
-        if (poeticTexteEl) poeticTexteEl.textContent = currentColor.texte;
-    } else {
-        poeticBlockEl.style.display = 'none';
-    }
 }
 
 // Image principale + miniatures (carousel)
@@ -209,7 +191,6 @@ function goToImage(index) {
 
 renderColorSwatches();
 renderGallery();
-updatePoeticBlock();
 
 // Taille
 let tailleChoisie = '';
