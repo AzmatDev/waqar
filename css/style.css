@@ -115,6 +115,25 @@ nav ul a:hover { color: var(--gold); }
 .collection-card-link { display: block; text-align: center; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
 .collection-card-future .collection-card-link { color: var(--warm-gray); }
 
+/* ===================== ACCESSOIRES ===================== */
+#accessoires {
+    scroll-margin-top: 1.8rem;
+    padding: 2rem 3rem 6rem;
+}
+#accessoires .section-header { padding: 3rem 2rem 1.5rem; }
+#accessoires .section-title { font-size: clamp(1.4rem, 2.5vw, 2rem); }
+#accessoires .section-sub { font-size: 0.78rem; margin-top: 0.5rem; }
+
+.accessories-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 300px));
+    justify-content: center;
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 3rem;
+}
+
 .collection-empty {
     grid-column: 1 / -1;
     text-align: center;
@@ -235,6 +254,10 @@ footer .footer-devise { font-style: italic; color: var(--gold); margin-bottom: 1
     .collections-gallery { grid-template-columns: 1fr; padding: 0 1.5rem; gap: 1.5rem; }
     .products-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 220px)); justify-content: center; gap: 1rem; }
     .collection-tabs { margin: 0 auto 1.5rem; }
+
+    /* ACCESSOIRES */
+    #accessoires { padding: 0 1.5rem 3rem; scroll-margin-top: 60px; }
+    .accessories-gallery { grid-template-columns: 1fr; padding: 0 1.5rem; gap: 1.5rem; }
 
     /* CONTACT */
     #contact-section { padding: 3rem 1.5rem; }

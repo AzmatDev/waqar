@@ -24,6 +24,17 @@ const collections = [
         savezText2: "Chaque pièce de cette collection est pensée pour accompagner cette constance au quotidien — sobre, pudique, et conforme aux critères de la Sunnah.",
         savezQuote: '« Dis : "Je crois en Allah", puis sois droit (istaqim). » — hadith rapporté par Sufyân ibn ʿAbdillah (Sahîh Muslim).',
         emptyMessage: "De nouvelles pièces ISTIQĀMA arrivent bientôt, incha'Allah."
+    },
+    {
+        id: 'accessoires',
+        title: 'Accessoires WAQĀR',
+        sub: "Les détails qui accompagnent la Sunnah, jusque dans ce qui ne se voit pas.",
+        savezLabel: "L'esprit des Accessoires",
+        savezTitle: `La Wiqāya — <em>الوقاية, la protection</em>`,
+        savezText1: "Il y a des accessoires qu'on porte. Et des accessoires qui nous définissent.",
+        savezText2: "Chaque accessoire WAQĀR est choisi avec la même exigence que nos vêtements — y compris dans ce qui ne se voit pas au premier regard.",
+        savezQuote: '« Pas de taille unique qui se détend, pas de taqiyya qui glisse pendant la prière. »',
+        emptyMessage: "De nouveaux accessoires WAQĀR arrivent bientôt, incha'Allah."
     }
 ];
 
@@ -114,6 +125,25 @@ const productFamilies = [
             { id: 'vert-sauge', label: 'Vert Sauge', hex: '#9CAF88', images: ['images/sakina/kaki-1.jpeg', 'images/sakina/kaki-2.jpeg', 'images/sakina/kaki-3.jpeg'] },
             { id: 'marron', label: "Marron terre d'ombre", hex: '#6F4E37', images: ['images/sakina/marron-1.jpeg', 'images/sakina/marron-2.jpeg', 'images/sakina/marron-3.jpeg'] },
             { id: 'beige-lin', label: 'Beige lin naturel', hex: '#E8DCC8', images: ['images/sakina/beige-1.jpeg', 'images/sakina/beige-2.jpeg', 'images/sakina/beige-3.jpeg'] }
+        ]
+    },
+    {
+        id: 'wiqaya',
+        collection: 'accessoires',
+        cat: 'adulte',
+        name: 'La Wiqāya',
+        prix: '14,90 €',
+        matiere: 'Toile Coton · 1ère qualité',
+        desc: "La Wiqāya n'est pas une simple taqiyya. Conçue pour l'homme qui ne fait aucun compromis sur la qualité, même dans ce qui ne se voit pas au premier regard. Toile tissée de première qualité — respirante, légère et durable, confortable en toutes saisons : elle garde la tête au frais en été et protège des courants d'air en hiver.",
+        // Tailles = tour de tête exact en cm, pas de taille unique qui se détend.
+        tailles: ['54', '55', '56', '57', '58', '59', '60'],
+        colors: [
+            { id: 'noir', label: 'Noir', hex: '#1A1A1A', images: ['images/wiqaya/noir-1.jpeg'] },
+            { id: 'marron', label: 'Marron', hex: '#6F4E37', images: ['images/wiqaya/marron-1.jpeg'] },
+            { id: 'vert', label: 'Vert', hex: '#3F4A34', images: ['images/wiqaya/vert-1.jpeg'] },
+            { id: 'gris-anthracite', label: 'Gris Anthracite', hex: '#3A3A3A', images: ['images/wiqaya/gris-anthracite-1.jpeg'] },
+            { id: 'blanc', label: 'Blanc', hex: '#E8E6E1', images: ['images/wiqaya/blanc-1.jpeg'] },
+            { id: 'beige', label: 'Beige', hex: '#E4D9C4', images: ['images/wiqaya/beige-1.jpeg'] }
         ]
     }
 ];
