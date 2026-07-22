@@ -143,7 +143,8 @@ const productFamilies = [
             { id: 'vert', label: 'Vert', hex: '#3F4A34', images: ['images/wiqaya/vert-1.jpeg'] },
             { id: 'gris-anthracite', label: 'Gris Anthracite', hex: '#3A3A3A', images: ['images/wiqaya/gris-anthracite-1.jpeg'] },
             { id: 'blanc', label: 'Blanc', hex: '#E8E6E1', images: ['images/wiqaya/blanc-1.jpeg'] },
-            { id: 'beige', label: 'Beige', hex: '#E4D9C4', images: ['images/wiqaya/beige-1.jpeg'] }
+            { id: 'beige', label: 'Beige', hex: '#E4D9C4', images: ['images/wiqaya/beige-1.jpeg'] },
+            { id: 'bleu-marine', label: 'Bleu marine', hex: '#1B2A4A', images: ['images/wiqaya/bleu-marine-1.jpeg'] }
         ]
     }
 ];
