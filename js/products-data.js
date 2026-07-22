@@ -140,11 +140,11 @@ const productFamilies = [
         ajustementSunnahTexte: "Nous retouchons à la main la longueur du sarouel, au-dessus de la cheville, conformément à la Sunnah.",
         ajustementSunnahImage: 'images/collection-istiqama/mizan/guide-longueur-sarouel.png',
         colors: [
-            { id: 'marron-clair', label: 'الوفي · Marron Clair', hex: '#9C7A54', images: ['images/collection-istiqama/tawadu/marron-1.jpeg', 'images/collection-istiqama/tawadu/marron-2.jpeg', 'images/collection-istiqama/tawadu/marron-3.jpeg', 'images/collection-istiqama/tawadu/marron-4.jpeg'] },
-            { id: 'kaki', label: 'الثبات · Kaki', hex: '#6B6E4E', images: ['images/collection-istiqama/tawadu/kaki-1.jpeg', 'images/collection-istiqama/tawadu/kaki-2.jpeg', 'images/collection-istiqama/tawadu/kaki-3.jpeg', 'images/collection-istiqama/tawadu/kaki-4.jpeg'] },
-            { id: 'noir-intense', label: 'الوقار · Noir Intense', hex: '#1A1A1A', images: ['images/collection-istiqama/tawadu/noir-1.jpeg', 'images/collection-istiqama/tawadu/noir-2.jpeg', 'images/collection-istiqama/tawadu/noir-3.jpeg', 'images/collection-istiqama/tawadu/noir-4.jpeg'] },
-            { id: 'gris-clair', label: 'النور · Gris Clair', hex: '#C8C3BA', images: ['images/collection-istiqama/tawadu/gris-1.jpeg', 'images/collection-istiqama/tawadu/gris-2.jpeg', 'images/collection-istiqama/tawadu/gris-3.jpeg', 'images/collection-istiqama/tawadu/gris-4.jpeg'] },
-            { id: 'bleu-marine', label: 'العمق · Bleu Marine', hex: '#1B2A4A', images: ['images/collection-istiqama/tawadu/bleu-1.jpeg', 'images/collection-istiqama/tawadu/bleu-2.jpeg', 'images/collection-istiqama/tawadu/bleu-3.jpeg', 'images/collection-istiqama/tawadu/bleu-4.jpeg'] }
+            { id: 'marron-clair', label: 'الوفي · Marron Clair', nomArabe: 'الوفي', hex: '#9C7A54', images: ['images/collection-istiqama/tawadu/marron-1.jpeg', 'images/collection-istiqama/tawadu/marron-2.jpeg', 'images/collection-istiqama/tawadu/marron-3.jpeg', 'images/collection-istiqama/tawadu/marron-4.jpeg'] },
+            { id: 'kaki', label: 'الثبات · Kaki', nomArabe: 'الثبات', hex: '#6B6E4E', images: ['images/collection-istiqama/tawadu/kaki-1.jpeg', 'images/collection-istiqama/tawadu/kaki-2.jpeg', 'images/collection-istiqama/tawadu/kaki-3.jpeg', 'images/collection-istiqama/tawadu/kaki-4.jpeg'] },
+            { id: 'noir-intense', label: 'الوقار · Noir Intense', nomArabe: 'الوقار', hex: '#1A1A1A', images: ['images/collection-istiqama/tawadu/noir-1.jpeg', 'images/collection-istiqama/tawadu/noir-2.jpeg', 'images/collection-istiqama/tawadu/noir-3.jpeg', 'images/collection-istiqama/tawadu/noir-4.jpeg'] },
+            { id: 'gris-clair', label: 'النور · Gris Clair', nomArabe: 'النور', hex: '#C8C3BA', images: ['images/collection-istiqama/tawadu/gris-1.jpeg', 'images/collection-istiqama/tawadu/gris-2.jpeg', 'images/collection-istiqama/tawadu/gris-3.jpeg', 'images/collection-istiqama/tawadu/gris-4.jpeg'] },
+            { id: 'bleu-marine', label: 'العمق · Bleu Marine', nomArabe: 'العمق', hex: '#1B2A4A', images: ['images/collection-istiqama/tawadu/bleu-1.jpeg', 'images/collection-istiqama/tawadu/bleu-2.jpeg', 'images/collection-istiqama/tawadu/bleu-3.jpeg', 'images/collection-istiqama/tawadu/bleu-4.jpeg'] }
         ]
     },
     {

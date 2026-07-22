@@ -98,9 +98,23 @@ function renderColorSwatches() {
             history.replaceState(null, '', `product.html?id=${family.id}&color=${c.id}`);
             renderColorSwatches();
             renderGallery();
+            updateTitleArabe();
         });
         colorisDiv.appendChild(btn);
     });
+}
+
+// Nom arabe du coloris choisi, affiché sous le titre (ex: Sarouel Tawādu').
+// Masqué si le produit ne fournit pas de nomArabe sur ses couleurs.
+const titleArabeEl = document.getElementById('product-title-arabe');
+function updateTitleArabe() {
+    if (!titleArabeEl) return;
+    if (currentColor.nomArabe) {
+        titleArabeEl.style.display = '';
+        titleArabeEl.textContent = currentColor.nomArabe;
+    } else {
+        titleArabeEl.style.display = 'none';
+    }
 }
 
 // Image principale + miniatures (carousel)
@@ -191,6 +205,7 @@ function goToImage(index) {
 
 renderColorSwatches();
 renderGallery();
+updateTitleArabe();
 
 // Taille
 let tailleChoisie = '';
