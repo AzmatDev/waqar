@@ -47,7 +47,8 @@ const productFamilies = [
         cat: 'adulte',
         name: 'Jubba',
         prix: '69,90 €',
-        matiere: '50% Lycra · 50% Coton',
+        // Composition réelle confirmée : ~95% coton / 5% lycra (le "50/50" d'origine était une erreur de saisie).
+        matiere: 'Coton Stretch Premium',
         desc: "La Jubba adulte est taillée dans un tissu souple et léger, pensé pour être porté au quotidien comme pour la prière du vendredi. Sa coupe ample respecte scrupuleusement les critères de la Sunnah.",
         tailles: ['S', 'M', 'L', 'XL'],
         colors: [
@@ -61,7 +62,7 @@ const productFamilies = [
         cat: 'enfant',
         name: 'Jubba',
         prix: '44,90 €',
-        matiere: '50% Lycra · 50% Coton',
+        matiere: 'Coton Stretch Premium',
         desc: "La Jubba enfant permet au fils de grandir dans la Sunnah dès le plus jeune âge. Même rigueur, même qualité, adaptée aux plus petits.",
         tailles: ['0-2 ans', '2-4 ans', '4-6 ans', '6-8 ans'],
         colors: [
@@ -70,7 +71,6 @@ const productFamilies = [
         ]
     },
     {
-        // Prix et matière encore à préciser avec le frère.
         id: 'sarouel-adulte',
         collection: 'istiqamah',
         cat: 'adulte',
@@ -83,7 +83,7 @@ const productFamilies = [
             titre: 'Livraison offerte dès 2 sarouels',
             detail: 'Soit 119,80 € au lieu de 125,80 €'
         },
-        matiere: '',
+        matiere: 'Coton Stretch Premium',
         desc: "Le Sarouel Mizân, ample et confortable, conforme aux critères de pudeur de la Sunnah. Disponible en plusieurs coloris, avec possibilité d'Ajustement Sunnah — un ajustement gratuit de la longueur, sur simple demande.",
         tailles: ['S', 'M', 'L', 'XL'],
         // Valeurs à compléter dès que les mesures exactes sont disponibles ('—' = à venir)
@@ -153,7 +153,7 @@ const productFamilies = [
         cat: 'adulte',
         name: 'La Wiqāya',
         prix: '14,90 €',
-        matiere: 'Toile Coton · 1ère qualité',
+        matiere: 'Toile Coton',
         // Pas un vêtement : le crop portrait (3/4) écrase la photo, on préfère du 4:3.
         imageRatio: '4/3',
         desc: "La Wiqāya n'est pas une simple taqiyya. Conçue pour l'homme qui ne fait aucun compromis sur la qualité, même dans ce qui ne se voit pas au premier regard. Toile tissée de première qualité — respirante, légère et durable, confortable en toutes saisons : elle garde la tête au frais en été et protège des courants d'air en hiver.",
