@@ -21,6 +21,12 @@ taillesContainer.innerHTML = family.tailles.map(t => `
 // Infos générales
 document.getElementById('product-title').textContent = family.name;
 
+// Format d'image : par défaut portrait 3/4 (vêtements), certains produits (accessoires) préfèrent un crop plus large.
+if (family.imageRatio) {
+    const mainImgWrapEl = document.querySelector('.product-main-img');
+    if (mainImgWrapEl) mainImgWrapEl.style.aspectRatio = family.imageRatio;
+}
+
 // Prix : un seul prix affiché, la livraison est un MODE DE RÉCEPTION, pas un 2e produit
 const prixMainEl = document.getElementById('product-prix-main');
 const receptionChoice = document.getElementById('reception-choice');
@@ -155,7 +161,7 @@ function renderGallery() {
     if (images.length > 1) {
         thumbsContainer.style.display = 'flex';
         thumbsContainer.innerHTML = images.map((img, i) => `
-            <div class="product-thumb${i === 0 ? ' active' : ''}" data-index="${i}">
+            <div class="product-thumb${i === 0 ? ' active' : ''}" data-index="${i}"${family.imageRatio ? ` style="aspect-ratio:${family.imageRatio}"` : ''}>
                 <img src="${img}" alt="${family.name} miniature ${i + 1}">
             </div>
         `).join('');
@@ -324,9 +330,11 @@ function renderCrossSell() {
     grid.innerHTML = picked.map(({ family: f, color }) => {
         const hasImg = color.images && color.images[0];
         const label = needsCatLabel ? `${f.name} ${f.cat === 'adulte' ? 'Adulte' : 'Enfant'}` : f.name;
+        const imgStyle = `${f.imageRatio ? `aspect-ratio:${f.imageRatio};` : ''}${hasImg ? '' : `background:${color.hex}`}`;
         return `
         <a class="product-card fade-in" href="product.html?id=${f.id}&color=${color.id}">
-            <div class="product-img" style="${hasImg ? '' : `background:${color.hex}`}">
+            <div class="product-img" style="${imgStyle}">
+                ${f.nouveau ? '<span class="collection-card-badge">Nouveau</span>' : ''}
                 ${hasImg ? `<img src="${color.images[0]}" alt="${f.name}" loading="lazy">` : ''}
             </div>
             <p class="product-name">${label}</p>
