@@ -85,6 +85,7 @@ function renderProducts(cat) {
         return `
         <div class="product-card fade-in" data-family="${family.id}">
             <div class="product-img" onclick="goToProduct('${family.id}')" style="${imgStyle}">
+                ${family.nouveau ? '<span class="collection-card-badge">Nouveau</span>' : ''}
                 ${hasImg ? `<img id="card-img-${family.id}" src="${defaultColor.images[0]}" alt="${family.name}" loading="lazy" onerror="this.style.display='none'; this.parentElement.style.background='${defaultColor.hex}'">` : ''}
             </div>
             <p class="product-name">${family.name}</p>
