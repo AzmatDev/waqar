@@ -334,7 +334,7 @@ function renderCrossSell() {
         return `
         <a class="product-card fade-in" href="product.html?id=${f.id}&color=${color.id}">
             <div class="product-img" style="${imgStyle}">
-                ${f.nouveau ? '<span class="collection-card-badge">Nouveau</span>' : ''}
+                ${f.nouveau ? '<span class="collection-card-badge">✦ Nouveau</span>' : ''}
                 ${hasImg ? `<img src="${color.images[0]}" alt="${f.name}" loading="lazy">` : ''}
             </div>
             <p class="product-name">${label}</p>
