@@ -107,9 +107,10 @@ const productFamilies = [
         colors: [
             { id: 'beige', label: 'Beige', hex: '#D8C8AE', images: ['images/collection-istiqama/mizan/beige-1.png', 'images/collection-istiqama/mizan/beige-2.png', 'images/collection-istiqama/mizan/beige-3.png', 'images/collection-istiqama/mizan/beige-4.png'] },
             { id: 'kaki', label: 'Kaki', hex: '#6B6E4E', images: ['images/collection-istiqama/mizan/kaki-1.png', 'images/collection-istiqama/mizan/kaki-2.png', 'images/collection-istiqama/mizan/kaki-3.png', 'images/collection-istiqama/mizan/kaki-4.png'] },
-            { id: 'noir', label: 'Noir', hex: '#1A1A1A', images: ['images/collection-istiqama/mizan/noir-1.png', 'images/collection-istiqama/mizan/noir-2.png', 'images/collection-istiqama/mizan/noir-3.png'] },
+            { id: 'noir-intense', label: 'Noir Intense', hex: '#1A1A1A', images: ['images/collection-istiqama/mizan/noir-1.png', 'images/collection-istiqama/mizan/noir-2.png', 'images/collection-istiqama/mizan/noir-3.png'] },
             { id: 'gris-chine', label: 'Gris chiné', hex: '#8C8C8C', images: ['images/collection-istiqama/mizan/gris-chine-1.png', 'images/collection-istiqama/mizan/gris-chine-2.png', 'images/collection-istiqama/mizan/gris-chine-3.png', 'images/collection-istiqama/mizan/gris-chine-4.png'] },
-            { id: 'bleu-marine', label: 'Bleu marine', hex: '#1B2A4A', images: ['images/collection-istiqama/mizan/bleu-marine-1.png', 'images/collection-istiqama/mizan/bleu-marine-2.png', 'images/collection-istiqama/mizan/bleu-marine-3.png', 'images/collection-istiqama/mizan/Bleu-marine-4.png'] }
+            { id: 'bleu-marine', label: 'Bleu marine', hex: '#1B2A4A', images: ['images/collection-istiqama/mizan/bleu-marine-1.png', 'images/collection-istiqama/mizan/bleu-marine-2.png', 'images/collection-istiqama/mizan/bleu-marine-3.png', 'images/collection-istiqama/mizan/Bleu-marine-4.png'] },
+            { id: 'marron-cafe', label: 'Marron café', hex: '#3E2C20', images: ['images/collection-istiqama/mizan/marron-1.jpeg', 'images/collection-istiqama/mizan/marron-2.jpeg', 'images/collection-istiqama/mizan/marron-3.jpeg', 'images/collection-istiqama/mizan/marron-4.jpeg'] }
         ]
     },
     {
