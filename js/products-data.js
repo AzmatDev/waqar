@@ -47,6 +47,9 @@ const productFamilies = [
         cat: 'adulte',
         name: 'Jubba',
         prix: '69,90 €',
+        prixNote: 'Remise en main propre',
+        prixLivraison: '73,90 €',
+        prixLivraisonNote: 'Livraison incluse',
         // Composition réelle confirmée : ~95% coton / 5% lycra (le "50/50" d'origine était une erreur de saisie).
         matiere: 'Coton Stretch Premium',
         desc: "La Jubba adulte est taillée dans un tissu souple et léger, pensé pour être porté au quotidien comme pour la prière du vendredi. Sa coupe ample respecte scrupuleusement les critères de la Sunnah.",
@@ -81,7 +84,7 @@ const productFamilies = [
         prixLivraisonNote: 'Livraison incluse',
         offre: {
             titre: 'Livraison offerte dès 2 sarouels',
-            detail: 'Soit 119,80 € au lieu de 125,80 €'
+            detail: 'Soit 139,80 € au lieu de 147,80 €'
         },
         matiere: 'Coton Stretch Premium',
         desc: "Le Sarouel Mizân, ample et confortable, conforme aux critères de pudeur de la Sunnah. Disponible en plusieurs coloris, avec possibilité d'Ajustement Sunnah — un ajustement gratuit de la longueur, sur simple demande.",
@@ -115,6 +118,9 @@ const productFamilies = [
         cat: 'adulte',
         name: 'Chemise Sakīna',
         prix: '49,90 €',
+        prixNote: 'Remise en main propre',
+        prixLivraison: '52,90 €',
+        prixLivraisonNote: 'Livraison incluse',
         matiere: '100% Lin',
         desc: "La Chemise Sakīna, légère et respirante, taillée dans un lin 100% pour une allure pudique et confortable au quotidien. Col Hakim, coupe oversize, manches longues, sans poches.",
         tailles: ['S', 'M', 'L', 'XL'],
@@ -134,6 +140,9 @@ const productFamilies = [
         nouveau: true,
         name: "Sarouel Tawādu'",
         prix: '69,90 €',
+        prixNote: 'Remise en main propre',
+        prixLivraison: '73,90 €',
+        prixLivraisonNote: 'Livraison incluse',
         matiere: 'Coton Stretch Premium',
         desc: "Le vrai sarouel : 7 plis pour un volume authentique, taillé en Coton Stretch Premium. Fermeture éclair, bouton, passants, poche principale et poche ticket intégrée.",
         tailles: ['S', 'M', 'L', 'XL'],
