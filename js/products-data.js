@@ -182,3 +182,10 @@ const productFamilies = [
         ]
     }
 ];
+
+// Rend ce fichier utilisable côté serveur (Vercel / Node, via require()) sans rien
+// changer côté navigateur : `module` n'existe pas dans un <script> classique, donc
+// ce bloc est ignoré silencieusement sur le site.
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { collections, productFamilies };
+}

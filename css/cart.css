@@ -196,6 +196,21 @@
 .cart-drawer .form-control::placeholder { color: var(--warm-gray); opacity: 1; }
 .cart-drawer .reception-option { margin-top: 0.6rem; }
 
+.cart-drawer .checkout-mode-choice {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin: 1.4rem 0 1rem;
+    padding: 0.9rem 1rem;
+    background: var(--cream, #F5F1EA);
+    border: 0.5px solid var(--border);
+}
+.cart-drawer .checkout-mode-choice .reception-option { margin-top: 0; }
+
+#checkout-paypal-zone { margin-top: 0.6rem; }
+#paypal-button-container { min-height: 45px; }
+#paypal-status-note { text-align: center; margin-top: 0.6rem; }
+
 .cart-success { text-align: center; padding: 3rem 1rem; }
 .cart-success-title {
     color: var(--gold);

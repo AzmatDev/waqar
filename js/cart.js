@@ -264,12 +264,194 @@ function cartShowCheckout() {
                 <input type="text" class="form-control" id="c-pays" required placeholder="France">
             </div>
 
-            <button type="submit" class="btn-precommande" id="cart-submit-btn">Confirmer la commande →</button>
-            <p class="product-note">Vous recevrez un email de confirmation. Paiement après contact.</p>
+            <div class="checkout-mode-choice">
+                <label class="reception-option"><input type="radio" name="c-mode" value="precommande" checked><span>Précommande — paiement après contact</span></label>
+                <label class="reception-option"><input type="radio" name="c-mode" value="paypal"><span>Payer maintenant par PayPal</span></label>
+            </div>
+
+            <div id="checkout-precommande-zone">
+                <button type="submit" class="btn-precommande" id="cart-submit-btn">Confirmer la commande →</button>
+                <p class="product-note">Vous recevrez un email de confirmation. Paiement après contact.</p>
+            </div>
+
+            <div id="checkout-paypal-zone" style="display:none;">
+                <div id="paypal-button-container"></div>
+                <p class="product-note" id="paypal-status-note">Paiement sécurisé, traité directement par PayPal.</p>
+            </div>
         </form>
     `;
 
     document.getElementById('cartCheckoutForm').addEventListener('submit', cartSubmitOrder);
+
+    const precommandeZone = document.getElementById('checkout-precommande-zone');
+    const paypalZone = document.getElementById('checkout-paypal-zone');
+    let paypalRendered = false;
+
+    document.querySelectorAll('input[name="c-mode"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            if (radio.value === 'paypal' && radio.checked) {
+                precommandeZone.style.display = 'none';
+                paypalZone.style.display = '';
+                if (!paypalRendered) {
+                    paypalRendered = true;
+                    cartRenderPaypalButton();
+                }
+            } else if (radio.checked) {
+                precommandeZone.style.display = '';
+                paypalZone.style.display = 'none';
+            }
+        });
+    });
+}
+
+// ---------- Paiement immédiat par PayPal ----------
+let cartPaypalClientIdPromise = null;
+let cartPaypalSdkPromise = null;
+
+function cartGetPaypalClientId() {
+    if (!cartPaypalClientIdPromise) {
+        cartPaypalClientIdPromise = fetch('/api/paypal-config')
+            .then(r => r.json())
+            .then(d => {
+                if (!d.clientId) throw new Error(d.error || 'PayPal non configuré');
+                return d.clientId;
+            });
+    }
+    return cartPaypalClientIdPromise;
+}
+
+function cartLoadPaypalSdk() {
+    if (cartPaypalSdkPromise) return cartPaypalSdkPromise;
+    cartPaypalSdkPromise = cartGetPaypalClientId().then(clientId => new Promise((resolve, reject) => {
+        if (window.paypal) return resolve(window.paypal);
+        const script = document.createElement('script');
+        script.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(clientId)}&currency=EUR&intent=capture`;
+        script.onload = () => resolve(window.paypal);
+        script.onerror = () => reject(new Error('Impossible de charger PayPal'));
+        document.head.appendChild(script);
+    }));
+    return cartPaypalSdkPromise;
+}
+
+// Coordonnées + mode de réception communs aux 2 modes de paiement (précommande et PayPal).
+function cartCollectFormPayload() {
+    const form = document.getElementById('cartCheckoutForm');
+    const tailleCmEl = document.getElementById('c-taille-cm');
+    const poidsKgEl = document.getElementById('c-poids-kg');
+    const receptionRadio = document.querySelector('input[name="c-reception"]:checked');
+    const modeReception = receptionRadio ? (receptionRadio.value === 'livraison' ? 'Livraison' : 'Remise en main propre') : '';
+
+    return {
+        form,
+        modeReception,
+        nom: document.getElementById('c-nom').value,
+        email: document.getElementById('c-email').value,
+        tel: document.getElementById('c-tel').value,
+        adresse: document.getElementById('c-adresse').value,
+        codepostal: document.getElementById('c-codepostal').value,
+        ville: document.getElementById('c-ville').value,
+        pays: document.getElementById('c-pays').value,
+        tailleCm: tailleCmEl ? tailleCmEl.value : '',
+        poidsKg: poidsKgEl ? poidsKgEl.value : ''
+    };
+}
+
+// Panier au format brut (IDs seulement) — le serveur recalcule tout, on ne lui
+// envoie jamais de prix déjà calculé côté client.
+function cartRawItemsForServer() {
+    return cartGet().map(item => ({
+        familyId: item.familyId,
+        colorId: item.colorId,
+        taille: item.taille,
+        quantity: item.quantity,
+        ajustementSunnah: item.ajustementSunnah
+    }));
+}
+
+async function cartRenderPaypalButton() {
+    const container = document.getElementById('paypal-button-container');
+    const statusNote = document.getElementById('paypal-status-note');
+    if (!container) return;
+
+    try {
+        const paypal = await cartLoadPaypalSdk();
+
+        paypal.Buttons({
+            style: { color: 'black', shape: 'rect', label: 'pay' },
+
+            // Bloque le paiement tant que le formulaire (coordonnées) n'est pas valide.
+            onClick: (data, actions) => {
+                const { form } = cartCollectFormPayload();
+                if (form && !form.checkValidity()) {
+                    form.reportValidity();
+                    return actions.reject();
+                }
+                return actions.resolve();
+            },
+
+            createOrder: async () => {
+                const { modeReception } = cartCollectFormPayload();
+                const response = await fetch('/api/paypal-create-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ items: cartRawItemsForServer(), modeReception })
+                });
+                const data = await response.json();
+                if (!data.id) throw new Error(data.error || 'Erreur PayPal');
+                return data.id;
+            },
+
+            onApprove: async (data) => {
+                statusNote.textContent = 'Paiement en cours de confirmation...';
+                const payload = cartCollectFormPayload();
+                const response = await fetch('/api/paypal-capture-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        orderID: data.orderID,
+                        items: cartRawItemsForServer(),
+                        modeReception: payload.modeReception,
+                        nom: payload.nom,
+                        email: payload.email,
+                        tel: payload.tel,
+                        adresse: payload.adresse,
+                        codepostal: payload.codepostal,
+                        ville: payload.ville,
+                        pays: payload.pays,
+                        tailleCm: payload.tailleCm,
+                        poidsKg: payload.poidsKg
+                    })
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    localStorage.removeItem(CART_STORAGE_KEY);
+                    cartUpdateBadge();
+                    document.getElementById('cart-drawer-body').innerHTML = `
+                        <div class="cart-success">
+                            <p class="cart-success-title">Paiement confirmé ✦</p>
+                            <p class="cart-success-text">Merci ${payload.nom} ! Votre paiement de ${result.montant} a bien été reçu.<br>Un email de confirmation vous a été envoyé.</p>
+                        </div>
+                    `;
+                } else {
+                    statusNote.textContent = result.error || 'Une erreur est survenue, merci de réessayer.';
+                }
+            },
+
+            onCancel: () => {
+                statusNote.textContent = 'Paiement annulé.';
+            },
+
+            onError: (err) => {
+                console.error('Erreur PayPal:', err);
+                statusNote.textContent = 'Une erreur est survenue avec PayPal, merci de réessayer.';
+            }
+        }).render('#paypal-button-container');
+    } catch (err) {
+        container.innerHTML = '';
+        if (statusNote) statusNote.textContent = "Le paiement PayPal n'est pas disponible pour le moment.";
+        console.error(err);
+    }
 }
 
 // ---------- Envoi ----------
@@ -294,11 +476,20 @@ async function cartSubmitOrder(e) {
     const receptionRadio = document.querySelector('input[name="c-reception"]:checked');
     const modeReception = receptionRadio ? (receptionRadio.value === 'livraison' ? 'Livraison' : 'Remise en main propre') : '';
 
+    // Quantité totale d'articles éligibles à une offre du type "livraison offerte dès 2"
+    // (ex: Sarouel Mizân) — permet d'honorer réellement la promo dans le prix facturé,
+    // au lieu de se contenter de l'afficher dans le panier.
+    const offerQty = cartGet().reduce((sum, item) => {
+        const r = cartResolveItem(item);
+        return sum + ((r && r.family.offre) ? item.quantity : 0);
+    }, 0);
+
     const items = cartGet().map(item => {
         const resolved = cartResolveItem(item);
         if (!resolved) return null;
         const { family, color } = resolved;
-        const prix = (modeReception === 'Livraison' && family.prixLivraison) ? family.prixLivraison : family.prix;
+        const livraisonOfferte = family.offre && offerQty >= 2;
+        const prix = (modeReception === 'Livraison' && family.prixLivraison && !livraisonOfferte) ? family.prixLivraison : family.prix;
         return {
             nom: `${family.name}${family.cat === 'enfant' ? ' Enfant' : ''}`,
             couleur: color.label,
