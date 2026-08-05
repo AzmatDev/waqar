@@ -265,13 +265,13 @@ function cartShowCheckout() {
             </div>
 
             <div class="checkout-mode-choice">
-                <label class="reception-option"><input type="radio" name="c-mode" value="precommande" checked><span>Précommande — paiement après contact</span></label>
-                <label class="reception-option"><input type="radio" name="c-mode" value="paypal"><span>Payer maintenant par PayPal</span></label>
+                <label class="reception-option"><input type="radio" name="c-mode" value="precommande" checked><span>Être conseillé(e) avant de payer</span></label>
+                <label class="reception-option"><input type="radio" name="c-mode" value="paypal"><span>Je suis sûr(e) de ma taille — Payer maintenant</span></label>
             </div>
 
             <div id="checkout-precommande-zone">
                 <button type="submit" class="btn-precommande" id="cart-submit-btn">Confirmer la commande →</button>
-                <p class="product-note">Vous recevrez un email de confirmation. Paiement après contact.</p>
+                <p class="product-note">Vous recevrez un email de confirmation, puis nous vous contactons pour vous conseiller avant le paiement.</p>
             </div>
 
             <div id="checkout-paypal-zone" style="display:none;">
