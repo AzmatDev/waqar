@@ -37,6 +37,10 @@ function cartAddItem(familyId, colorId, taille, ajustementSunnah) {
     }
     cartSave(items);
 
+    if (typeof trackEvent === 'function') {
+        trackEvent('Ajout panier', { produit: familyId, couleur: colorId, taille });
+    }
+
     // Sur mobile, le panneau prend tout l'écran — on n'ouvre pas automatiquement
     // pour ne pas couper la navigation. On anime juste le badge, l'utilisateur
     // ouvre le panier quand il le souhaite. Sur desktop (simple panneau latéral,
@@ -119,6 +123,9 @@ function cartOpen() {
     document.getElementById('cart-drawer').classList.add('open');
     document.body.style.overflow = 'hidden';
     cartRenderBody();
+    if (typeof trackEvent === 'function') {
+        trackEvent('Panier ouvert', { articles: cartCount() });
+    }
 }
 
 function cartClose() {
@@ -283,6 +290,10 @@ function cartShowCheckout() {
 
     document.getElementById('cartCheckoutForm').addEventListener('submit', cartSubmitOrder);
 
+    if (typeof trackEvent === 'function') {
+        trackEvent('Étape coordonnées atteinte', { articles: cartCount() });
+    }
+
     const precommandeZone = document.getElementById('checkout-precommande-zone');
     const paypalZone = document.getElementById('checkout-paypal-zone');
     let paypalRendered = false;
@@ -292,6 +303,9 @@ function cartShowCheckout() {
             if (radio.value === 'paypal' && radio.checked) {
                 precommandeZone.style.display = 'none';
                 paypalZone.style.display = '';
+                if (typeof trackEvent === 'function') {
+                    trackEvent('Mode paiement choisi', { mode: 'paypal' });
+                }
                 if (!paypalRendered) {
                     paypalRendered = true;
                     cartRenderPaypalButton();
@@ -299,6 +313,9 @@ function cartShowCheckout() {
             } else if (radio.checked) {
                 precommandeZone.style.display = '';
                 paypalZone.style.display = 'none';
+                if (typeof trackEvent === 'function') {
+                    trackEvent('Mode paiement choisi', { mode: 'precommande' });
+                }
             }
         });
     });
@@ -425,6 +442,9 @@ async function cartRenderPaypalButton() {
                 const result = await response.json();
 
                 if (result.success) {
+                    if (typeof trackEvent === 'function') {
+                        trackEvent('Paiement PayPal réussi', { montant: result.montant });
+                    }
                     localStorage.removeItem(CART_STORAGE_KEY);
                     cartUpdateBadge();
                     document.getElementById('cart-drawer-body').innerHTML = `
@@ -440,6 +460,9 @@ async function cartRenderPaypalButton() {
 
             onCancel: () => {
                 statusNote.textContent = 'Paiement annulé.';
+                if (typeof trackEvent === 'function') {
+                    trackEvent('Paiement PayPal annulé');
+                }
             },
 
             onError: (err) => {
@@ -523,6 +546,9 @@ async function cartSubmitOrder(e) {
         const data = await response.json();
 
         if (data.success) {
+            if (typeof trackEvent === 'function') {
+                trackEvent('Précommande envoyée', { articles: items.length });
+            }
             localStorage.removeItem(CART_STORAGE_KEY);
             cartUpdateBadge();
 

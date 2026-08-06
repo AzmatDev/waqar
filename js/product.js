@@ -12,6 +12,10 @@ if (!colorId || !family.colors.find(c => c.id === colorId)) {
 }
 let currentColor = family.colors.find(c => c.id === colorId);
 
+if (typeof trackEvent === 'function') {
+    trackEvent('Vue produit', { produit: family.id, nom: family.name, couleur: currentColor.label });
+}
+
 // Tailles
 const taillesContainer = document.getElementById('tailles-container');
 taillesContainer.innerHTML = family.tailles.map(t => `
