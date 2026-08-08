@@ -47,7 +47,7 @@ module.exports = async function handler(req, res) {
         await buildAndSendOrderEmails({
             items: lignes,
             nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg, modeReception,
-            paiement: { reference, montant }
+            paiement: { status: 'confirmed', reference, montant }
         });
 
         res.status(200).json({ success: true, reference, montant });

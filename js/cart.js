@@ -282,8 +282,8 @@ function cartShowCheckout() {
             </div>
 
             <div id="checkout-paypal-zone" style="display:none;">
-                <div id="paypal-button-container"></div>
-                <p class="product-note" id="paypal-status-note">Paiement sécurisé, traité directement par PayPal.</p>
+                <button type="button" class="btn-precommande" id="paypalme-submit-btn" onclick="cartSubmitPaypalMe()" style="background:#0070BA;">Continuer vers PayPal →</button>
+                <p class="product-note" id="paypal-status-note">Vous serez redirigé vers PayPal pour régler le montant exact. Votre commande est enregistrée dès maintenant.</p>
             </div>
         </form>
     `;
@@ -296,7 +296,6 @@ function cartShowCheckout() {
 
     const precommandeZone = document.getElementById('checkout-precommande-zone');
     const paypalZone = document.getElementById('checkout-paypal-zone');
-    let paypalRendered = false;
 
     document.querySelectorAll('input[name="c-mode"]').forEach(radio => {
         radio.addEventListener('change', () => {
@@ -305,10 +304,6 @@ function cartShowCheckout() {
                 paypalZone.style.display = '';
                 if (typeof trackEvent === 'function') {
                     trackEvent('Mode paiement choisi', { mode: 'paypal' });
-                }
-                if (!paypalRendered) {
-                    paypalRendered = true;
-                    cartRenderPaypalButton();
                 }
             } else if (radio.checked) {
                 precommandeZone.style.display = '';
@@ -562,6 +557,114 @@ async function cartSubmitOrder(e) {
                     <p class="cart-success-text">Un email de confirmation vous a été envoyé.<br>Nous vous contacterons prochainement, incha'Allah.</p>
                     <a href="${waLink}" target="_blank" class="btn-whatsapp">Continuer sur WhatsApp →</a>
                     <p class="cart-total-note" style="margin-top:0.6rem;">Un message avec votre commande est déjà rédigé, il ne vous reste qu'à l'envoyer.</p>
+                </div>
+            `;
+        } else {
+            btn.textContent = 'Erreur — réessayez';
+            btn.disabled = false;
+        }
+    } catch (err) {
+        btn.textContent = 'Erreur — réessayez';
+        btn.disabled = false;
+    }
+}
+
+// ---------- Paiement immédiat via PayPal.Me ----------
+// Solution provisoire tant que le compte PayPal du frère n'est pas passé en
+// Professionnel avec accès API : pas de confirmation automatique possible,
+// le montant est juste pré-rempli dans le lien, à vérifier manuellement à
+// réception. Le lien pointe vers le "Profil de vendeur" (usage commercial).
+const PAYPAL_ME_USERNAME = 'Waqar1447';
+
+async function cartSubmitPaypalMe() {
+    const form = document.getElementById('cartCheckoutForm');
+    if (form && !form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    const tailleCmEl = document.getElementById('c-taille-cm');
+    const poidsKgEl = document.getElementById('c-poids-kg');
+    if (tailleCmEl && tailleCmEl.value && (tailleCmEl.value < 100 || tailleCmEl.value > 230)) {
+        alert('Merci de renseigner une taille réaliste, entre 100 et 230 cm.');
+        return;
+    }
+    if (poidsKgEl && poidsKgEl.value && (poidsKgEl.value < 20 || poidsKgEl.value > 250)) {
+        alert('Merci de renseigner un poids réaliste, entre 20 et 250 kg.');
+        return;
+    }
+
+    const btn = document.getElementById('paypalme-submit-btn');
+    btn.textContent = 'Envoi en cours...';
+    btn.disabled = true;
+
+    const receptionRadio = document.querySelector('input[name="c-reception"]:checked');
+    const modeReception = receptionRadio ? (receptionRadio.value === 'livraison' ? 'Livraison' : 'Remise en main propre') : '';
+
+    // Même logique que la précommande (offre "livraison offerte dès 2 sarouels" incluse).
+    const offerQty = cartGet().reduce((sum, item) => {
+        const r = cartResolveItem(item);
+        return sum + ((r && r.family.offre) ? item.quantity : 0);
+    }, 0);
+
+    let total = 0;
+    const items = cartGet().map(item => {
+        const resolved = cartResolveItem(item);
+        if (!resolved) return null;
+        const { family, color } = resolved;
+        const livraisonOfferte = family.offre && offerQty >= 2;
+        const prix = (modeReception === 'Livraison' && family.prixLivraison && !livraisonOfferte) ? family.prixLivraison : family.prix;
+        total += cartFormatPrice(prix) * item.quantity;
+        return {
+            nom: `${family.name}${family.cat === 'enfant' ? ' Enfant' : ''}`,
+            couleur: color.label,
+            taille: item.taille,
+            quantite: item.quantity,
+            ajustementSunnah: item.ajustementSunnah,
+            prixUnitaire: prix
+        };
+    }).filter(Boolean);
+
+    const montantStr = total.toFixed(2).replace('.', ',') + ' €';
+
+    const payload = {
+        items,
+        nom: document.getElementById('c-nom').value,
+        email: document.getElementById('c-email').value,
+        tel: document.getElementById('c-tel').value,
+        adresse: document.getElementById('c-adresse').value,
+        codepostal: document.getElementById('c-codepostal').value,
+        ville: document.getElementById('c-ville').value,
+        pays: document.getElementById('c-pays').value,
+        tailleCm: tailleCmEl ? tailleCmEl.value : '',
+        poidsKg: poidsKgEl ? poidsKgEl.value : '',
+        modeReception,
+        paiement: { status: 'pending', methode: 'PayPal.Me', montant: montantStr }
+    };
+
+    try {
+        const response = await fetch('/api/send-mail', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+
+        if (data.success) {
+            if (typeof trackEvent === 'function') {
+                trackEvent('Redirection PayPal.Me', { montant: montantStr });
+            }
+            localStorage.removeItem(CART_STORAGE_KEY);
+            cartUpdateBadge();
+
+            const paypalMeLink = `https://paypal.me/${PAYPAL_ME_USERNAME}/${total.toFixed(2)}EUR`;
+
+            document.getElementById('cart-drawer-body').innerHTML = `
+                <div class="cart-success">
+                    <p class="cart-success-title">Presque terminé ✦</p>
+                    <p class="cart-success-text">Votre commande est enregistrée. Finalisez votre paiement de <strong>${montantStr}</strong> sur PayPal, vous recevrez la confirmation d'expédition juste après, incha'Allah.</p>
+                    <a href="${paypalMeLink}" target="_blank" class="btn-whatsapp" style="background:#0070BA;">Payer ${montantStr} sur PayPal →</a>
+                    <p class="cart-total-note" style="margin-top:0.6rem;">Vérifiez que le montant affiché sur la page PayPal correspond bien à ${montantStr} avant de valider.</p>
                 </div>
             `;
         } else {
