@@ -215,31 +215,8 @@
     letter-spacing: 0.06em;
 }
 
-.btn-precommande {
-    display: block;
-    width: 100%;
-    padding: 1.1rem;
-    background: var(--black);
-    color: var(--white);
-    font-family: 'Jost', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 400;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    border: none;
-    cursor: pointer;
-    transition: background 0.25s;
-}
-
-.btn-precommande:hover { background: var(--gold); }
-
-.product-note {
-    font-size: 0.68rem;
-    color: var(--black);
-    text-align: center;
-    margin-top: 0.8rem;
-    line-height: 1.6;
-}
+/* .btn-precommande et .product-note ont déménagé dans css/cart.css (partagés avec
+   le panier, chargé sur toutes les pages) — voir commentaire là-bas. */
 
 @media (max-width: 900px) {
     .product-page {
@@ -340,19 +317,7 @@
 }
 
 .reception-choice { margin-bottom: 1.8rem; }
-.reception-option {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 0.85rem;
-    color: var(--black);
-    margin-top: 0.6rem;
-    cursor: pointer;
-}
-.reception-option input[type="radio"] {
-    width: auto;
-    accent-color: var(--gold);
-}
+/* .reception-option est maintenant dans css/cart.css (partagé avec le panier) */
 .reception-supplement {
     color: var(--warm-gray);
     font-size: 0.78rem;

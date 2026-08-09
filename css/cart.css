@@ -1,3 +1,48 @@
+/* ===================== BOUTONS/ÉLÉMENTS PARTAGÉS AVEC LE PANIER =====================
+   .btn-precommande, .product-note et .reception-option sont utilisés à la fois par
+   product.html (bouton "Ajouter au panier") ET par le panneau panier injecté par ce
+   fichier sur TOUTES les pages (cart.js) — ils doivent donc vivre ici (cart.css charge
+   partout), pas dans product.css (chargé seulement sur product.html), sinon le panier
+   perd tout son style sur index.html, collection.html et les pages légales. */
+.btn-precommande {
+    display: block;
+    width: 100%;
+    padding: 1.1rem;
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background 0.25s;
+}
+.btn-precommande:hover { background: var(--gold); }
+
+.product-note {
+    font-size: 0.68rem;
+    color: var(--black);
+    text-align: center;
+    margin-top: 0.8rem;
+    line-height: 1.6;
+}
+
+.reception-option {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--black);
+    margin-top: 0.6rem;
+    cursor: pointer;
+}
+.reception-option input[type="radio"] {
+    width: auto;
+    accent-color: var(--gold);
+}
+
 /* ===================== BOUTON PANIER (NAV) ===================== */
 .nav-cart-btn {
     background: none;
