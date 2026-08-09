@@ -571,10 +571,27 @@ async function cartSubmitOrder(e) {
 
 // ---------- Paiement immédiat via PayPal.Me ----------
 // Solution provisoire tant que le compte PayPal du frère n'est pas passé en
-// Professionnel avec accès API : pas de confirmation automatique possible,
-// le montant est juste pré-rempli dans le lien, à vérifier manuellement à
-// réception. Le lien pointe vers le "Profil de vendeur" (usage commercial).
+// Professionnel avec accès API : pas de confirmation automatique possible, et
+// PayPal ne pré-remplit plus fiablement le montant depuis l'URL (bug connu,
+// signalé par de nombreux utilisateurs) — on propose donc un bouton "Copier
+// le montant" en secours, et une vérification manuelle du frère à réception.
+// Le lien pointe vers le "Profil de vendeur" (usage commercial).
 const PAYPAL_ME_USERNAME = 'Waqar1447';
+
+function cartCopyMontant(value, btn) {
+    const restore = (label) => { setTimeout(() => { btn.textContent = label; }, 1500); };
+    const original = btn.textContent;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(value).then(() => {
+            btn.textContent = 'Copié ✓';
+            restore(original);
+        }).catch(() => {
+            alert(`Montant à copier : ${value}`);
+        });
+    } else {
+        alert(`Montant à copier : ${value}`);
+    }
+}
 
 async function cartSubmitPaypalMe() {
     const form = document.getElementById('cartCheckoutForm');
@@ -658,13 +675,18 @@ async function cartSubmitPaypalMe() {
             cartUpdateBadge();
 
             const paypalMeLink = `https://paypal.me/${PAYPAL_ME_USERNAME}/${total.toFixed(2)}EUR`;
+            const montantCopie = total.toFixed(2).replace('.', ',');
 
             document.getElementById('cart-drawer-body').innerHTML = `
                 <div class="cart-success">
                     <p class="cart-success-title">Presque terminé ✦</p>
                     <p class="cart-success-text">Votre commande est enregistrée. Finalisez votre paiement de <strong>${montantStr}</strong> sur PayPal, vous recevrez la confirmation d'expédition juste après, incha'Allah.</p>
-                    <a href="${paypalMeLink}" target="_blank" class="btn-whatsapp" style="background:#0070BA;">Payer ${montantStr} sur PayPal →</a>
-                    <p class="cart-total-note" style="margin-top:0.6rem;">Vérifiez que le montant affiché sur la page PayPal correspond bien à ${montantStr} avant de valider.</p>
+                    <div class="paypalme-copy-row">
+                        <span>Montant à saisir sur PayPal : <strong>${montantStr}</strong></span>
+                        <button type="button" class="btn-copy-montant" onclick="cartCopyMontant('${montantCopie}', this)">📋 Copier le montant</button>
+                    </div>
+                    <a href="${paypalMeLink}" target="_blank" class="btn-whatsapp" style="background:#0070BA;">Payer sur PayPal →</a>
+                    <p class="cart-total-note" style="margin-top:0.6rem;">La page PayPal ne pré-remplit pas toujours le montant : collez-le (Ctrl+V ou appui long) dans le champ prévu, puis vérifiez qu'il indique bien ${montantStr}.</p>
                 </div>
             `;
         } else {
