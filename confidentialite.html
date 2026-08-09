@@ -29,13 +29,18 @@
     <li><a href="/#accessoires">Accessoires</a></li>
     <li><a href="/#contact-section">Contact</a></li>
   </ul>
-    <button type="button" class="nav-cart-btn" onclick="cartOpen()" aria-label="Panier">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M6 7h12l-1 13a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1L6 7z"/>
-            <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
-        </svg>
-        <span class="cart-badge" id="cart-badge" style="display:none;">0</span>
-    </button>
+    <div class="nav-right">
+        <button type="button" class="nav-cart-btn" onclick="cartOpen()" aria-label="Panier">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M6 7h12l-1 13a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1L6 7z"/>
+                <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
+            </svg>
+            <span class="cart-badge" id="cart-badge" style="display:none;">0</span>
+        </button>
+        <button type="button" class="nav-hamburger" onclick="navToggleMobileMenu(this)" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
 </nav>
 
 <div class="container">

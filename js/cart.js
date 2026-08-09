@@ -699,6 +699,29 @@ async function cartSubmitPaypalMe() {
     }
 }
 
+// ---------- Menu mobile (hamburger) ----------
+// Nécessaire car en dessous de 900px, le menu nav ul est masqué par défaut
+// (css/style.css) — ce bouton bascule son affichage. Présent sur chaque page
+// via cart.js, qui est le seul script chargé partout (product.js/collection.js
+// ne le sont pas systématiquement).
+function navToggleMobileMenu(btn) {
+    const menu = document.querySelector('nav ul');
+    if (!menu) return;
+    const open = menu.classList.toggle('nav-open');
+    btn.classList.toggle('active', open);
+}
+
+// Ferme le menu mobile automatiquement après un clic sur un lien, ou en dehors du menu.
+document.addEventListener('click', (e) => {
+    const menu = document.querySelector('nav ul');
+    const hamburger = document.querySelector('.nav-hamburger');
+    if (!menu || !menu.classList.contains('nav-open')) return;
+    if (hamburger && hamburger.contains(e.target)) return; // déjà géré par son propre onclick
+    if (menu.contains(e.target) && e.target.tagName !== 'A') return; // clic dans le menu, pas sur un lien
+    menu.classList.remove('nav-open');
+    if (hamburger) hamburger.classList.remove('active');
+});
+
 // ---------- Initialisation (sur chaque page) ----------
 cartInjectPanel();
 cartUpdateBadge();

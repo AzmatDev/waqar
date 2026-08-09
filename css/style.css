@@ -26,6 +26,21 @@ nav ul { list-style: none; display: flex; gap: 2.5rem; }
 nav ul a { font-size: 0.72rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--charcoal); text-decoration: none; transition: color 0.2s; }
 nav ul a:hover { color: var(--gold); }
 
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+
+.nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 32px; height: 32px;
+    background: none; border: none; cursor: pointer; padding: 0;
+}
+.nav-hamburger span { width: 22px; height: 1.5px; background: var(--black); display: block; transition: transform 0.22s ease, opacity 0.22s ease; }
+.nav-hamburger.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-hamburger.active span:nth-child(2) { opacity: 0; }
+.nav-hamburger.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
 .nav-logo-img {
     height: 58px; width: auto; display: block;
     filter: brightness(0);
@@ -253,7 +268,24 @@ footer .footer-devise { font-style: italic; color: var(--gold); margin-bottom: 1
 @media (max-width: 900px) {
     /* NAV */
     nav { padding: 1.2rem 1.5rem; }
-    nav ul { display: none; }
+    nav ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        position: fixed;
+        top: 73px; left: 0; right: 0;
+        background: var(--cream);
+        border-bottom: 0.5px solid var(--border);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.25s ease, opacity 0.2s ease;
+    }
+    nav ul.nav-open { max-height: 320px; opacity: 1; }
+    nav ul li { width: 100%; }
+    nav ul a { display: block; padding: 1rem 1.5rem; font-size: 0.78rem; }
+    .nav-hamburger { display: flex; }
     .nav-logo-img { position: static; transform: none; height: 45px; }
 
     /* HERO */
