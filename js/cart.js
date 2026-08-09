@@ -192,7 +192,7 @@ function cartRenderBody() {
             <span>Total estimé</span>
             <strong>${total.toFixed(2).replace('.', ',')} €</strong>
         </div>
-        <p class="cart-total-note">${hasLivraisonOption ? "Le mode de réception (à l'étape suivante) peut ajuster ce montant. " : ''}Montant confirmé par email, aucun paiement immédiat.</p>
+        <p class="cart-total-note">${hasLivraisonOption ? "Le mode de réception (à l'étape suivante) peut ajuster ce montant. " : ''}Précommande ou paiement immédiat au choix, à l'étape suivante.</p>
         <button class="btn-precommande" onclick="cartShowCheckout()">Valider ma commande →</button>
     `;
 }
