@@ -171,6 +171,7 @@
 
 .product-tailles {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.8rem;
     margin-bottom: 2rem;
 }
@@ -255,6 +256,7 @@
 
 .product-coloris {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.8rem;
     margin-bottom: 2rem;
 }
