@@ -8,7 +8,7 @@
 // posthog.com (choisir la région EU pour l'hébergement des données).
 // ============================================================
 
-const POSTHOG_KEY = 'PASTE_TA_CLE_ICI'; // ex: 'phc_xxxxxxxxxxxxxxxxxxxxxxxx'
+const POSTHOG_KEY = 'phc_r2rdNskZocdZdJq6chFsTcQ6tzt6wmzwUFJTasU5w3Kd';
 const POSTHOG_HOST = 'https://eu.i.posthog.com'; // région EU (hébergement des données en Europe)
 
 const ANALYTICS_CONSENT_KEY = 'waqar_analytics_consent'; // 'accepted' | 'declined'
