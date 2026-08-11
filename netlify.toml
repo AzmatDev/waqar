@@ -1,0 +1,10 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Le frontend appelle toujours /api/... (js/cart.js) — cette redirection
+# route ces appels vers les fonctions Netlify sans rien changer côté client.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
