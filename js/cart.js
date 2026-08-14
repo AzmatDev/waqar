@@ -220,7 +220,7 @@ function cartShowCheckout() {
             <div class="order-modal-row">
                 <div class="form-group">
                     <label class="form-label">Prénom & Nom</label>
-                    <input type="text" class="form-control" id="c-nom" required placeholder="Ahmed Dupont">
+                    <input type="text" class="form-control" id="c-nom" required placeholder="Nom Prenom">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Email</label>
