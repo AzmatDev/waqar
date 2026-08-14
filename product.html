@@ -12,7 +12,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="WAQĀR — Nos pièces">
     <meta property="og:description" content="Jubbas et Sarouels conformes à la Sunnah, confectionnés avec soin en Turquie.">
-    <meta property="og:image" content="https://waqar-sigma.vercel.app/images/collection-waqar/jubba_blk.png">
+    <meta property="og:image" content="https://waqar1447.netlify.app/images/collection-waqar/jubba_blk.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
@@ -30,13 +30,18 @@
         <li><a href="/#accessoires">Accessoires</a></li>
         <li><a href="#contact-section">Contact</a></li>
     </ul>
-    <button type="button" class="nav-cart-btn" onclick="cartOpen()" aria-label="Panier">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M6 7h12l-1 13a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1L6 7z"/>
-            <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
-        </svg>
-        <span class="cart-badge" id="cart-badge" style="display:none;">0</span>
-    </button>
+    <div class="nav-right">
+        <button type="button" class="nav-cart-btn" onclick="cartOpen()" aria-label="Panier">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M6 7h12l-1 13a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1L6 7z"/>
+                <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
+            </svg>
+            <span class="cart-badge" id="cart-badge" style="display:none;">0</span>
+        </button>
+        <button type="button" class="nav-hamburger" onclick="navToggleMobileMenu(this)" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
 </nav>
 
 <div class="product-nav-cat" id="product-nav-cat-wrapper">
@@ -108,7 +113,7 @@
         <div class="product-sunnah">
             <p>✦ Longueur aux chevilles · Ample et couvrant · Sans logo ostentatoire · Conforme à la Sunnah du Prophète ﷺ</p>
         </div>
-        <p class="precommande-notice">⚡ Stock limité · Précommande · Aucun paiement immédiat</p>
+        <p class="precommande-notice">⚡ Stock limité · Précommande ou paiement immédiat par PayPal</p>
         <button class="btn-precommande" onclick="addCurrentToCart()">Ajouter au panier →</button>
         <p class="product-note">Retrouvez votre panier à tout moment via l'icône en haut à droite.</p>
     </div>
@@ -219,6 +224,7 @@
     </div>
 </footer>
 
+<script src="js/analytics.js"></script>
 <script src="js/products-data.js"></script>
 <script src="js/cart.js"></script>
 <script src="js/product.js"></script>

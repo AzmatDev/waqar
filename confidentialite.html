@@ -29,28 +29,33 @@
     <li><a href="/#accessoires">Accessoires</a></li>
     <li><a href="/#contact-section">Contact</a></li>
   </ul>
-    <button type="button" class="nav-cart-btn" onclick="cartOpen()" aria-label="Panier">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M6 7h12l-1 13a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1L6 7z"/>
-            <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
-        </svg>
-        <span class="cart-badge" id="cart-badge" style="display:none;">0</span>
-    </button>
+    <div class="nav-right">
+        <button type="button" class="nav-cart-btn" onclick="cartOpen()" aria-label="Panier">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M6 7h12l-1 13a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1L6 7z"/>
+                <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
+            </svg>
+            <span class="cart-badge" id="cart-badge" style="display:none;">0</span>
+        </button>
+        <button type="button" class="nav-hamburger" onclick="navToggleMobileMenu(this)" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
 </nav>
 
 <div class="container">
   <h1>Politique de confidentialité</h1>
 
   <h2>Données collectées</h2>
-  <p>Lors d'une précommande, nous collectons les informations suivantes : prénom et nom, adresse email, numéro de téléphone, adresse postale complète, pays de livraison et le modèle souhaité. Ces données sont strictement nécessaires au traitement de votre précommande.</p>
+  <p>Lors d'une commande (précommande ou paiement immédiat), nous collectons les informations suivantes : prénom et nom, adresse email, numéro de téléphone, adresse postale complète, pays de livraison et le modèle souhaité. Ces données sont strictement nécessaires au traitement de votre commande.</p>
   <p>Via le formulaire de contact, nous collectons uniquement votre nom, votre adresse email et le contenu de votre message.</p>
 
   <div class="divider"></div>
 
   <h2>Utilisation des données</h2>
   <p>Vos données personnelles sont utilisées uniquement pour :</p>
-  <p>— Traiter et confirmer votre précommande.</p>
-  <p>— Vous contacter par email ou téléphone pour la confirmation, le paiement et l'expédition de votre précommande.</p>
+  <p>— Traiter et confirmer votre commande.</p>
+  <p>— Vous contacter par email ou téléphone pour la confirmation, le paiement et l'expédition de votre commande.</p>
   <p>— Répondre à vos messages via le formulaire de contact.</p>
   <p>Vos données ne sont jamais vendues, cédées ou partagées avec des tiers à des fins commerciales.</p>
 
@@ -73,7 +78,13 @@
   <div class="divider"></div>
 
   <h2>Paiement</h2>
-  <p>WAQĀR ne collecte aucune donnée bancaire via ce site. Le paiement s'effectue directement entre le client et WAQĀR après confirmation de la précommande, selon les modalités convenues.</p>
+  <p>WAQĀR ne collecte ni ne stocke aucune donnée bancaire via ce site. Deux modes de commande sont proposés : la précommande, où le paiement s'effectue directement entre le client et WAQĀR après confirmation, selon les modalités convenues ; et le paiement immédiat par PayPal, où la transaction est traitée intégralement par PayPal (Europe) S.à r.l., qui applique sa propre politique de confidentialité, disponible sur paypal.com.</p>
+
+  <div class="divider"></div>
+
+  <h2>Cookies et mesure d'audience</h2>
+  <p>Avec votre consentement (bandeau affiché lors de votre première visite), nous utilisons PostHog, un outil de mesure d'audience, pour comprendre comment le site est utilisé et améliorer le parcours de commande (pages consultées, ajouts au panier, étapes du tunnel de commande). Les données sont hébergées en Europe.</p>
+  <p>Vous pouvez refuser ce suivi à tout moment via le bandeau de consentement ; aucune donnée n'est collectée en cas de refus, et rien n'est partagé avec des tiers publicitaires.</p>
 
   <div class="divider"></div>
 
@@ -177,6 +188,7 @@
     </div>
 </footer>
 
+<script src="js/analytics.js"></script>
 <script src="js/products-data.js"></script>
 <script src="js/cart.js"></script>
 <script src="js/script.js"></script>
