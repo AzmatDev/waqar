@@ -241,6 +241,73 @@
 .cart-drawer .form-control::placeholder { color: var(--warm-gray); opacity: 1; }
 .cart-drawer .reception-option { margin-top: 0.6rem; }
 
+/* ===================== ÉTAPE "LIVRAISON" (taille/poids, ajustement Sunnah, réception) ===================== */
+.reception-choice { margin-bottom: 1.8rem; }
+.reception-supplement {
+    color: var(--warm-gray);
+    font-size: 0.78rem;
+}
+
+.info-tooltip-btn {
+    background: transparent;
+    border: none;
+    color: var(--warm-gray);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+.info-tooltip-btn:hover { color: var(--gold); }
+
+.reception-info {
+    font-size: 0.76rem;
+    color: var(--black);
+    background: transparent;
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+    padding: 1.1rem 0;
+    margin: 0.5rem 0 1.2rem;
+    line-height: 1.7;
+}
+.reception-info--split {
+    display: flex;
+    align-items: center;
+    gap: 1.3rem;
+}
+.reception-info--split .ajustement-sunnah-img {
+    margin: 0;
+    flex-shrink: 0;
+    max-width: 85px;
+}
+
+@media (max-width: 380px) {
+    .reception-info--split .ajustement-sunnah-img { max-width: 64px; }
+    .reception-info--split { gap: 0.9rem; }
+}
+
+.ajustement-sunnah-block { margin-bottom: 1.6rem; }
+.ajustement-sunnah-block .reception-option { margin-top: 0; }
+.ajustement-sunnah-block input[type="checkbox"] { width: auto; accent-color: var(--gold); }
+.ajustement-sunnah-block input[type="checkbox"]:disabled { cursor: not-allowed; opacity: 0.85; }
+.ajustement-sunnah-free-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 0.5px solid var(--gold-light);
+    padding: 0.15rem 0.5rem;
+}
+.ajustement-sunnah-img {
+    display: block;
+    max-width: 72px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto 0.9rem;
+}
+
 .cart-drawer .checkout-mode-choice {
     display: flex;
     flex-direction: column;

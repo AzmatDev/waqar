@@ -31,44 +31,10 @@ if (family.imageRatio) {
     if (mainImgWrapEl) mainImgWrapEl.style.aspectRatio = family.imageRatio;
 }
 
-// Prix : un seul prix affiché, la livraison est un MODE DE RÉCEPTION, pas un 2e produit
+// Prix : le mode de réception (et son éventuel supplément de livraison) se
+// choisit maintenant à l'étape "Livraison" du panier, pas sur la fiche produit.
 const prixMainEl = document.getElementById('product-prix-main');
-const receptionChoice = document.getElementById('reception-choice');
-const receptionSupplement = document.getElementById('reception-supplement');
-let receptionMode = 'propre'; // valeur par défaut
-
-function updatePrixAffiche() {
-    if (!prixMainEl) return;
-    prixMainEl.textContent = receptionMode === 'livraison' ? family.prixLivraison : family.prix;
-}
-
-if (family.prixLivraison) {
-    if (receptionChoice) receptionChoice.style.display = '';
-    // Calcule le supplément affiché, ex: "(+3,00 €)"
-    const base = parseFloat(family.prix.replace(',', '.').replace(/[^\d.]/g, ''));
-    const avecLivraison = parseFloat(family.prixLivraison.replace(',', '.').replace(/[^\d.]/g, ''));
-    const supplement = (avecLivraison - base).toFixed(2).replace('.', ',');
-    if (receptionSupplement) receptionSupplement.textContent = `(+${supplement} €)`;
-
-    document.querySelectorAll('input[name="reception"]').forEach(radio => {
-        radio.addEventListener('change', () => {
-            receptionMode = radio.value;
-            updatePrixAffiche();
-        });
-    });
-}
-updatePrixAffiche();
-
-// Info-bulle "Remise en main propre" : clic pour afficher/masquer, sans cocher le radio
-const infoPropreBtn = document.getElementById('info-propre-btn');
-const infoPropreText = document.getElementById('info-propre-text');
-if (infoPropreBtn && infoPropreText) {
-    infoPropreBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        infoPropreText.style.display = infoPropreText.style.display === 'none' ? '' : 'none';
-    });
-}
+if (prixMainEl) prixMainEl.textContent = family.prix;
 
 // Offre groupée (ex: 2 sarouels = livraison offerte) — ligne compacte sous le prix
 const offerLineEl = document.getElementById('product-offer-line');
@@ -210,54 +176,13 @@ function addCurrentToCart() {
         alert('Veuillez choisir une taille.');
         return;
     }
-    const ajustementCheckbox = document.getElementById('ajustement-sunnah-checkbox');
-    const ajustementSunnah = ajustementCheckbox ? ajustementCheckbox.checked : false;
-    cartAddItem(family.id, currentColor.id, tailleChoisie, ajustementSunnah);
+    cartAddItem(family.id, currentColor.id, tailleChoisie);
 }
 
 // Guide des tailles — n'apparaît que si ce produit a un tailleGuide défini
 const sizeGuideLink = document.getElementById('size-guide-link');
 if (family.tailleGuide && sizeGuideLink) {
     sizeGuideLink.style.display = '';
-}
-
-// Champs Taille/Poids (modale) et Ajustement Sunnah (page produit) — uniquement sur les produits qui le proposent
-if (family.ajustementSunnah) {
-    const row = document.getElementById('m-taille-poids-row');
-    const note = document.getElementById('m-taille-poids-note');
-    const ajustementBlock = document.getElementById('ajustement-sunnah-block');
-    if (row) row.style.display = '';
-    if (note) note.style.display = '';
-    if (ajustementBlock) ajustementBlock.style.display = '';
-
-    const imgEl = document.getElementById('ajustement-sunnah-img');
-    const texteEl = document.getElementById('ajustement-sunnah-texte');
-    const tagEl = document.getElementById('ajustement-sunnah-tag');
-    const checkboxEl = document.getElementById('ajustement-sunnah-checkbox');
-
-    if (imgEl && family.ajustementSunnahImage) {
-        imgEl.style.display = ''; // retire le display:none laissé par l'erreur du src="" initial
-        imgEl.src = family.ajustementSunnahImage;
-    }
-    if (texteEl) texteEl.textContent = family.ajustementSunnahTexte || '';
-
-    const estObligatoire = family.ajustementSunnah === 'obligatoire';
-    if (tagEl) tagEl.textContent = estObligatoire ? 'Inclus' : 'Gratuit';
-    if (checkboxEl && estObligatoire) {
-        checkboxEl.checked = true;
-        checkboxEl.disabled = true; // impossible à décocher, c'est inclus d'office
-    }
-}
-
-// Info-bulle "Ajustement Sunnah" : clic pour afficher/masquer, sans cocher la case
-const infoAjustementBtn = document.getElementById('info-ajustement-btn');
-const infoAjustementText = document.getElementById('info-ajustement-text');
-if (infoAjustementBtn && infoAjustementText) {
-    infoAjustementBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        infoAjustementText.style.display = infoAjustementText.style.display === 'none' ? '' : 'none';
-    });
 }
 
 function openSizeGuide() {

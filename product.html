@@ -12,7 +12,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="WAQĀR — Nos pièces">
     <meta property="og:description" content="Jubbas et Sarouels conformes à la Sunnah, confectionnés avec soin en Turquie.">
-    <meta property="og:image" content="https://waqar1447.netlify.app/images/collection-waqar/jubba_blk.png">
+    <meta property="og:image" content="https://waqar1447.com/images/collection-waqar/jubba_blk.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
@@ -66,20 +66,6 @@
         <p class="product-prix-main" id="product-prix-main"></p>
         <p class="product-offer-line" id="product-offer-line" style="display:none;"></p>
 
-        <div class="reception-choice" id="reception-choice" style="display:none;">
-            <span class="product-taille-label">Mode de réception</span>
-            <label class="reception-option">
-                <input type="radio" name="reception" id="reception-propre" value="propre" checked>
-                <span>Remise en main propre</span>
-                <button type="button" class="info-tooltip-btn" id="info-propre-btn">ⓘ</button>
-            </label>
-            <p class="reception-info" id="info-propre-text" style="display:none;">Remise en main propre à un point de rendez-vous convenu avec nous au préalable. Zones desservies : Paris 19ᵉ, 20ᵉ, 93, 94, 95. Si votre zone n'est pas couverte, la livraison est préférable.</p>
-            <label class="reception-option">
-                <input type="radio" name="reception" id="reception-livraison" value="livraison">
-                <span>Livraison <span class="reception-supplement" id="reception-supplement"></span></span>
-            </label>
-        </div>
-
         <span class="product-coloris-label">Coloris</span>
         <div class="product-coloris" id="product-coloris"></div>
 
@@ -92,19 +78,6 @@
             <button class="taille-btn" onclick="selectTaille(this)">M</button>
             <button class="taille-btn" onclick="selectTaille(this)">L</button>
             <button class="taille-btn" onclick="selectTaille(this)">XL</button>
-        </div>
-
-        <div class="ajustement-sunnah-block" id="ajustement-sunnah-block" style="display:none;">
-            <label class="reception-option">
-                <input type="checkbox" id="ajustement-sunnah-checkbox">
-                <span>Ajustement Sunnah</span>
-                <span class="ajustement-sunnah-free-tag" id="ajustement-sunnah-tag">Gratuit</span>
-                <button type="button" class="info-tooltip-btn" id="info-ajustement-btn">ⓘ</button>
-            </label>
-            <div class="reception-info reception-info--split" id="info-ajustement-text" style="display:none;">
-                <img alt="Schéma de l'ajustement" class="ajustement-sunnah-img" id="ajustement-sunnah-img" onerror="this.style.display='none'">
-                <p id="ajustement-sunnah-texte"></p>
-            </div>
         </div>
 
         <div class="product-divider"></div>

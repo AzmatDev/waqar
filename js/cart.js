@@ -23,17 +23,20 @@ function cartSave(items) {
 }
 
 function cartLineKey(item) {
-    return [item.familyId, item.colorId, item.taille, item.ajustementSunnah ? '1' : '0'].join('|');
+    return [item.familyId, item.colorId, item.taille].join('|');
 }
 
-function cartAddItem(familyId, colorId, taille, ajustementSunnah) {
+// L'Ajustement Sunnah n'est plus choisi par article sur la fiche produit :
+// c'est une case globale à l'étape "Livraison" du panier (voir cartShowLivraison),
+// appliquée à tous les articles concernés au moment de la commande.
+function cartAddItem(familyId, colorId, taille) {
     const items = cartGet();
-    const key = cartLineKey({ familyId, colorId, taille, ajustementSunnah });
+    const key = cartLineKey({ familyId, colorId, taille });
     const existing = items.find(i => cartLineKey(i) === key);
     if (existing) {
         existing.quantity += 1;
     } else {
-        items.push({ familyId, colorId, taille, ajustementSunnah: !!ajustementSunnah, quantity: 1 });
+        items.push({ familyId, colorId, taille, quantity: 1 });
     }
     cartSave(items);
 
@@ -169,7 +172,7 @@ function cartRenderBody() {
             </div>
             <div class="cart-item-info">
                 <p class="cart-item-name">${family.name}${catLabel}</p>
-                <p class="cart-item-meta">${color.label} · Taille ${item.taille}${item.ajustementSunnah ? ' · Ajustement Sunnah' : ''}</p>
+                <p class="cart-item-meta">${color.label} · Taille ${item.taille}</p>
                 <p class="cart-item-price">${family.prix}</p>
                 <div class="cart-item-qty">
                     <button type="button" onclick="cartChangeQuantity(${index}, -1)" aria-label="Diminuer">−</button>
@@ -198,39 +201,133 @@ function cartRenderBody() {
 }
 
 // ---------- Étape 2 : coordonnées ----------
+// Persiste entre les étapes 2 et 3 (le innerHTML du panneau est remplacé à
+// chaque étape, donc les valeurs des champs de l'étape 2 seraient sinon perdues).
+let cartCheckoutInfo = null;
+
 function cartShowCheckout() {
     const body = document.getElementById('cart-drawer-body');
     if (!body) return;
     const items = cartGet();
     if (items.length === 0) return;
 
-    const needsAjustementInfo = items.some(item => {
-        const r = cartResolveItem(item);
-        return r && r.family.ajustementSunnah;
-    });
-    const needsReception = items.some(item => {
-        const r = cartResolveItem(item);
-        return r && r.family.prixLivraison;
-    });
+    const d = cartCheckoutInfo || {};
 
     body.innerHTML = `
         <button type="button" class="cart-back-btn" onclick="cartRenderBody()">← Retour au panier</button>
         <h3 class="cart-checkout-title">Vos coordonnées</h3>
-        <form id="cartCheckoutForm" class="order-modal-form">
+        <form id="cartCoordonneesForm" class="order-modal-form">
             <div class="order-modal-row">
                 <div class="form-group">
                     <label class="form-label">Prénom & Nom</label>
-                    <input type="text" class="form-control" id="c-nom" required placeholder="Nom Prenom">
+                    <input type="text" class="form-control" id="c-nom" required placeholder="Nom Prenom" value="${d.nom || ''}">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Email</label>
-                    <input type="email" class="form-control" id="c-email" required placeholder="vous@email.com">
+                    <input type="email" class="form-control" id="c-email" required placeholder="vous@email.com" value="${d.email || ''}">
                 </div>
             </div>
             <div class="form-group">
                 <label class="form-label">Téléphone</label>
-                <input type="tel" class="form-control" id="c-tel" required placeholder="+33 6 00 00 00 00">
+                <input type="tel" class="form-control" id="c-tel" required placeholder="+33 6 00 00 00 00" value="${d.tel || ''}">
             </div>
+            <div class="form-group">
+                <label class="form-label">Adresse</label>
+                <input type="text" class="form-control" id="c-adresse" required placeholder="12 rue des Lilas" value="${d.adresse || ''}">
+            </div>
+            <div class="order-modal-row">
+                <div class="form-group">
+                    <label class="form-label">Code postal</label>
+                    <input type="text" class="form-control" id="c-codepostal" required placeholder="75001" value="${d.codepostal || ''}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Ville</label>
+                    <input type="text" class="form-control" id="c-ville" required placeholder="Paris" value="${d.ville || ''}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Pays</label>
+                <input type="text" class="form-control" id="c-pays" required placeholder="France" value="${d.pays || 'France'}">
+            </div>
+
+            <button type="button" class="btn-precommande" onclick="cartGoToLivraison()">Continuer →</button>
+        </form>
+    `;
+
+    if (typeof trackEvent === 'function') {
+        trackEvent('Étape coordonnées atteinte', { articles: cartCount() });
+    }
+}
+
+function cartGoToLivraison() {
+    const form = document.getElementById('cartCoordonneesForm');
+    if (form && !form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+    cartCheckoutInfo = {
+        nom: document.getElementById('c-nom').value,
+        email: document.getElementById('c-email').value,
+        tel: document.getElementById('c-tel').value,
+        adresse: document.getElementById('c-adresse').value,
+        codepostal: document.getElementById('c-codepostal').value,
+        ville: document.getElementById('c-ville').value,
+        pays: document.getElementById('c-pays').value
+    };
+    cartShowLivraison();
+}
+
+// ---------- Étape 3 : livraison (taille/poids, Ajustement Sunnah, mode de réception, paiement) ----------
+function cartShowLivraison() {
+    const body = document.getElementById('cart-drawer-body');
+    if (!body) return;
+    const items = cartGet();
+    if (items.length === 0) return;
+
+    const families = items.map(cartResolveItem).filter(Boolean).map(r => r.family);
+
+    const needsAjustementInfo = families.some(f => f.ajustementSunnah);
+    const needsReception = families.some(f => f.prixLivraison);
+
+    // L'Ajustement Sunnah peut être inclus d'office par une famille ("obligatoire")
+    // ou proposé en option ("optionnel"). La case à cocher ne gouverne que les
+    // familles optionnelles ; les familles obligatoires l'incluent de toute façon.
+    const optionnelFamily = families.find(f => f.ajustementSunnah === 'optionnel');
+    const obligatoireFamilies = families.filter(f => f.ajustementSunnah === 'obligatoire');
+    const infoFamily = optionnelFamily || obligatoireFamilies[0];
+
+    const ajustementBlockHtml = optionnelFamily ? `
+            <div class="ajustement-sunnah-block" id="ajustement-sunnah-block">
+                <label class="reception-option">
+                    <input type="checkbox" id="c-ajustement-sunnah">
+                    <span>Ajustement Sunnah</span>
+                    <span class="ajustement-sunnah-free-tag">Gratuit</span>
+                    <button type="button" class="info-tooltip-btn" id="info-ajustement-btn">ⓘ</button>
+                </label>
+                <div class="reception-info reception-info--split" id="info-ajustement-text" style="display:none;">
+                    ${infoFamily.ajustementSunnahImage ? `<img alt="Schéma de l'ajustement" class="ajustement-sunnah-img" src="${infoFamily.ajustementSunnahImage}" onerror="this.style.display='none'">` : ''}
+                    <p>${infoFamily.ajustementSunnahTexte || ''}</p>
+                </div>
+            </div>
+            ${obligatoireFamilies.length ? `<p class="product-note" style="text-align:left;">Ajustement Sunnah inclus d'office pour : ${obligatoireFamilies.map(f => f.name).join(', ')}.</p>` : ''}`
+        : (obligatoireFamilies.length ? `
+            <div class="ajustement-sunnah-block" id="ajustement-sunnah-block">
+                <label class="reception-option">
+                    <input type="checkbox" checked disabled>
+                    <span>Ajustement Sunnah</span>
+                    <span class="ajustement-sunnah-free-tag">Inclus</span>
+                    <button type="button" class="info-tooltip-btn" id="info-ajustement-btn">ⓘ</button>
+                </label>
+                <div class="reception-info reception-info--split" id="info-ajustement-text" style="display:none;">
+                    ${infoFamily.ajustementSunnahImage ? `<img alt="Schéma de l'ajustement" class="ajustement-sunnah-img" src="${infoFamily.ajustementSunnahImage}" onerror="this.style.display='none'">` : ''}
+                    <p>${infoFamily.ajustementSunnahTexte || ''}</p>
+                </div>
+            </div>` : '');
+
+    body.innerHTML = `
+        <button type="button" class="cart-back-btn" onclick="cartShowCheckout()">← Retour aux coordonnées</button>
+        <h3 class="cart-checkout-title">Livraison</h3>
+        <form id="cartCheckoutForm" class="order-modal-form">
 
             ${needsAjustementInfo ? `
             <div class="order-modal-row">
@@ -245,31 +342,19 @@ function cartShowCheckout() {
             </div>
             <p class="product-note" style="text-align:left;margin-top:-0.5rem;">Pour mieux vous conseiller sur la taille à choisir.</p>` : ''}
 
+            ${ajustementBlockHtml}
+
             ${needsReception ? `
-            <div class="form-group">
+            <div class="form-group reception-choice">
                 <label class="form-label">Mode de réception</label>
-                <label class="reception-option"><input type="radio" name="c-reception" value="propre" checked><span>Remise en main propre</span></label>
+                <label class="reception-option">
+                    <input type="radio" name="c-reception" value="propre" checked>
+                    <span>Remise en main propre</span>
+                    <button type="button" class="info-tooltip-btn" id="info-propre-btn">ⓘ</button>
+                </label>
+                <p class="reception-info" id="info-propre-text" style="display:none;">Remise en main propre à un point de rendez-vous convenu avec nous au préalable. Zones desservies : Paris 19ᵉ, 20ᵉ, 93, 94, 95. Si votre zone n'est pas couverte, la livraison est préférable.</p>
                 <label class="reception-option"><input type="radio" name="c-reception" value="livraison"><span>Livraison</span></label>
             </div>` : ''}
-
-            <div class="form-group">
-                <label class="form-label">Adresse</label>
-                <input type="text" class="form-control" id="c-adresse" required placeholder="12 rue des Lilas">
-            </div>
-            <div class="order-modal-row">
-                <div class="form-group">
-                    <label class="form-label">Code postal</label>
-                    <input type="text" class="form-control" id="c-codepostal" required placeholder="75001">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Ville</label>
-                    <input type="text" class="form-control" id="c-ville" required placeholder="Paris">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Pays</label>
-                <input type="text" class="form-control" id="c-pays" required placeholder="France">
-            </div>
 
             <div class="checkout-mode-choice">
                 <label class="reception-option"><input type="radio" name="c-mode" value="precommande" checked><span>Être conseillé(e) avant de payer</span></label>
@@ -291,7 +376,27 @@ function cartShowCheckout() {
     document.getElementById('cartCheckoutForm').addEventListener('submit', cartSubmitOrder);
 
     if (typeof trackEvent === 'function') {
-        trackEvent('Étape coordonnées atteinte', { articles: cartCount() });
+        trackEvent('Étape livraison atteinte', { articles: cartCount() });
+    }
+
+    // Info-bulles "Remise en main propre" / "Ajustement Sunnah" : clic pour afficher/masquer.
+    const infoPropreBtn = document.getElementById('info-propre-btn');
+    const infoPropreText = document.getElementById('info-propre-text');
+    if (infoPropreBtn && infoPropreText) {
+        infoPropreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            infoPropreText.style.display = infoPropreText.style.display === 'none' ? '' : 'none';
+        });
+    }
+    const infoAjustementBtn = document.getElementById('info-ajustement-btn');
+    const infoAjustementText = document.getElementById('info-ajustement-text');
+    if (infoAjustementBtn && infoAjustementText) {
+        infoAjustementBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            infoAjustementText.style.display = infoAjustementText.style.display === 'none' ? '' : 'none';
+        });
     }
 
     const precommandeZone = document.getElementById('checkout-precommande-zone');
@@ -345,7 +450,8 @@ function cartLoadPaypalSdk() {
     return cartPaypalSdkPromise;
 }
 
-// Coordonnées + mode de réception communs aux 2 modes de paiement (précommande et PayPal).
+// Coordonnées (étape 2) + mode de réception/taille/poids (étape 3), communs aux
+// 2 modes de paiement (précommande et PayPal).
 function cartCollectFormPayload() {
     const form = document.getElementById('cartCheckoutForm');
     const tailleCmEl = document.getElementById('c-taille-cm');
@@ -356,28 +462,37 @@ function cartCollectFormPayload() {
     return {
         form,
         modeReception,
-        nom: document.getElementById('c-nom').value,
-        email: document.getElementById('c-email').value,
-        tel: document.getElementById('c-tel').value,
-        adresse: document.getElementById('c-adresse').value,
-        codepostal: document.getElementById('c-codepostal').value,
-        ville: document.getElementById('c-ville').value,
-        pays: document.getElementById('c-pays').value,
+        ...(cartCheckoutInfo || {}),
         tailleCm: tailleCmEl ? tailleCmEl.value : '',
         poidsKg: poidsKgEl ? poidsKgEl.value : ''
     };
 }
 
+// Détermine, pour un article donné, si l'Ajustement Sunnah s'applique : toujours
+// vrai pour une famille "obligatoire", sinon dépend de la case globale cochée
+// à l'étape Livraison (pertinent seulement pour les familles "optionnel").
+function cartAjustementSunnahPourFamille(family) {
+    if (family.ajustementSunnah === 'obligatoire') return true;
+    if (family.ajustementSunnah === 'optionnel') {
+        const checkbox = document.getElementById('c-ajustement-sunnah');
+        return checkbox ? checkbox.checked : false;
+    }
+    return false;
+}
+
 // Panier au format brut (IDs seulement) — le serveur recalcule tout, on ne lui
 // envoie jamais de prix déjà calculé côté client.
 function cartRawItemsForServer() {
-    return cartGet().map(item => ({
-        familyId: item.familyId,
-        colorId: item.colorId,
-        taille: item.taille,
-        quantity: item.quantity,
-        ajustementSunnah: item.ajustementSunnah
-    }));
+    return cartGet().map(item => {
+        const resolved = cartResolveItem(item);
+        return {
+            familyId: item.familyId,
+            colorId: item.colorId,
+            taille: item.taille,
+            quantity: item.quantity,
+            ajustementSunnah: resolved ? cartAjustementSunnahPourFamille(resolved.family) : false
+        };
+    });
 }
 
 async function cartRenderPaypalButton() {
@@ -513,20 +628,14 @@ async function cartSubmitOrder(e) {
             couleur: color.label,
             taille: item.taille,
             quantite: item.quantity,
-            ajustementSunnah: item.ajustementSunnah,
+            ajustementSunnah: cartAjustementSunnahPourFamille(family),
             prixUnitaire: prix
         };
     }).filter(Boolean);
 
     const payload = {
         items,
-        nom: document.getElementById('c-nom').value,
-        email: document.getElementById('c-email').value,
-        tel: document.getElementById('c-tel').value,
-        adresse: document.getElementById('c-adresse').value,
-        codepostal: document.getElementById('c-codepostal').value,
-        ville: document.getElementById('c-ville').value,
-        pays: document.getElementById('c-pays').value,
+        ...(cartCheckoutInfo || {}),
         tailleCm: tailleCmEl ? tailleCmEl.value : '',
         poidsKg: poidsKgEl ? poidsKgEl.value : '',
         modeReception
@@ -637,7 +746,7 @@ async function cartSubmitPaypalMe() {
             couleur: color.label,
             taille: item.taille,
             quantite: item.quantity,
-            ajustementSunnah: item.ajustementSunnah,
+            ajustementSunnah: cartAjustementSunnahPourFamille(family),
             prixUnitaire: prix
         };
     }).filter(Boolean);
@@ -646,13 +755,7 @@ async function cartSubmitPaypalMe() {
 
     const payload = {
         items,
-        nom: document.getElementById('c-nom').value,
-        email: document.getElementById('c-email').value,
-        tel: document.getElementById('c-tel').value,
-        adresse: document.getElementById('c-adresse').value,
-        codepostal: document.getElementById('c-codepostal').value,
-        ville: document.getElementById('c-ville').value,
-        pays: document.getElementById('c-pays').value,
+        ...(cartCheckoutInfo || {}),
         tailleCm: tailleCmEl ? tailleCmEl.value : '',
         poidsKg: poidsKgEl ? poidsKgEl.value : '',
         modeReception,
