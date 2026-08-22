@@ -59,7 +59,7 @@ async function buildAndSendOrderEmails({ items, nom, email, tel, adresse, codepo
     // Mail au frère
     await transporter.sendMail({
         from: '"WAQĀR" <waqar.1447h@gmail.com>',
-        to: 'azmodu93@gmail.com', // TEMPORAIRE — test remise sarouel, remettre waqar.1447h@gmail.com après validation
+        to: 'waqar.1447h@gmail.com',
         subject: `[WAQĀR] ${brotherSubjectTag} — ${nom}`,
         html: `
         <div style="font-family:Georgia,serif;max-width:600px;margin:0 auto;padding:40px 20px;color:#1C1C1C;">
