@@ -285,7 +285,7 @@ footer .footer-devise { font-style: italic; color: var(--gold); margin-bottom: 1
     nav ul.nav-open { max-height: 320px; opacity: 1; }
     nav ul li { width: 100%; }
     nav ul a { display: block; padding: 1rem 1.5rem; font-size: 0.78rem; }
-    .nav-hamburger { display: flex; position: absolute; left: 0; top: 50%; transform: translateY(-50%); }
+    .nav-hamburger { display: flex; position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); }
     .nav-logo { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
     .nav-logo-img { position: static; transform: none; height: 45px; }
     .nav-right { margin-left: auto; }
