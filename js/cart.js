@@ -7,6 +7,54 @@
 
 const CART_STORAGE_KEY = 'waqar_cart';
 
+// ---------- Codes promo ----------
+// Remise sur le PRIX DES ARTICLES uniquement — jamais sur le supplément de
+// livraison (prixLivraison), qui reste dû en entier même avec un code appliqué.
+const CART_PROMO_CODES = {
+    'AKHI10': { discount: 0.10, label: '-10% sur les articles (hors frais de livraison)' }
+};
+let cartAppliedPromo = null; // ex: 'AKHI10' — persiste tant que le panier n'est pas vidé
+
+function cartFormatEuro(n) {
+    return n.toFixed(2).replace('.', ',') + ' €';
+}
+
+// Prix unitaire final d'un article : base (remisée si code promo actif),
+// + supplément livraison plein tarif si mode Livraison choisi et promo "2+
+// sarouels" non honorée. C'est la seule fonction qui calcule un prix facturé,
+// utilisée par cartRenderBody (estimation) et les 2 flux de soumission.
+function cartCalcUnitPrice(family, modeReception, livraisonOfferte) {
+    const base = cartFormatPrice(family.prix);
+    const promoRate = (cartAppliedPromo && CART_PROMO_CODES[cartAppliedPromo]) ? CART_PROMO_CODES[cartAppliedPromo].discount : 0;
+    const baseApresPromo = base * (1 - promoRate);
+    if (modeReception === 'Livraison' && family.prixLivraison && !livraisonOfferte) {
+        const delta = cartFormatPrice(family.prixLivraison) - base;
+        return baseApresPromo + delta;
+    }
+    return baseApresPromo;
+}
+
+function cartApplyPromo() {
+    const input = document.getElementById('cart-promo-input');
+    const errorEl = document.getElementById('cart-promo-error');
+    if (!input) return;
+    const code = (input.value || '').trim().toUpperCase();
+    if (!code) return;
+    if (CART_PROMO_CODES[code]) {
+        cartAppliedPromo = code;
+        if (typeof trackEvent === 'function') trackEvent('Code promo appliqué', { code });
+        cartRenderBody();
+    } else if (errorEl) {
+        errorEl.textContent = 'Code invalide.';
+        errorEl.style.display = '';
+    }
+}
+
+function cartRemovePromo() {
+    cartAppliedPromo = null;
+    cartRenderBody();
+}
+
 // ---------- Stockage ----------
 function cartGet() {
     try {
@@ -158,7 +206,7 @@ function cartRenderBody() {
         const resolved = cartResolveItem(item);
         if (!resolved) return '';
         const { family, color } = resolved;
-        const unitPrice = cartFormatPrice(family.prix);
+        const unitPrice = cartCalcUnitPrice(family, '', false); // mode de réception pas encore choisi à cette étape
         total += unitPrice * item.quantity;
         if (family.prixLivraison) hasLivraisonOption = true;
         if (family.offre) sarouelCount += item.quantity;
@@ -173,7 +221,7 @@ function cartRenderBody() {
             <div class="cart-item-info">
                 <p class="cart-item-name">${family.name}${catLabel}</p>
                 <p class="cart-item-meta">${color.label} · Taille ${item.taille}</p>
-                <p class="cart-item-price">${family.prix}</p>
+                <p class="cart-item-price">${cartFormatEuro(unitPrice)}</p>
                 <div class="cart-item-qty">
                     <button type="button" onclick="cartChangeQuantity(${index}, -1)" aria-label="Diminuer">−</button>
                     <span>${item.quantity}</span>
@@ -188,12 +236,23 @@ function cartRenderBody() {
         ? `<p class="cart-offer-note">✦ Livraison offerte dès 2 sarouels — confirmé par email.</p>`
         : '';
 
+    const promoHtml = cartAppliedPromo && CART_PROMO_CODES[cartAppliedPromo] ? `
+        <p class="cart-promo-applied">✓ Code <strong>${cartAppliedPromo}</strong> appliqué — ${CART_PROMO_CODES[cartAppliedPromo].label} <button type="button" class="cart-promo-remove" onclick="cartRemovePromo()">Retirer</button></p>
+    ` : `
+        <div class="cart-promo-form">
+            <input type="text" id="cart-promo-input" class="form-control" placeholder="Code promo">
+            <button type="button" class="btn-copy-montant" onclick="cartApplyPromo()">Appliquer</button>
+        </div>
+        <p class="cart-promo-error" id="cart-promo-error" style="display:none;"></p>
+    `;
+
     body.innerHTML = `
         <div class="cart-items">${rows}</div>
         ${offerNote}
+        <div class="cart-promo">${promoHtml}</div>
         <div class="cart-total">
             <span>Total estimé</span>
-            <strong>${total.toFixed(2).replace('.', ',')} €</strong>
+            <strong>${cartFormatEuro(total)}</strong>
         </div>
         <p class="cart-total-note">${hasLivraisonOption ? "Le mode de réception (à l'étape suivante) peut ajuster ce montant. " : ''}Précommande ou paiement immédiat au choix, à l'étape suivante.</p>
         <button class="btn-precommande" onclick="cartShowCheckout()">Valider ma commande →</button>
@@ -556,6 +615,7 @@ async function cartRenderPaypalButton() {
                         trackEvent('Paiement PayPal réussi', { montant: result.montant });
                     }
                     localStorage.removeItem(CART_STORAGE_KEY);
+                    cartAppliedPromo = null;
                     cartUpdateBadge();
                     document.getElementById('cart-drawer-body').innerHTML = `
                         <div class="cart-success">
@@ -622,14 +682,14 @@ async function cartSubmitOrder(e) {
         if (!resolved) return null;
         const { family, color } = resolved;
         const livraisonOfferte = family.offre && offerQty >= 2;
-        const prix = (modeReception === 'Livraison' && family.prixLivraison && !livraisonOfferte) ? family.prixLivraison : family.prix;
+        const prix = cartCalcUnitPrice(family, modeReception, livraisonOfferte);
         return {
             nom: `${family.name}${family.cat === 'enfant' ? ' Enfant' : ''}`,
             couleur: color.label,
             taille: item.taille,
             quantite: item.quantity,
             ajustementSunnah: cartAjustementSunnahPourFamille(family),
-            prixUnitaire: prix
+            prixUnitaire: cartFormatEuro(prix)
         };
     }).filter(Boolean);
 
@@ -638,7 +698,8 @@ async function cartSubmitOrder(e) {
         ...(cartCheckoutInfo || {}),
         tailleCm: tailleCmEl ? tailleCmEl.value : '',
         poidsKg: poidsKgEl ? poidsKgEl.value : '',
-        modeReception
+        modeReception,
+        promoCode: cartAppliedPromo || ''
     };
 
     try {
@@ -654,6 +715,7 @@ async function cartSubmitOrder(e) {
                 trackEvent('Précommande envoyée', { articles: items.length });
             }
             localStorage.removeItem(CART_STORAGE_KEY);
+            cartAppliedPromo = null;
             cartUpdateBadge();
 
             const waLines = items.map(i => `- ${i.nom} (${i.couleur}, taille ${i.taille}) x${i.quantite} — ${i.prixUnitaire}`).join('\n');
@@ -739,19 +801,19 @@ async function cartSubmitPaypalMe() {
         if (!resolved) return null;
         const { family, color } = resolved;
         const livraisonOfferte = family.offre && offerQty >= 2;
-        const prix = (modeReception === 'Livraison' && family.prixLivraison && !livraisonOfferte) ? family.prixLivraison : family.prix;
-        total += cartFormatPrice(prix) * item.quantity;
+        const prix = cartCalcUnitPrice(family, modeReception, livraisonOfferte);
+        total += prix * item.quantity;
         return {
             nom: `${family.name}${family.cat === 'enfant' ? ' Enfant' : ''}`,
             couleur: color.label,
             taille: item.taille,
             quantite: item.quantity,
             ajustementSunnah: cartAjustementSunnahPourFamille(family),
-            prixUnitaire: prix
+            prixUnitaire: cartFormatEuro(prix)
         };
     }).filter(Boolean);
 
-    const montantStr = total.toFixed(2).replace('.', ',') + ' €';
+    const montantStr = cartFormatEuro(total);
 
     const payload = {
         items,
@@ -759,6 +821,7 @@ async function cartSubmitPaypalMe() {
         tailleCm: tailleCmEl ? tailleCmEl.value : '',
         poidsKg: poidsKgEl ? poidsKgEl.value : '',
         modeReception,
+        promoCode: cartAppliedPromo || '',
         paiement: { status: 'pending', methode: 'PayPal.Me', montant: montantStr }
     };
 
@@ -775,6 +838,7 @@ async function cartSubmitPaypalMe() {
                 trackEvent('Redirection PayPal.Me', { montant: montantStr });
             }
             localStorage.removeItem(CART_STORAGE_KEY);
+            cartAppliedPromo = null;
             cartUpdateBadge();
 
             const paypalMeLink = `https://paypal.me/${PAYPAL_ME_USERNAME}/${total.toFixed(2)}EUR`;

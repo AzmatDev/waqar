@@ -198,6 +198,50 @@
     color: var(--gold);
     margin-top: 1rem;
 }
+.cart-promo { margin-top: 1.2rem; }
+.cart-promo-form {
+    display: flex;
+    gap: 0.5rem;
+}
+.cart-promo-form .form-control {
+    flex: 1;
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    color: var(--black);
+    padding: 0.6rem 0.8rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem;
+}
+.cart-promo-form .form-control::placeholder { color: var(--warm-gray); }
+.cart-promo-error {
+    font-size: 0.72rem;
+    color: #B3261E;
+    margin-top: 0.5rem;
+}
+.cart-promo-applied {
+    font-size: 0.78rem;
+    color: var(--gold);
+    background: var(--cream, #F5F1EA);
+    border: 0.5px solid var(--border-gold);
+    padding: 0.7rem 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+.cart-promo-remove {
+    background: none;
+    border: none;
+    color: var(--warm-gray);
+    font-size: 0.7rem;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    white-space: nowrap;
+}
+.cart-promo-remove:hover { color: var(--black); }
+
 .cart-total {
     display: flex;
     justify-content: space-between;
