@@ -399,7 +399,7 @@ function cartShowLivraison() {
                     <input type="number" class="form-control" id="c-poids-kg" min="20" max="250" placeholder="70">
                 </div>
             </div>
-            <p class="product-note" style="text-align:left;margin-top:-0.5rem;">Pour mieux vous conseiller sur la taille à choisir.</p>` : ''}
+            <p class="product-note" style="text-align:left;margin-top:-0.5rem;margin-bottom:1.2rem;">Pour mieux vous conseiller sur la taille à choisir.</p>` : ''}
 
             ${ajustementBlockHtml}
 
