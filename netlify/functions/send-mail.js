@@ -27,7 +27,7 @@ function getTransporter() {
 //   - { status: 'pending', montant } → client redirigé vers PayPal.Me, montant
 //     attendu mais PAS vérifié automatiquement (pas d'API/webhook côté PayPal.Me) —
 //     à confirmer manuellement par le frère à réception.
-async function buildAndSendOrderEmails({ items, nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg, modeReception, paiement }) {
+async function buildAndSendOrderEmails({ items, nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg, modeReception, paiement, promoCode }) {
     const transporter = getTransporter();
     const isConfirmedPaid = !!paiement && paiement.status === 'confirmed';
     const isPendingPaid = !!paiement && paiement.status === 'pending';
@@ -83,6 +83,11 @@ async function buildAndSendOrderEmails({ items, nom, email, tel, adresse, codepo
                 <tr>
                     <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Réception</td>
                     <td style="padding:16px 20px;font-size:14px;">${modeReception}</td>
+                </tr>` : ''}
+                ${promoCode ? `
+                <tr style="background:#F5F1EA;">
+                    <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Code promo</td>
+                    <td style="padding:16px 20px;font-size:14px;">${promoCode} (déjà déduit du total ci-dessous)</td>
                 </tr>` : ''}
                 ${(tailleCm || poidsKg) ? `
                 <tr style="background:#F5F1EA;">
@@ -146,6 +151,7 @@ async function buildAndSendOrderEmails({ items, nom, email, tel, adresse, codepo
                 <p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;margin-bottom:16px;">Récapitulatif</p>
                 <pre style="font-family:Georgia,serif;font-size:13px;white-space:pre-wrap;margin:0 0 12px;">${itemsRowsPlain}</pre>
                 <p style="font-size:14px;margin-bottom:8px;"><strong>${isConfirmedPaid ? 'Total payé' : (isPendingPaid ? 'Montant à régler' : 'Total estimé')} :</strong> ${totalStr}</p>
+                ${promoCode ? `<p style="font-size:14px;margin-bottom:8px;"><strong>Code promo :</strong> ${promoCode} ✓</p>` : ''}
                 <p style="font-size:14px;"><strong>Adresse :</strong> ${adresse}, ${codepostal} ${ville}, ${pays}</p>
             </div>
 
@@ -173,14 +179,14 @@ exports.handler = async (event) => {
         return { statusCode: 400, headers: CORS_HEADERS, body: JSON.stringify({ error: 'JSON invalide' }) };
     }
 
-    const { items, nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg, modeReception } = payload;
+    const { items, nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg, modeReception, promoCode, paiement } = payload;
 
     if (!Array.isArray(items) || items.length === 0) {
         return { statusCode: 400, headers: CORS_HEADERS, body: JSON.stringify({ error: 'Panier vide' }) };
     }
 
     try {
-        await buildAndSendOrderEmails({ items, nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg, modeReception, paiement: null });
+        await buildAndSendOrderEmails({ items, nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg, modeReception, promoCode, paiement: paiement || null });
         return { statusCode: 200, headers: CORS_HEADERS, body: JSON.stringify({ success: true }) };
     } catch (err) {
         console.error('ERREUR MAIL:', err.message, err.stack);
