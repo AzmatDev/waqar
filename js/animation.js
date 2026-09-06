@@ -1,10 +1,11 @@
 // ============================================================
 // Animations GSAP — test sur la page d'accueil
 // Nécessite gsap.min.js + ScrollTrigger.min.js chargés avant ce fichier
+// Ce script est chargé en bas du <body> : le DOM est déjà prêt,
+// pas besoin d'attendre DOMContentLoaded (l'événement serait déjà passé).
 // ============================================================
 
-document.addEventListener('DOMContentLoaded', () => {
-    if (typeof gsap === 'undefined') return;
+if (typeof gsap !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 
     // --- Hero : apparition en cascade au chargement ---
@@ -44,4 +45,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-});
+}
