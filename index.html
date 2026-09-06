@@ -18,6 +18,7 @@
     <meta property="og:url" content="https://waqar1447.com/">
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <script>document.documentElement.classList.add('gsap');</script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/cart.css">
 </head>
@@ -47,7 +48,7 @@
 </nav>
 
 <section class="hero">
-    <div class="hero-text fade-in">
+    <div class="hero-text gsap-hidden">
         <span class="bismillah">بسم الله الرحمن الرحيم</span>
         <span class="hero-tag">Confection artisanale — Turquie · 1447</span>
         <h1 class="hero-title">Porter la<br><em>Sunnah</em><br>avec dignité</h1>
@@ -59,13 +60,13 @@
 </section>
 
 <section id="collection">
-    <div class="section-header fade-in">
+    <div class="section-header gsap-hidden">
         <h2 class="section-title">Nos collections</h2>
         <p class="section-sub">Chaque collection, son univers.</p>
     </div>
 
-    <div class="collections-gallery">
-        <a href="product.html?id=jubba-adulte&color=noire" class="collection-card fade-in">
+    <div class="collections-gallery gsap-hidden">
+        <a href="product.html?id=jubba-adulte&color=noire" class="collection-card">
             <div class="collection-card-img">
                 <img src="images/collection-waqar/jubba_blk.png" alt="Collection WAQĀR 1447">
             </div>
@@ -73,7 +74,7 @@
             <span class="collection-card-link">Découvrir →</span>
         </a>
 
-        <a href="collection.html?c=istiqamah" class="collection-card fade-in">
+        <a href="collection.html?c=istiqamah" class="collection-card">
             <div class="collection-card-img">
                 <img src="images/collection-istiqama/mizan/noir-1.png" alt="Collection ISTIQĀMA 1448">
             </div>
@@ -81,7 +82,7 @@
             <span class="collection-card-link">Découvrir →</span>
         </a>
 
-        <div class="collection-card collection-card-future fade-in">
+        <div class="collection-card collection-card-future">
             <div class="collection-card-img collection-card-img-future"></div>
             <h3 class="collection-card-title">Prochainement</h3>
             <span class="collection-card-link">À venir</span>
@@ -90,13 +91,13 @@
 </section>
 
 <section id="accessoires">
-    <div class="section-header fade-in">
+    <div class="section-header gsap-hidden">
         <h2 class="section-title">Accessoires</h2>
         <p class="section-sub">Il y a des accessoires qu'on porte. Et des accessoires qui nous définissent.</p>
     </div>
 
-    <div class="accessories-gallery">
-        <a href="product.html?id=wiqaya&color=noir" class="collection-card fade-in">
+    <div class="accessories-gallery gsap-hidden">
+        <a href="product.html?id=wiqaya&color=noir" class="collection-card">
             <div class="collection-card-img" style="aspect-ratio:4/3;">
                 <img src="images/wiqaya/noir-1.jpeg" alt="La Wiqāya">
             </div>
@@ -107,10 +108,10 @@
 </section>
 
 <section id="contact-section">
-    <div class="contact-grid">
+    <div class="contact-grid gsap-hidden">
 
         <!-- COLONNE 1 : Infos pratiques -->
-        <div class="contact-col fade-in">
+        <div class="contact-col">
             <span class="contact-col-tag">Informations</span>
             <h3 class="contact-col-title">Comment ça marche</h3>
             <div class="order-detail">
@@ -132,7 +133,7 @@
         </div>
 
         <!-- COLONNE 2 : Réseaux -->
-        <div class="contact-col fade-in">
+        <div class="contact-col">
             <span class="contact-col-tag">Nous suivre</span>
             <h3 class="contact-col-title">Sur les réseaux</h3>
             <a href="https://instagram.com/waqar_1447" target="_blank" class="instagram-link">
@@ -160,7 +161,7 @@
         </div>
 
         <!-- COLONNE 3 : Contact -->
-        <div class="contact-col fade-in">
+        <div class="contact-col">
             <span class="contact-col-tag">Contact</span>
             <h3 class="contact-col-title">Nous écrire</h3>
             <form id="contactForm" class="contact-form">
@@ -205,5 +206,9 @@
 <script src="js/products-data.js"></script>
 <script src="js/cart.js"></script>
 <script src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+<script src="js/animation.js"></script>
 </body>
 </html>

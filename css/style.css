@@ -354,3 +354,11 @@ footer .footer-devise { font-style: italic; color: var(--gold); margin-bottom: 1
     .cookie-banner-actions { justify-content: stretch; }
     .cookie-banner-actions button { flex: 1; }
 }
+/* ===================== GSAP ===================== */
+/* Masque les blocs animes avant que GSAP prenne la main (evite le flash au chargement).
+   La classe html.gsap est posee par un script inline dans <head> ; animations.js la retire
+   si GSAP n a pas pu charger, pour que le contenu reste visible dans tous les cas. */
+html.gsap .gsap-hidden { visibility: hidden; }
+/* Images en parallax : GSAP gere le transform, on neutralise la transition CSS */
+.gsap-parallax { transition: none !important; will-change: transform; }
+.collection-card:hover .gsap-parallax { transform: none; }
