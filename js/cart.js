@@ -11,9 +11,16 @@ const CART_STORAGE_KEY = 'waqar_cart';
 // Remise sur le PRIX DES ARTICLES uniquement — jamais sur le supplément de
 // livraison (prixLivraison), qui reste dû en entier même avec un code appliqué.
 const CART_PROMO_CODES = {
-    'AKHI10': { discount: 0.10, label: '-10% sur les articles (hors frais de livraison)' }
+    // (aucun code actif actuellement)
 };
-let cartAppliedPromo = null; // ex: 'AKHI10' — persiste tant que le panier n'est pas vidé
+
+// Codes ayant existé mais désormais expirés. Ils restent listés ici pour afficher
+// un message explicite ("ce code n'est plus disponible") au lieu de "Code invalide" :
+// les clients qui ont vu passer le code comprennent qu'il a expiré, pas qu'ils se
+// sont trompés en le tapant.
+const CART_PROMO_CODES_EXPIRES = ['AKHI10'];
+
+let cartAppliedPromo = null; // code actif appliqué — persiste tant que le panier n'est pas vidé
 
 function cartFormatEuro(n) {
     return n.toFixed(2).replace('.', ',') + ' €';
@@ -45,7 +52,9 @@ function cartApplyPromo() {
         if (typeof trackEvent === 'function') trackEvent('Code promo appliqué', { code });
         cartRenderBody();
     } else if (errorEl) {
-        errorEl.textContent = 'Code invalide.';
+        errorEl.textContent = CART_PROMO_CODES_EXPIRES.includes(code)
+            ? "Ce code n'est plus disponible."
+            : 'Code invalide.';
         errorEl.style.display = '';
     }
 }
