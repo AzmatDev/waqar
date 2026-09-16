@@ -92,12 +92,25 @@
             });
 
             // Parallax léger sur chaque image + zoom au survol
-            gallery.querySelectorAll('.collection-card-img img').forEach(img => {
-                img.classList.add('gsap-parallax');
-                const frame = img.closest('.collection-card-img');
-                const card  = img.closest('.collection-card');
-                const BASE  = 1.15;   // légère sur-échelle pour que le parallax ne laisse pas de bord vide
+            gallery.querySelectorAll('.collection-card-img').forEach(frame => {
+                const imgs = frame.querySelectorAll('img');
+                if (!imgs.length) return;
+                const card = frame.closest('.collection-card');
+                imgs.forEach(i => i.classList.add('gsap-parallax')); // neutralise la transition CSS
 
+                // Mosaïque (plusieurs pièces) : pas de parallax indépendant par
+                // cellule (ça dériverait de travers) — juste un zoom groupé au survol.
+                if (frame.classList.contains('collection-card-img--mosaic') || imgs.length > 1) {
+                    gsap.set(imgs, { scale: 1.04 });
+                    if (card) {
+                        card.addEventListener('mouseenter', () => gsap.to(imgs, { scale: 1.1,  duration: 0.8, ease: 'power2.out' }));
+                        card.addEventListener('mouseleave', () => gsap.to(imgs, { scale: 1.04, duration: 0.8, ease: 'power2.out' }));
+                    }
+                    return;
+                }
+
+                const img  = imgs[0];
+                const BASE = 1.15;   // légère sur-échelle pour que le parallax ne laisse pas de bord vide
                 gsap.set(img, { scale: BASE });
                 gsap.fromTo(img, { yPercent: -6 }, {
                     yPercent: 6, ease: 'none',
