@@ -55,8 +55,8 @@ const productFamilies = [
         desc: "La Jubba adulte est taillée dans un tissu souple et léger, pensé pour être porté au quotidien comme pour la prière du vendredi. Sa coupe ample respecte scrupuleusement les critères de la Sunnah.",
         tailles: ['S', 'M', 'L', 'XL'],
         colors: [
-            { id: 'noire', label: 'Noir', hex: '#1A1A1A', images: ['images/collection-waqar/jubba_blk.png'] },
-            { id: 'blanche', label: 'Blanc', hex: '#F0EDE8', images: ['images/collection-waqar/jubba_wht.png'] }
+            { id: 'noire', label: 'Noir', hex: '#1A1A1A', images: ['images/collection-waqar/jubba_noir_1.jpeg', 'images/collection-waqar/jubba_noir_2.jpeg'] },
+            { id: 'blanche', label: 'Blanc', hex: '#F0EDE8', images: ['images/collection-waqar/jubba_blanc_1.jpeg', 'images/collection-waqar/jubba_blanc_2.jpeg'] }
         ]
     },
     {
@@ -69,8 +69,8 @@ const productFamilies = [
         desc: "La Jubba enfant permet au fils de grandir dans la Sunnah dès le plus jeune âge. Même rigueur, même qualité, adaptée aux plus petits.",
         tailles: ['0-2 ans', '2-4 ans', '4-6 ans', '6-8 ans'],
         colors: [
-            { id: 'noire', label: 'Noir', hex: '#1A1A1A', images: ['images/collection-waqar/jubba_blk_enfant.jpeg'] },
-            { id: 'gris', label: 'Gris clair', hex: '#C8C3BA', images: ['images/collection-waqar/jubba_gris_enfant.jpg'] }
+            { id: 'noire', label: 'Noir', hex: '#1A1A1A', images: ['images/collection-waqar/jubba_noir_enfant_1.jpeg'] },
+            { id: 'gris', label: 'Gris clair', hex: '#C8C3BA', images: ['images/collection-waqar/jubba_blanc_enfant_1.jpeg'] }
         ]
     },
     {
