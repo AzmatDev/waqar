@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <script>
+    /* DEBUG TEMPORAIRE — diagnostic View Transitions, a retirer apres test */
+    window.addEventListener('pageswap', function(e){ console.log('[VT-DEBUG] pageswap', !!e.viewTransition, performance.now()); });
+    window.addEventListener('pagereveal', function(e){ console.log('[VT-DEBUG] pagereveal', !!e.viewTransition, document.readyState, performance.now()); });
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WAQĀR — Collection</title>
