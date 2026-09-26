@@ -85,11 +85,23 @@
             const cards = gallery.querySelectorAll('.collection-card');
             if (!cards.length) return;
 
-            // Entrée en cascade
-            gsap.from(cards, {
-                autoAlpha: 0, y: 44, duration: 1.1, ease: 'power3.out', stagger: 0.15,
-                scrollTrigger: { trigger: gallery, start: 'top 82%', once: true }
-            });
+            // Entrée en cascade — sauf si la galerie est déjà à l'écran au chargement
+            // (refresh sur /#collection) : les cartes y "remontaient" une à une et la
+            // 1re paraissait décalée au-dessus des autres. On les affiche directement.
+            const alreadyInView = gallery.getBoundingClientRect().top < window.innerHeight * 0.82;
+            if (!alreadyInView) {
+                // La transition CSS "transform 0.3s" (hover) freinerait chaque frame GSAP :
+                // on la coupe pendant l'entrée, puis on rend la main au CSS. La transition
+                // est remise une frame APRÈS le retrait du transform, sinon le navigateur
+                // relancerait une transition depuis la dernière position GSAP.
+                gsap.fromTo(cards, { autoAlpha: 0, y: 44 }, {
+                    autoAlpha: 1, y: 0, duration: 1.1, ease: 'power3.out', stagger: 0.15,
+                    clearProps: 'transform',
+                    onStart: () => cards.forEach(c => { c.style.transition = 'none'; }),
+                    onComplete: () => requestAnimationFrame(() => cards.forEach(c => { c.style.transition = ''; })),
+                    scrollTrigger: { trigger: gallery, start: 'top 82%', once: true }
+                });
+            }
 
             // Parallax léger sur chaque image + zoom au survol
             gallery.querySelectorAll('.collection-card-img').forEach(frame => {

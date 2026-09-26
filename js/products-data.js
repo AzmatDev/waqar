@@ -26,6 +26,17 @@ const collections = [
         emptyMessage: "De nouvelles pièces ISTIQĀMA arrivent bientôt, incha'Allah."
     },
     {
+        id: 'nasim',
+        title: 'Collection NASĪM — Série 1',
+        sub: "Quand l'élégance rencontre le confort au quotidien.",
+        savezLabel: "L'esprit de NASĪM",
+        savezTitle: `Nasīm (نسيم) — <em>la brise légère</em>`,
+        savezText1: "Nasīm évoque la brise légère et la fraîcheur. Cette collection est pensée pour des vêtements respirants et agréables à porter au quotidien, sans jamais sacrifier la sobriété.",
+        savezText2: "Chaque pièce de la Série 1 associe fluidité et finitions soignées — une élégance discrète, conforme aux critères de la Sunnah.",
+        savezQuote: '« La fluidité dans la coupe, la légèreté dans le tissu — le confort ne doit rien coûter à la pudeur. »',
+        emptyMessage: "De nouvelles pièces NASĪM arrivent bientôt, incha'Allah."
+    },
+    {
         id: 'accessoires',
         title: 'Accessoires WAQĀR',
         sub: "Les détails qui accompagnent la Sunnah, jusque dans ce qui ne se voit pas.",
@@ -155,6 +166,42 @@ const productFamilies = [
             { id: 'noir-intense', label: 'Noir Intense', hex: '#1A1A1A', images: ['images/collection-istiqama/tawadu/noir-1.jpeg', 'images/collection-istiqama/tawadu/noir-2.jpeg', 'images/collection-istiqama/tawadu/noir-3.jpeg', 'images/collection-istiqama/tawadu/noir-4.jpeg'] },
             { id: 'gris-clair', label: 'Gris Clair', hex: '#C8C3BA', images: ['images/collection-istiqama/tawadu/gris-1.jpeg', 'images/collection-istiqama/tawadu/gris-2.jpeg', 'images/collection-istiqama/tawadu/gris-3.jpeg', 'images/collection-istiqama/tawadu/gris-4.jpeg'] },
             { id: 'bleu-marine', label: 'Bleu Marine', hex: '#1B2A4A', images: ['images/collection-istiqama/tawadu/bleu-1.jpeg', 'images/collection-istiqama/tawadu/bleu-2.jpeg', 'images/collection-istiqama/tawadu/bleu-3.jpeg', 'images/collection-istiqama/tawadu/bleu-4.jpeg'] }
+        ]
+    },
+    {
+        id: 'chemise-3-btn-adulte',
+        collection: 'nasim',
+        cat: 'adulte',
+        name: 'Chemise 3 Boutons',
+        prix: '40,90 €',
+        matiere: '100% Coton',
+        nouveau: true,
+        desc: "Le basique par excellence du vestiaire masculin épuré, disponible en précommande. Conçue pour s'associer parfaitement avec le Sarouel Latīf, cette chemise reflète la gamme Nasīm : un vêtement respirant et agréable à porter au quotidien. Col officier, patte à 3 boutons élégante, une poche poitrine, et une coupe fluide au retombé ample.",
+        tailles: ['S', 'M', 'L', 'XL'],
+        colors: [
+            { id: 'blanc-pur', label: 'Blanc Pur', hex: '#F3F0EA', images: ['images/collection-nasim/chemise-3-btn/blancpure_1.png', 'images/collection-nasim/chemise-3-btn/blancpure_2.png', 'images/collection-nasim/chemise-3-btn/blancpure_3.png', 'images/collection-nasim/chemise-3-btn/blancpure_4.png'] },
+            { id: 'gris-anthracite', label: 'Gris Anthracite', hex: '#3A3A3A', images: ['images/collection-nasim/chemise-3-btn/grisanthracite_1.png', 'images/collection-nasim/chemise-3-btn/grisanthracite_2.png', 'images/collection-nasim/chemise-3-btn/grisanthracite_3.png'] },
+            { id: 'noir-profond', label: 'Noir Profond', hex: '#141210', images: ['images/collection-nasim/chemise-3-btn/noirprofond_1.jpeg', 'images/collection-nasim/chemise-3-btn/noirprofond_2.jpeg', 'images/collection-nasim/chemise-3-btn/noirprofond_3.jpeg', 'images/collection-nasim/chemise-3-btn/noirprofond_4.jpeg'] }
+        ]
+    },
+    {
+        id: 'sarouel-latif-adulte',
+        collection: 'nasim',
+        cat: 'adulte',
+        name: 'Sarouel Latīf',
+        prix: '69,90 €',
+        matiere: 'Tissu Nid d\'Abeille',
+        nouveau: true,
+        desc: "L'élégance d'une coupe travaillée alliée à un confort absolu, disponible en précommande. Inspiré de la coupe emblématique Mīzān, le Sarouel Latīf associe une tenue irréprochable et un confort absolu au quotidien. Tissu nid d'abeille texturé, respirant et léger, idéal pour les 4 saisons. Coupe 3 plis, à la retombée fluide et parfaitement structurée, avec une aisance idéale au niveau des cuisses et une tombée nette au-dessus des chevilles.",
+        tailles: ['S', 'M', 'L', 'XL'],
+        ajustementSunnah: 'optionnel',
+        ajustementSunnahTexte: "Ajustement de la longueur offert : nous retouchons le Sarouel Latīf selon vos mesures, afin de dégager la cheville, conformément à la Sunnah.",
+        ajustementSunnahImage: 'images/collection-istiqama/mizan/guide-longueur-sarouel.png',
+        colors: [
+            { id: 'sable-rose', label: 'Sable Rose', hex: '#D9BEB0', images: ['images/collection-nasim/saroual-latif/sablerose_1.png', 'images/collection-nasim/saroual-latif/sablerose_2.png', 'images/collection-nasim/saroual-latif/sablerose_3.png', 'images/collection-nasim/saroual-latif/sablerose_4.png'] },
+            { id: 'taupe', label: 'Taupe', hex: '#8B7D6E', images: ['images/collection-nasim/saroual-latif/taupe_1.png', 'images/collection-nasim/saroual-latif/taupe_2.png', 'images/collection-nasim/saroual-latif/taupe_3.png', 'images/collection-nasim/saroual-latif/taupe_4.png'] },
+            { id: 'ardoise', label: 'Ardoise', hex: '#4F5B66', images: ['images/collection-nasim/saroual-latif/ardoise_1.png', 'images/collection-nasim/saroual-latif/ardoise_2.png', 'images/collection-nasim/saroual-latif/ardoise_3.png', 'images/collection-nasim/saroual-latif/ardoise_4.png'] },
+            { id: 'terracotta', label: 'Terracotta', hex: '#BF6248', images: ['images/collection-nasim/saroual-latif/terracotta_1.jpeg', 'images/collection-nasim/saroual-latif/terracotta_2.jpeg', 'images/collection-nasim/saroual-latif/terracotta_3.jpeg', 'images/collection-nasim/saroual-latif/terracotta_4.jpeg'] }
         ]
     },
     {
