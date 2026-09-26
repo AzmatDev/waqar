@@ -380,7 +380,7 @@ html.gsap .gsap-hidden { visibility: hidden; }
    Effet limite au desktop : en mobile la nav est deja compacte et le
    menu deroulant est cale sur sa hauteur. */
 nav { transition: padding 0.35s ease, box-shadow 0.35s ease, background 0.35s ease; }
-.nav-logo-img { transition: height 0.35s ease; }
+.nav-logo-img { transition: height 0.35s ease, filter 0.35s ease; }
 @media (min-width: 901px) {
     nav.is-scrolled {
         padding-top: 0.8rem;
@@ -392,4 +392,70 @@ nav { transition: padding 0.35s ease, box-shadow 0.35s ease, background 0.35s ea
 }
 @media (prefers-reduced-motion: reduce) {
     nav, .nav-logo-img { transition: none; }
+}
+
+/* Nav au-dessus d'une section a fond sombre (ex: #contact-section) : on
+   inverse les couleurs pour rester lisible. Classe posee par nav-scroll.js. */
+nav, .nav-logo, .nav-logo-img, .nav-hamburger span, .nav-cart-btn, nav ul a {
+    transition: color 0.35s ease, background 0.35s ease, filter 0.35s ease;
+}
+nav.nav-on-dark {
+    background: rgba(13,13,13,0.88);
+    border-bottom-color: rgba(255,255,255,0.1);
+}
+nav.nav-on-dark.is-scrolled { background: rgba(13,13,13,0.94); }
+nav.nav-on-dark .nav-logo { color: var(--white); }
+nav.nav-on-dark .nav-logo-img { filter: brightness(0) invert(1); }
+nav.nav-on-dark ul a { color: var(--gold-light); }
+nav.nav-on-dark ul a:hover { color: var(--gold); }
+nav.nav-on-dark .nav-hamburger span { background: var(--white); }
+nav.nav-on-dark .nav-cart-btn { color: var(--white); }
+
+/* ===================== TRANSITIONS ENTRE PAGES ===================== */
+/* View Transitions API (cross-document) : anime le changement de page au lieu
+   du saut brut. Natif au navigateur (Chrome/Edge, Safari 18+), sans routeur
+   JS ni fetch — les pages restent de vrais documents HTML independants.
+   Non supporte (Firefox) = navigation classique, aucune degradation visible. */
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root) {
+    animation: view-transition-fade-out 0.32s ease both;
+}
+::view-transition-new(root) {
+    animation: view-transition-fade-in 0.38s ease both;
+}
+@keyframes view-transition-fade-out {
+    to { opacity: 0; transform: translateY(-14px) scale(0.99); }
+}
+@keyframes view-transition-fade-in {
+    from { opacity: 0; transform: translateY(14px) scale(0.99); }
+}
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(root), ::view-transition-old(root), ::view-transition-new(root) {
+        animation: none !important;
+    }
+}
+
+/* Photo d'une carte produit (collection.html, "Vous aimerez aussi", cartes
+   d'accueil) qui morphe jusqu'a l'image principale de la fiche produit :
+   view-transition-name posee dynamiquement en JS (product-photo-<id>),
+   ::view-transition-group(*) cible tous ces elements nommes d'un coup. */
+::view-transition-group(*) {
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*) { animation: none !important; }
+}
+
+/* ===================== HERO EN FENETRE NON MAXIMISEE ===================== */
+/* Sur un ecran classique, une fenetre de navigateur non maximisee (barre des
+   taches visible) a moins de hauteur que 100vh. Le hero fixe (min-height:100vh)
+   deborde alors du viewport visible : trop d'espace au-dessus du Bismillah,
+   bouton colle a la barre des taches. On laisse le hero s'ajuster a son contenu
+   des que la fenetre est moins haute que ce que le hero attend au maximum. */
+@media (max-height: 800px) and (min-width: 901px) {
+    .hero { min-height: auto; padding: 7rem 3rem 3rem; }
 }
