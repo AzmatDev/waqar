@@ -81,7 +81,9 @@ function renderProducts(cat) {
         cardColorState[family.id] = defaultColor.id;
         const hasImg = defaultColor.images && defaultColor.images[0];
 
-        const imgStyle = `${family.imageRatio ? `aspect-ratio:${family.imageRatio};` : ''}${hasImg ? '' : `background:${defaultColor.hex}`}`;
+        // view-transition-name : fait morpher cette vignette vers l'image principale
+        // de la fiche produit (product.html) au clic, via l'API View Transitions.
+        const imgStyle = `view-transition-name:product-photo-${family.id};${family.imageRatio ? `aspect-ratio:${family.imageRatio};` : ''}${hasImg ? '' : `background:${defaultColor.hex}`}`;
         return `
         <div class="product-card fade-in" data-family="${family.id}">
             <div class="product-img" onclick="goToProduct('${family.id}')" style="${imgStyle}">
