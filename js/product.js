@@ -244,13 +244,15 @@ function renderCrossSell() {
     // Ambiguïté Adulte/Enfant : on ne l'affiche que si les recommandations mélangent les deux
     const needsCatLabel = new Set(otherFamilies.map(f => f.cat)).size > 1;
 
-    // Un "candidat" = une combinaison produit + couleur, pour varier l'affichage
-    // même quand une collection n'a qu'un seul produit (ses différentes couleurs
-    // comptent comme autant de candidats). Reste valable quand vous en ajouterez d'autres.
-    const candidates = [];
-    otherFamilies.forEach(f => {
-        f.colors.forEach(c => candidates.push({ family: f, color: c }));
-    });
+    // Un "candidat" = un produit (famille), avec une couleur au hasard pour varier
+    // l'affichage. Un seul candidat par famille : chaque famille pose le même
+    // view-transition-name (product-photo-<id>) que sa fiche produit, donc deux
+    // candidats de la même famille dans cette grille créeraient un nom en double
+    // et Chrome désactiverait la transition sur toute la page.
+    const candidates = otherFamilies.map(f => ({
+        family: f,
+        color: f.colors[Math.floor(Math.random() * f.colors.length)]
+    }));
 
     // Mélange aléatoire (Fisher-Yates), puis on garde 5 maximum
     for (let i = candidates.length - 1; i > 0; i--) {
