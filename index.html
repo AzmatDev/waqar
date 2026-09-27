@@ -2,15 +2,6 @@
 <html lang="fr">
 
 <head>
-    <style>
-    /* DEBUG TEMPORAIRE — opt-in inline, isole du chargement de style.css */
-    @view-transition { navigation: auto; }
-    </style>
-    <script>
-    /* DEBUG TEMPORAIRE — diagnostic View Transitions, a retirer apres test */
-    window.addEventListener('pageswap', function(e){ console.log('[VT]', 'PAGESWAP', location.pathname, 'VT =', !!e.viewTransition); });
-    window.addEventListener('pagereveal', function(e){ console.log('[VT]', 'PAGEREVEAL', location.pathname, 'VT =', !!e.viewTransition); });
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WAQĀR — Porter la Sunnah avec dignité</title>
@@ -26,11 +17,7 @@
     <meta property="og:image" content="https://waqar1447.com/images/collection-waqar/jubba_noir_1.jpeg">
     <meta property="og:url" content="https://waqar1447.com/">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap"></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
     <script>document.documentElement.classList.add('gsap');</script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/cart.css">
@@ -80,7 +67,7 @@
 
     <div class="collections-gallery gsap-hidden">
         <a href="product.html?id=jubba-adulte&color=noire" class="collection-card">
-            <div class="collection-card-img">
+            <div class="collection-card-img" style="view-transition-name:product-photo-jubba-adulte;">
                 <img src="images/collection-waqar/jubba_noir_1.jpeg" alt="Collection WAQĀR 1447">
             </div>
             <h3 class="collection-card-title">WAQĀR 1447</h3>
@@ -123,7 +110,7 @@
 
     <div class="accessories-gallery gsap-hidden">
         <a href="product.html?id=wiqaya&color=noir" class="collection-card">
-            <div class="collection-card-img" style="aspect-ratio:4/3;">
+            <div class="collection-card-img" style="aspect-ratio:4/3; view-transition-name:product-photo-wiqaya;">
                 <img src="images/wiqaya/noir-1.jpeg" alt="La Wiqāya">
             </div>
             <h3 class="collection-card-title">La Wiqāya</h3>

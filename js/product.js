@@ -29,7 +29,10 @@ document.getElementById('product-title').textContent = family.name;
 const mainImgWrapEl = document.querySelector('.product-main-img');
 if (family.imageRatio && mainImgWrapEl) mainImgWrapEl.style.aspectRatio = family.imageRatio;
 
-// DEBUG TEMPORAIRE: view-transition-name retire pour test diagnostic
+// view-transition-name : doit correspondre à la vignette cliquée sur la page
+// précédente (collection.html ou une carte "Vous aimerez aussi") pour que
+// l'API View Transitions la fasse morpher jusqu'ici.
+if (mainImgWrapEl) mainImgWrapEl.style.viewTransitionName = `product-photo-${family.id}`;
 
 // Prix : le mode de réception (et son éventuel supplément de livraison) se
 // choisit maintenant à l'étape "Livraison" du panier, pas sur la fiche produit.
@@ -261,7 +264,7 @@ function renderCrossSell() {
     grid.innerHTML = picked.map(({ family: f, color }) => {
         const hasImg = color.images && color.images[0];
         const label = needsCatLabel ? `${f.name} ${f.cat === 'adulte' ? 'Adulte' : 'Enfant'}` : f.name;
-        const imgStyle = `${f.imageRatio ? `aspect-ratio:${f.imageRatio};` : ''}${hasImg ? '' : `background:${color.hex}`}`;
+        const imgStyle = `view-transition-name:product-photo-${f.id};${f.imageRatio ? `aspect-ratio:${f.imageRatio};` : ''}${hasImg ? '' : `background:${color.hex}`}`;
         return `
         <a class="product-card fade-in" href="product.html?id=${f.id}&color=${color.id}">
             <div class="product-img" style="${imgStyle}">
