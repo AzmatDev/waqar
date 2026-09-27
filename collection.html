@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <style>
+    /* DEBUG TEMPORAIRE — opt-in inline, isole du chargement de style.css */
+    @view-transition { navigation: auto; }
+    </style>
     <script>
     /* DEBUG TEMPORAIRE — diagnostic View Transitions, a retirer apres test */
-    function vtScanNames(){
-        var names = {};
-        document.querySelectorAll('*').forEach(function(el){
-            var n = getComputedStyle(el).viewTransitionName;
-            if (n && n !== 'none') { names[n] = (names[n]||0) + 1; }
-        });
-        return names;
-    }
-    window.addEventListener('pageswap', function(e){ console.log('[VT-DEBUG] pageswap', !!e.viewTransition, JSON.stringify(vtScanNames())); });
-    window.addEventListener('pagereveal', function(e){ console.log('[VT-DEBUG] pagereveal', !!e.viewTransition, document.readyState, JSON.stringify(vtScanNames())); });
+    window.addEventListener('pageswap', function(e){ console.log('[VT]', 'PAGESWAP', location.pathname, 'VT =', !!e.viewTransition); });
+    window.addEventListener('pagereveal', function(e){ console.log('[VT]', 'PAGEREVEAL', location.pathname, 'VT =', !!e.viewTransition); });
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

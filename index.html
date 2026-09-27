@@ -2,18 +2,14 @@
 <html lang="fr">
 
 <head>
+    <style>
+    /* DEBUG TEMPORAIRE — opt-in inline, isole du chargement de style.css */
+    @view-transition { navigation: auto; }
+    </style>
     <script>
     /* DEBUG TEMPORAIRE — diagnostic View Transitions, a retirer apres test */
-    function vtScanNames(){
-        var names = {};
-        document.querySelectorAll('*').forEach(function(el){
-            var n = getComputedStyle(el).viewTransitionName;
-            if (n && n !== 'none') { names[n] = (names[n]||0) + 1; }
-        });
-        return names;
-    }
-    window.addEventListener('pageswap', function(e){ console.log('[VT-DEBUG] pageswap', !!e.viewTransition, JSON.stringify(vtScanNames())); });
-    window.addEventListener('pagereveal', function(e){ console.log('[VT-DEBUG] pagereveal', !!e.viewTransition, document.readyState, JSON.stringify(vtScanNames())); });
+    window.addEventListener('pageswap', function(e){ console.log('[VT]', 'PAGESWAP', location.pathname, 'VT =', !!e.viewTransition); });
+    window.addEventListener('pagereveal', function(e){ console.log('[VT]', 'PAGEREVEAL', location.pathname, 'VT =', !!e.viewTransition); });
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -84,7 +80,7 @@
 
     <div class="collections-gallery gsap-hidden">
         <a href="product.html?id=jubba-adulte&color=noire" class="collection-card">
-            <div class="collection-card-img" style="view-transition-name:product-photo-jubba-adulte;">
+            <div class="collection-card-img">
                 <img src="images/collection-waqar/jubba_noir_1.jpeg" alt="Collection WAQĀR 1447">
             </div>
             <h3 class="collection-card-title">WAQĀR 1447</h3>
@@ -127,7 +123,7 @@
 
     <div class="accessories-gallery gsap-hidden">
         <a href="product.html?id=wiqaya&color=noir" class="collection-card">
-            <div class="collection-card-img" style="aspect-ratio:4/3; view-transition-name:product-photo-wiqaya;">
+            <div class="collection-card-img" style="aspect-ratio:4/3;">
                 <img src="images/wiqaya/noir-1.jpeg" alt="La Wiqāya">
             </div>
             <h3 class="collection-card-title">La Wiqāya</h3>
