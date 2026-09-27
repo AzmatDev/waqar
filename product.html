@@ -3,8 +3,16 @@
 <head>
     <script>
     /* DEBUG TEMPORAIRE — diagnostic View Transitions, a retirer apres test */
-    window.addEventListener('pageswap', function(e){ console.log('[VT-DEBUG] pageswap', !!e.viewTransition, performance.now()); });
-    window.addEventListener('pagereveal', function(e){ console.log('[VT-DEBUG] pagereveal', !!e.viewTransition, document.readyState, performance.now()); });
+    function vtScanNames(){
+        var names = {};
+        document.querySelectorAll('*').forEach(function(el){
+            var n = getComputedStyle(el).viewTransitionName;
+            if (n && n !== 'none') { names[n] = (names[n]||0) + 1; }
+        });
+        return names;
+    }
+    window.addEventListener('pageswap', function(e){ console.log('[VT-DEBUG] pageswap', !!e.viewTransition, JSON.stringify(vtScanNames())); });
+    window.addEventListener('pagereveal', function(e){ console.log('[VT-DEBUG] pagereveal', !!e.viewTransition, document.readyState, JSON.stringify(vtScanNames())); });
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
