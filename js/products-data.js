@@ -34,7 +34,8 @@ const collections = [
         savezText1: "Nasīm évoque la brise légère et la fraîcheur. Cette collection est pensée pour des vêtements respirants et agréables à porter au quotidien, sans jamais sacrifier la sobriété.",
         savezText2: "Chaque pièce de la Série 1 associe fluidité et finitions soignées — une élégance discrète, conforme aux critères de la Sunnah.",
         savezQuote: '« La fluidité dans la coupe, la légèreté dans le tissu — le confort ne doit rien coûter à la pudeur. »',
-        emptyMessage: "De nouvelles pièces NASĪM arrivent bientôt, incha'Allah."
+        emptyMessage: "De nouvelles pièces NASĪM arrivent bientôt, incha'Allah.",
+        video: 'images/collection-nasim/inspiration.mp4'
     },
     {
         id: 'accessoires',

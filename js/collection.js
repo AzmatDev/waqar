@@ -43,6 +43,25 @@ function renderCollectionHeader() {
     document.getElementById('savez-text1').textContent = activeCollection.savezText1;
     document.getElementById('savez-text2').textContent = activeCollection.savezText2;
     document.getElementById('savez-quote').textContent = activeCollection.savezQuote;
+
+    // Vidéo d'inspiration (optionnelle) — présente uniquement pour certaines collections
+    const savezInner = document.getElementById('savez-full-inner');
+    const savezVideoWrap = document.getElementById('savez-video-wrap');
+    const savezVideo = document.getElementById('savez-video');
+    if (activeCollection.video && savezVideo) {
+        savezVideo.querySelectorAll('source').forEach(s => s.remove());
+        const source = document.createElement('source');
+        source.src = activeCollection.video;
+        source.type = 'video/mp4';
+        savezVideo.appendChild(source);
+        savezVideoWrap.style.display = '';
+        savezInner.classList.add('savez-full-inner--with-video');
+        savezVideo.addEventListener('canplay', () => savezVideo.play().catch(() => {}), { once: true });
+        savezVideo.load();
+    } else if (savezVideoWrap) {
+        savezVideoWrap.style.display = 'none';
+        savezInner.classList.remove('savez-full-inner--with-video');
+    }
 }
 
 function updateTabs() {
