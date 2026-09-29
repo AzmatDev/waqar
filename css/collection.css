@@ -60,6 +60,45 @@
     margin: 0 auto;
 }
 
+/* Vidéo d'inspiration (optionnelle, ex: collection NASĪM) : bascule le bloc
+   en deux colonnes — vidéo verticale à gauche, texte à droite. */
+.savez-full-inner--with-video {
+    max-width: 920px;
+    display: grid;
+    grid-template-columns: minmax(200px, 280px) 1fr;
+    gap: 3rem;
+    align-items: center;
+    text-align: left;
+}
+/* Le border-radius/overflow est sur le conteneur, jamais sur <video> :
+   un coin arrondi directement sur la video empeche souvent le compositing
+   GPU direct et force un re-rendu logiciel a chaque frame (lag au scroll). */
+.savez-video-wrap {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--black);
+}
+.savez-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+@media (max-width: 900px) {
+    .savez-full-inner--with-video {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1.8rem;
+    }
+    .savez-video-wrap {
+        max-width: 260px;
+        margin: 0 auto;
+    }
+}
+
 @media (max-width: 900px) {
     .collection-page--split {
         grid-template-columns: 1fr;
