@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WAQĀR — Produit</title>
 
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16.png">
-    <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32.png?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16.png?v=2">
+    <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png?v=2">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="WAQĀR — Nos pièces">
@@ -27,7 +27,7 @@
 
 <nav>
     <a href="/" class="nav-logo">
-        <img src="images/logo_waqar.jpeg" alt="WAQĀR" class="nav-logo-img">
+        <img src="images/logo_waqar_2026.png" alt="WAQĀR" class="nav-logo-img">
     </a>
     <ul>
         <li><a href="/#collection">Collections</a></li>
@@ -83,6 +83,11 @@
             <button class="taille-btn" onclick="selectTaille(this)">L</button>
             <button class="taille-btn" onclick="selectTaille(this)">XL</button>
         </div>
+        <p class="product-mannequin" id="product-mannequin" hidden></p>
+        <button type="button" class="product-service-link" id="product-service-link" hidden
+                onclick="lightboxOpen(DEMI_MESURE_AFFICHE, 'Service demi-mesure : nous ajustons votre sarouel à vos mesures. 100% gratuit.')">
+            ✦ Service demi-mesure <strong>offert</strong> · <span>En savoir plus</span>
+        </button>
 
         <div class="product-divider"></div>
         <p class="product-desc" id="product-desc"></p>

@@ -5,7 +5,7 @@
 // (familyId/colorId) et on relit js/products-data.js, la même source que le site.
 // ============================================================
 
-const { productFamilies } = require('../js/products-data.js');
+const { productFamilies, nomServiceAjustement } = require('../js/products-data.js');
 
 function parsePrice(str) {
     return parseFloat(String(str).replace(',', '.').replace(/[^\d.]/g, '')) || 0;
@@ -38,6 +38,7 @@ function computeOrderTotal(items, modeReception) {
             taille: r.taille,
             quantite: r.quantity,
             ajustementSunnah: r.ajustementSunnah,
+            service: r.ajustementSunnah ? nomServiceAjustement(r.family) : '',
             prixUnitaire: prixStr
         };
     });
