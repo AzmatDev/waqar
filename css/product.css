@@ -145,6 +145,30 @@
 }
 .size-guide-link:hover { color: var(--black); }
 
+/* Sous les tailles : gabarit du mannequin + lien vers le Service demi-mesure */
+.product-mannequin {
+    font-size: 0.74rem;
+    color: var(--warm-gray);
+    margin: -0.6rem 0 0.9rem;
+}
+.product-service-link {
+    display: inline-block;
+    background: none;
+    border: 0.5px solid var(--border-gold);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.6rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 300;
+    color: var(--charcoal);
+    cursor: pointer;
+    transition: background 0.25s, border-color 0.25s;
+}
+.product-service-link strong { font-weight: 500; }
+.product-service-link span { color: var(--gold); text-decoration: underline; }
+.product-service-link:hover { background: var(--cream-dark); border-color: var(--gold); }
+
 .size-guide-table {
     width: 100%;
     border-collapse: collapse;
@@ -188,6 +212,11 @@
     transition: all 0.2s;
 }
 
+.product-tailles--grid {
+    display: grid;
+    grid-template-columns: repeat(6, 48px);
+    gap: 0.6rem;
+}
 .taille-btn:hover { border-color: var(--black); }
 .taille-btn.selected { background: var(--black); color: var(--white); border-color: var(--black); }
 

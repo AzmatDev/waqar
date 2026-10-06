@@ -153,6 +153,25 @@ nav ul a:hover { color: var(--gold); }
 .collection-card-link { display: block; text-align: center; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
 .collection-card-future .collection-card-link { color: var(--warm-gray); }
 
+/* Bandeau "Service demi-mesure" sous les collections → ouvre l'affiche (lightboxOpen) */
+.service-banner {
+    display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+    gap: 0.4rem 0.8rem;
+    margin: 2.5rem auto 0; padding: 0.9rem 1.6rem;
+    max-width: 640px; width: calc(100% - 6rem);
+    background: none; border: 0.5px solid var(--border-gold); border-radius: 999px;
+    font-family: 'Jost', sans-serif; font-size: 0.78rem; font-weight: 300; letter-spacing: 0.04em;
+    color: var(--charcoal); cursor: pointer;
+    transition: background 0.25s, border-color 0.25s;
+}
+.service-banner strong { font-weight: 500; }
+.service-banner:hover { background: var(--cream-dark); border-color: var(--gold); }
+.service-banner-star { color: var(--gold); }
+.service-banner-link { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+@media (max-width: 900px) {
+    .service-banner { width: 100%; border-radius: 12px; }
+}
+
 /* ===================== ACCESSOIRES ===================== */
 #accessoires {
     scroll-margin-top: 1.8rem;

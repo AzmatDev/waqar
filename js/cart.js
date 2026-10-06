@@ -20,6 +20,9 @@ const CART_PROMO_CODES = {
 // sont trompés en le tapant.
 const CART_PROMO_CODES_EXPIRES = ['AKHI10'];
 
+// Affiche du Service demi-mesure (ouverte par le ⓘ du panier et le bandeau de l'accueil)
+const DEMI_MESURE_AFFICHE = 'images/demi-mesure/service-demi-mesure.jpg';
+
 let cartAppliedPromo = null; // code actif appliqué — persiste tant que le panier n'est pas vidé
 
 function cartFormatEuro(n) {
@@ -364,17 +367,37 @@ function cartShowLivraison() {
     const obligatoireFamilies = families.filter(f => f.ajustementSunnah === 'obligatoire');
     const infoFamily = optionnelFamily || obligatoireFamilies[0];
 
+    // Familles "optionnel" (les sarouels) = Service demi-mesure : si le client
+    // coche, il renseigne ses mesures (les 4 points de l'affiche du service).
     const ajustementBlockHtml = optionnelFamily ? `
             <div class="ajustement-sunnah-block" id="ajustement-sunnah-block">
                 <label class="reception-option">
                     <input type="checkbox" id="c-ajustement-sunnah">
-                    <span>Ajustement Sunnah</span>
+                    <span>Service demi-mesure</span>
                     <span class="ajustement-sunnah-free-tag">Gratuit</span>
-                    <button type="button" class="info-tooltip-btn" id="info-ajustement-btn">ⓘ</button>
+                    <button type="button" class="info-tooltip-btn" aria-label="Qu'est-ce que le service demi-mesure ?"
+                            onclick="event.preventDefault(); lightboxOpen('${DEMI_MESURE_AFFICHE}', 'Service demi-mesure : nous ajustons votre sarouel à vos mesures. 100% gratuit.')">ⓘ</button>
                 </label>
-                <div class="reception-info reception-info--split" id="info-ajustement-text" style="display:none;">
-                    ${infoFamily.ajustementSunnahImage ? `<img alt="Schéma de l'ajustement" class="ajustement-sunnah-img" src="${infoFamily.ajustementSunnahImage}" onerror="this.style.display='none'">` : ''}
-                    <p>${infoFamily.ajustementSunnahTexte || ''}</p>
+                <div class="demi-mesure-fields" id="demi-mesure-fields" hidden>
+                    <p class="product-note" style="text-align:left;">Nous ajustons votre sarouel à vos mesures. Pensez aussi à renseigner votre taille et votre poids ci-dessus.</p>
+                    <div class="order-modal-row">
+                        <div class="form-group">
+                            <label class="form-label" for="c-tour-taille">Tour de taille (cm)</label>
+                            <input type="number" class="form-control" id="c-tour-taille" min="40" max="200" placeholder="85">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="c-longueur">Longueur souhaitée (cm)</label>
+                            <input type="number" class="form-control" id="c-longueur" min="40" max="140" placeholder="95">
+                        </div>
+                    </div>
+                    <p class="product-note" style="text-align:left;">Longueur : de la hanche jusqu'au-dessus de la cheville.</p>
+                    <div class="form-group">
+                        <label class="form-label" for="c-ampleur">Largeur / ampleur souhaitée</label>
+                        <select class="form-control" id="c-ampleur">
+                            <option value="Coupe d'origine">Coupe d'origine</option>
+                            <option value="Plus ajustée">Plus ajustée (largeur réduite)</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             ${obligatoireFamilies.length ? `<p class="product-note" style="text-align:left;">Ajustement Sunnah inclus d'office pour : ${obligatoireFamilies.map(f => f.name).join(', ')}.</p>` : ''}`
@@ -457,6 +480,21 @@ function cartShowLivraison() {
             infoPropreText.style.display = infoPropreText.style.display === 'none' ? '' : 'none';
         });
     }
+    // Service demi-mesure coché → on affiche les champs de mesures et ils
+    // deviennent obligatoires, avec la taille et le poids du haut.
+    const demiMesureCheckbox = document.getElementById('c-ajustement-sunnah');
+    const demiMesureFields = document.getElementById('demi-mesure-fields');
+    if (demiMesureCheckbox && demiMesureFields) {
+        demiMesureCheckbox.addEventListener('change', () => {
+            const on = demiMesureCheckbox.checked;
+            demiMesureFields.hidden = !on;
+            ['c-taille-cm', 'c-poids-kg', 'c-tour-taille', 'c-longueur'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.required = on;
+            });
+        });
+    }
+
     const infoAjustementBtn = document.getElementById('info-ajustement-btn');
     const infoAjustementText = document.getElementById('info-ajustement-text');
     if (infoAjustementBtn && infoAjustementText) {
@@ -532,8 +570,17 @@ function cartCollectFormPayload() {
         modeReception,
         ...(cartCheckoutInfo || {}),
         tailleCm: tailleCmEl ? tailleCmEl.value : '',
-        poidsKg: poidsKgEl ? poidsKgEl.value : ''
+        poidsKg: poidsKgEl ? poidsKgEl.value : '',
+        demiMesure: cartDemiMesure()
     };
+}
+
+// Mesures du Service demi-mesure, ou null si la case n'est pas cochée.
+function cartDemiMesure() {
+    const checkbox = document.getElementById('c-ajustement-sunnah');
+    if (!checkbox || !checkbox.checked) return null;
+    const val = id => { const el = document.getElementById(id); return el ? el.value : ''; };
+    return { tourTailleCm: val('c-tour-taille'), longueurCm: val('c-longueur'), ampleur: val('c-ampleur') };
 }
 
 // Détermine, pour un article donné, si l'Ajustement Sunnah s'applique : toujours
@@ -614,7 +661,8 @@ async function cartRenderPaypalButton() {
                         ville: payload.ville,
                         pays: payload.pays,
                         tailleCm: payload.tailleCm,
-                        poidsKg: payload.poidsKg
+                        poidsKg: payload.poidsKg,
+                        demiMesure: payload.demiMesure
                     })
                 });
                 const result = await response.json();
@@ -698,6 +746,7 @@ async function cartSubmitOrder(e) {
             taille: item.taille,
             quantite: item.quantity,
             ajustementSunnah: cartAjustementSunnahPourFamille(family),
+            service: cartAjustementSunnahPourFamille(family) ? nomServiceAjustement(family) : '',
             prixUnitaire: cartFormatEuro(prix)
         };
     }).filter(Boolean);
@@ -707,6 +756,7 @@ async function cartSubmitOrder(e) {
         ...(cartCheckoutInfo || {}),
         tailleCm: tailleCmEl ? tailleCmEl.value : '',
         poidsKg: poidsKgEl ? poidsKgEl.value : '',
+        demiMesure: cartDemiMesure(),
         modeReception,
         promoCode: cartAppliedPromo || ''
     };
@@ -818,6 +868,7 @@ async function cartSubmitPaypalMe() {
             taille: item.taille,
             quantite: item.quantity,
             ajustementSunnah: cartAjustementSunnahPourFamille(family),
+            service: cartAjustementSunnahPourFamille(family) ? nomServiceAjustement(family) : '',
             prixUnitaire: cartFormatEuro(prix)
         };
     }).filter(Boolean);
@@ -829,6 +880,7 @@ async function cartSubmitPaypalMe() {
         ...(cartCheckoutInfo || {}),
         tailleCm: tailleCmEl ? tailleCmEl.value : '',
         poidsKg: poidsKgEl ? poidsKgEl.value : '',
+        demiMesure: cartDemiMesure(),
         modeReception,
         promoCode: cartAppliedPromo || '',
         paiement: { status: 'pending', methode: 'PayPal.Me', montant: montantStr }
@@ -897,6 +949,43 @@ document.addEventListener('click', (e) => {
     menu.classList.remove('nav-open');
     if (hamburger) hamburger.classList.remove('active');
 });
+
+// ---------- Visionneuse d'image (pop-up centré) ----------
+// Affiche une image en grand au centre de l'écran (ex. affiche du service
+// demi-mesure). Ici car cart.js est chargé sur toutes les pages.
+// Fermeture : ✕, clic à côté de l'image, ou touche Échap.
+function lightboxOpen(src, alt) {
+    let box = document.getElementById('lightbox');
+    if (!box) {
+        box = document.createElement('div');
+        box.id = 'lightbox';
+        box.className = 'lightbox';
+        box.setAttribute('role', 'dialog');
+        box.setAttribute('aria-modal', 'true');
+        box.innerHTML = `
+            <button type="button" class="lightbox-close" aria-label="Fermer">✕</button>
+            <img class="lightbox-img" alt="">`;
+        box.addEventListener('click', (e) => { if (e.target !== box.querySelector('.lightbox-img')) lightboxClose(); });
+        document.body.appendChild(box);
+    }
+    const img = box.querySelector('.lightbox-img');
+    img.src = src;
+    img.alt = alt || '';
+    box.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    box.querySelector('.lightbox-close').focus();
+}
+
+function lightboxClose() {
+    const box = document.getElementById('lightbox');
+    if (!box || !box.classList.contains('open')) return;
+    box.classList.remove('open');
+    // Le panier ouvert en dessous garde la page bloquée
+    const drawer = document.getElementById('cart-drawer');
+    if (!drawer || !drawer.classList.contains('open')) document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightboxClose(); });
 
 // ---------- Initialisation (sur chaque page) ----------
 cartInjectPanel();

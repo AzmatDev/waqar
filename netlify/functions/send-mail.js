@@ -27,7 +27,19 @@ function getTransporter() {
 //   - { status: 'pending', montant } → client redirigé vers PayPal.Me, montant
 //     attendu mais PAS vérifié automatiquement (pas d'API/webhook côté PayPal.Me) —
 //     à confirmer manuellement par le frère à réception.
-async function buildAndSendOrderEmails({ items, nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg, modeReception, paiement, promoCode }) {
+// Libellé du service d'ajustement d'un article ("Service demi-mesure" pour les sarouels,
+// "Ajustement Sunnah" pour la chemise). Repli sur l'ancien libellé si `service` absent.
+function serviceLabel(item) {
+    if (!item.ajustementSunnah) return '';
+    return item.service || 'Ajustement Sunnah';
+}
+
+// Les mesures viennent d'un formulaire public : on échappe avant de les mettre dans le HTML.
+function escapeHtml(str) {
+    return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+async function buildAndSendOrderEmails({ items, nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg, demiMesure, modeReception, paiement, promoCode }) {
     const transporter = getTransporter();
     const isConfirmedPaid = !!paiement && paiement.status === 'confirmed';
     const isPendingPaid = !!paiement && paiement.status === 'pending';
@@ -40,7 +52,7 @@ async function buildAndSendOrderEmails({ items, nom, email, tel, adresse, codepo
                 <tr>
                     <td style="padding:14px 20px;font-size:13px;border-bottom:1px solid #EDE8DF;">
                         <strong>${item.nom}</strong><br>
-                        <span style="color:#8C887F;font-size:12px;">${item.couleur} · Taille ${item.taille}${item.ajustementSunnah ? ' · Ajustement Sunnah' : ''}</span>
+                        <span style="color:#8C887F;font-size:12px;">${item.couleur} · Taille ${item.taille}${serviceLabel(item) ? ' · ' + serviceLabel(item) : ''}</span>
                     </td>
                     <td style="padding:14px 20px;font-size:13px;border-bottom:1px solid #EDE8DF;text-align:center;">x${item.quantite}</td>
                     <td style="padding:14px 20px;font-size:13px;border-bottom:1px solid #EDE8DF;text-align:right;">${item.prixUnitaire}</td>
@@ -48,7 +60,7 @@ async function buildAndSendOrderEmails({ items, nom, email, tel, adresse, codepo
     }).join('');
 
     const itemsRowsPlain = items.map(item =>
-        `- ${item.nom} (${item.couleur}, taille ${item.taille}${item.ajustementSunnah ? ', Ajustement Sunnah' : ''}) x${item.quantite} — ${item.prixUnitaire}`
+        `- ${item.nom} (${item.couleur}, taille ${item.taille}${serviceLabel(item) ? ', ' + serviceLabel(item) : ''}) x${item.quantite} — ${item.prixUnitaire}`
     ).join('\n');
 
     const totalStr = (isConfirmedPaid || isPendingPaid) ? paiement.montant : total.toFixed(2).replace('.', ',') + ' €';
@@ -93,6 +105,11 @@ async function buildAndSendOrderEmails({ items, nom, email, tel, adresse, codepo
                 <tr style="background:#F5F1EA;">
                     <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Gabarit client</td>
                     <td style="padding:16px 20px;font-size:14px;">${tailleCm ? tailleCm + ' cm' : '—'} · ${poidsKg ? poidsKg + ' kg' : '—'}</td>
+                </tr>` : ''}
+                ${demiMesure ? `
+                <tr>
+                    <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Demi-mesure</td>
+                    <td style="padding:16px 20px;font-size:14px;">Tour de taille : ${demiMesure.tourTailleCm ? escapeHtml(demiMesure.tourTailleCm) + ' cm' : '—'}<br>Longueur : ${demiMesure.longueurCm ? escapeHtml(demiMesure.longueurCm) + ' cm' : '—'}<br>Ampleur : ${escapeHtml(demiMesure.ampleur) || '—'}</td>
                 </tr>` : ''}
                 <tr>
                     <td style="padding:16px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C887F;">Adresse</td>
@@ -179,14 +196,14 @@ exports.handler = async (event) => {
         return { statusCode: 400, headers: CORS_HEADERS, body: JSON.stringify({ error: 'JSON invalide' }) };
     }
 
-    const { items, nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg, modeReception, promoCode, paiement } = payload;
+    const { items, nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg, demiMesure, modeReception, promoCode, paiement } = payload;
 
     if (!Array.isArray(items) || items.length === 0) {
         return { statusCode: 400, headers: CORS_HEADERS, body: JSON.stringify({ error: 'Panier vide' }) };
     }
 
     try {
-        await buildAndSendOrderEmails({ items, nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg, modeReception, promoCode, paiement: paiement || null });
+        await buildAndSendOrderEmails({ items, nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg, demiMesure: demiMesure || null, modeReception, promoCode, paiement: paiement || null });
         return { statusCode: 200, headers: CORS_HEADERS, body: JSON.stringify({ success: true }) };
     } catch (err) {
         console.error('ERREUR MAIL:', err.message, err.stack);

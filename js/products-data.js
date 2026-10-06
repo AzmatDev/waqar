@@ -52,6 +52,13 @@ const collections = [
 
 // Chaque "famille" = 1 produit (ex: "Jubba Adulte"), décliné en plusieurs couleurs.
 // Chaque couleur peut avoir plusieurs photos (galerie/carousel sur la fiche produit).
+// Gabarit du mannequin des photos des sarouels, affiché sur leur fiche produit.
+// `porte` = taille portée sur les photos — à compléter (laisser '' tant qu'on ne la connaît pas).
+const MANNEQUIN_SAROUELS = { taille: '1,70 m', poids: '82 kg', porte: '44' };
+
+// Sarouels : tailles chiffrées de 38 à 60 (S/M/L/XL n'est pas intuitif pour un pantalon).
+const TAILLES_SAROUELS = ['38', '40', '42', '44', '46', '48', '50', '52', '54', '56', '58', '60'];
+
 const productFamilies = [
     {
         id: 'jubba-adulte',
@@ -99,23 +106,13 @@ const productFamilies = [
             detail: 'Soit 139,80 € au lieu de 147,80 €'
         },
         matiere: 'Coton Stretch Premium',
-        desc: "Le Sarouel Mizân, ample et confortable, conforme aux critères de pudeur de la Sunnah. Disponible en plusieurs coloris, avec possibilité d'Ajustement Sunnah — un ajustement gratuit de la longueur, sur simple demande.",
-        tailles: ['S', 'M', 'L', 'XL'],
-        // Valeurs à compléter dès que les mesures exactes sont disponibles ('—' = à venir)
-        // Valeurs standards à titre indicatif (exemple donné par le frère) — à ajuster
-        // dès que les vraies plages seront confirmées, pas de mesure précise par client.
-        tailleGuide: {
-            columns: ['Tour de taille (cm)'],
-            rows: [
-                { taille: 'S', values: ['76-84'] },
-                { taille: 'M', values: ['84-92'] },
-                { taille: 'L', values: ['92-100'] },
-                { taille: 'XL', values: ['100-108'] }
-            ]
-        },
+        desc: "Le Sarouel Mizân, ample et confortable, conforme aux critères de pudeur de la Sunnah. Disponible en plusieurs coloris, avec le Service demi-mesure offert : un ajustement gratuit à vos mesures, sur simple demande.",
+        tailles: TAILLES_SAROUELS,
+        // Guide des tailles retiré au passage en 38 → 60 (l'ancien était en S/M/L/XL).
+        // À recréer quand on aura les mesures de chaque taille. Seule connue pour l'instant :
+        // taille 44 = tour de taille 88 cm (44 cm à plat), longueur hanche → cheville 79 cm.
         ajustementSunnah: 'optionnel',
-        ajustementSunnahTexte: "Nous ajustons gratuitement la longueur du sarouel afin de dégager la cheville, conformément à la Sunnah. La coupe et l'ampleur du vêtement restent inchangées.",
-        ajustementSunnahImage: 'images/collection-istiqama/mizan/guide-longueur-sarouel.png',
+        mannequin: MANNEQUIN_SAROUELS,
         colors: [
             { id: 'beige', label: 'Beige', hex: '#D8C8AE', images: ['images/collection-istiqama/mizan/beige-1.png', 'images/collection-istiqama/mizan/beige-2.png', 'images/collection-istiqama/mizan/beige-3.png', 'images/collection-istiqama/mizan/beige-4.png'] },
             { id: 'kaki', label: 'Kaki', hex: '#6B6E4E', images: ['images/collection-istiqama/mizan/kaki-1.png', 'images/collection-istiqama/mizan/kaki-2.png', 'images/collection-istiqama/mizan/kaki-3.png', 'images/collection-istiqama/mizan/kaki-4.png'] },
@@ -157,10 +154,9 @@ const productFamilies = [
         prixLivraisonNote: 'Livraison incluse',
         matiere: 'Coton Stretch Premium',
         desc: "Le vrai sarouel : 7 plis pour un volume authentique, taillé en Coton Stretch Premium. Fermeture éclair, bouton, passants, poche principale et poche ticket intégrée.",
-        tailles: ['S', 'M', 'L', 'XL'],
+        tailles: TAILLES_SAROUELS,
         ajustementSunnah: 'optionnel',
-        ajustementSunnahTexte: "Nous retouchons à la main la longueur du sarouel, au-dessus de la cheville, conformément à la Sunnah.",
-        ajustementSunnahImage: 'images/collection-istiqama/mizan/guide-longueur-sarouel.png',
+        mannequin: MANNEQUIN_SAROUELS,
         colors: [
             { id: 'marron-clair', label: 'Marron Clair', hex: '#9C7A54', images: ['images/collection-istiqama/tawadu/marron-1.jpeg', 'images/collection-istiqama/tawadu/marron-2.jpeg', 'images/collection-istiqama/tawadu/marron-3.jpeg', 'images/collection-istiqama/tawadu/marron-4.jpeg'] },
             { id: 'kaki', label: 'Kaki', hex: '#6B6E4E', images: ['images/collection-istiqama/tawadu/kaki-1.jpeg', 'images/collection-istiqama/tawadu/kaki-2.jpeg', 'images/collection-istiqama/tawadu/kaki-3.jpeg', 'images/collection-istiqama/tawadu/kaki-4.jpeg'] },
@@ -194,15 +190,14 @@ const productFamilies = [
         matiere: 'Tissu Nid d\'Abeille',
         nouveau: true,
         desc: "L'élégance d'une coupe travaillée alliée à un confort absolu, disponible en précommande. Inspiré de la coupe emblématique Mīzān, le Sarouel Latīf associe une tenue irréprochable et un confort absolu au quotidien. Tissu nid d'abeille texturé, respirant et léger, idéal pour les 4 saisons. Coupe 3 plis, à la retombée fluide et parfaitement structurée, avec une aisance idéale au niveau des cuisses et une tombée nette au-dessus des chevilles.",
-        tailles: ['S', 'M', 'L', 'XL'],
+        tailles: TAILLES_SAROUELS,
         ajustementSunnah: 'optionnel',
-        ajustementSunnahTexte: "Ajustement de la longueur offert : nous retouchons le Sarouel Latīf selon vos mesures, afin de dégager la cheville, conformément à la Sunnah.",
-        ajustementSunnahImage: 'images/collection-istiqama/mizan/guide-longueur-sarouel.png',
+        mannequin: MANNEQUIN_SAROUELS,
         colors: [
             { id: 'sable-rose', label: 'Sable Rose', hex: '#D9BEB0', images: ['images/collection-nasim/saroual-latif/sablerose_1.png', 'images/collection-nasim/saroual-latif/sablerose_2.png', 'images/collection-nasim/saroual-latif/sablerose_3.png', 'images/collection-nasim/saroual-latif/sablerose_4.png'] },
-            { id: 'taupe', label: 'Taupe', hex: '#8B7D6E', images: ['images/collection-nasim/saroual-latif/taupe_1.png', 'images/collection-nasim/saroual-latif/taupe_2.png', 'images/collection-nasim/saroual-latif/taupe_3.png', 'images/collection-nasim/saroual-latif/taupe_4.png'] },
-            { id: 'ardoise', label: 'Ardoise', hex: '#4F5B66', images: ['images/collection-nasim/saroual-latif/ardoise_1.png', 'images/collection-nasim/saroual-latif/ardoise_2.png', 'images/collection-nasim/saroual-latif/ardoise_3.png', 'images/collection-nasim/saroual-latif/ardoise_4.png'] },
-            { id: 'terracotta', label: 'Terracotta', hex: '#BF6248', images: ['images/collection-nasim/saroual-latif/terracotta_1.jpeg', 'images/collection-nasim/saroual-latif/terracotta_2.jpeg', 'images/collection-nasim/saroual-latif/terracotta_3.jpeg', 'images/collection-nasim/saroual-latif/terracotta_4.jpeg'] }
+            { id: 'taupe', label: 'Taupe', hex: '#453A38', images: ['images/collection-nasim/saroual-latif/taupe_1.png', 'images/collection-nasim/saroual-latif/taupe_2.png', 'images/collection-nasim/saroual-latif/taupe_3.png', 'images/collection-nasim/saroual-latif/taupe_4.png'] },
+            { id: 'ardoise', label: 'Ardoise', hex: '#68696E', images: ['images/collection-nasim/saroual-latif/ardoise_1.png', 'images/collection-nasim/saroual-latif/ardoise_2.png', 'images/collection-nasim/saroual-latif/ardoise_3.png', 'images/collection-nasim/saroual-latif/ardoise_4.png'] },
+            { id: 'terracotta', label: 'Terracotta', hex: '#583F33', images: ['images/collection-nasim/saroual-latif/terracotta_1.jpeg', 'images/collection-nasim/saroual-latif/terracotta_2.jpeg', 'images/collection-nasim/saroual-latif/terracotta_3.jpeg', 'images/collection-nasim/saroual-latif/terracotta_4.jpeg'] }
         ]
     },
     {
@@ -229,9 +224,18 @@ const productFamilies = [
     }
 ];
 
+// Nom du service d'ajustement d'une famille, affiché au client et dans l'email de
+// commande : les sarouels ("optionnel") proposent le Service demi-mesure (tour de
+// taille, longueur, ampleur) ; la Chemise Sakīna ("obligatoire") l'ajustement des manches.
+function nomServiceAjustement(family) {
+    if (family.ajustementSunnah === 'optionnel') return 'Service demi-mesure';
+    if (family.ajustementSunnah === 'obligatoire') return 'Ajustement Sunnah';
+    return '';
+}
+
 // Rend ce fichier utilisable côté serveur (Vercel / Node, via require()) sans rien
 // changer côté navigateur : `module` n'existe pas dans un <script> classique, donc
 // ce bloc est ignoré silencieusement sur le site.
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { collections, productFamilies };
+    module.exports = { collections, productFamilies, nomServiceAjustement };
 }

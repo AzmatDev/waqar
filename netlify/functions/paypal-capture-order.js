@@ -21,7 +21,7 @@ exports.handler = async (event) => {
     }
 
     try {
-        const { orderID, items, modeReception, nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg } = JSON.parse(event.body || '{}');
+        const { orderID, items, modeReception, nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg, demiMesure } = JSON.parse(event.body || '{}');
 
         if (!orderID) return { statusCode: 400, headers: CORS_HEADERS, body: JSON.stringify({ error: 'orderID manquant' }) };
         if (!Array.isArray(items) || items.length === 0) return { statusCode: 400, headers: CORS_HEADERS, body: JSON.stringify({ error: 'Panier vide' }) };
@@ -53,7 +53,7 @@ exports.handler = async (event) => {
 
         await buildAndSendOrderEmails({
             items: lignes,
-            nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg, modeReception,
+            nom, email, tel, adresse, codepostal, ville, pays, tailleCm, poidsKg, demiMesure: demiMesure || null, modeReception,
             paiement: { status: 'confirmed', reference, montant }
         });
 

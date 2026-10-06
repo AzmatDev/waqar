@@ -21,6 +21,8 @@ const taillesContainer = document.getElementById('tailles-container');
 taillesContainer.innerHTML = family.tailles.map(t => `
     <button class="taille-btn" onclick="selectTaille(this)">${t}</button>
 `).join('');
+// Beaucoup de tailles (sarouels 38 → 60) : grille de 6 par ligne au lieu d'une ligne qui déborde
+taillesContainer.classList.toggle('product-tailles--grid', family.tailles.length > 8);
 
 // Infos générales
 document.getElementById('product-title').textContent = family.name;
@@ -181,6 +183,18 @@ function addCurrentToCart() {
     }
     cartAddItem(family.id, currentColor.id, tailleChoisie);
 }
+
+// Gabarit du mannequin (ex. sarouels) — la taille portée s'ajoute dès qu'elle est renseignée
+const mannequinEl = document.getElementById('product-mannequin');
+if (family.mannequin && mannequinEl) {
+    const m = family.mannequin;
+    mannequinEl.textContent = `Le mannequin mesure ${m.taille} pour ${m.poids}${m.porte ? ` et porte une taille ${m.porte}` : ''}.`;
+    mannequinEl.hidden = false;
+}
+
+// Service demi-mesure (sarouels) — le lien ouvre l'affiche du service
+const serviceLink = document.getElementById('product-service-link');
+if (family.ajustementSunnah === 'optionnel' && serviceLink) serviceLink.hidden = false;
 
 // Guide des tailles — n'apparaît que si ce produit a un tailleGuide défini
 const sizeGuideLink = document.getElementById('size-guide-link');
