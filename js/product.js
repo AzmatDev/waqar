@@ -173,6 +173,14 @@ function selectTaille(btn) {
     document.querySelectorAll('.taille-btn').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
     tailleChoisie = btn.textContent;
+
+    // Sarouels : on rappelle le tour de taille complet de la taille choisie
+    const info = document.getElementById('product-taille-info');
+    const tour = family.tourTaille && family.tourTaille[tailleChoisie];
+    if (info) {
+        info.textContent = tour ? `Taille ${tailleChoisie} — ${tour} cm de tour de taille complet` : '';
+        info.hidden = !tour;
+    }
 }
 
 // Ajouter au panier

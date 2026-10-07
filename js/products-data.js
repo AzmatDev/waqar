@@ -54,10 +54,14 @@ const collections = [
 // Chaque couleur peut avoir plusieurs photos (galerie/carousel sur la fiche produit).
 // Gabarit du mannequin des photos des sarouels, affiché sur leur fiche produit.
 // `porte` = taille portée sur les photos — à compléter (laisser '' tant qu'on ne la connaît pas).
-const MANNEQUIN_SAROUELS = { taille: '1,70 m', poids: '82 kg', porte: '44' };
+const MANNEQUIN_SAROUELS = { taille: '1,70 m', poids: '77 kg', porte: '44' };
 
 // Sarouels : tailles chiffrées de 38 à 60 (S/M/L/XL n'est pas intuitif pour un pantalon).
 const TAILLES_SAROUELS = ['38', '40', '42', '44', '46', '48', '50', '52', '54', '56', '58', '60'];
+
+// Tour de taille complet (cm) affiché sous les tailles quand on en choisit une.
+// Règle donnée par le frère : tour complet = taille × 2 (38 → 76 cm, 40 → 80 cm, 44 → 88 cm…).
+const TOUR_TAILLE_SAROUELS = Object.fromEntries(TAILLES_SAROUELS.map(t => [t, Number(t) * 2]));
 
 const productFamilies = [
     {
@@ -108,6 +112,7 @@ const productFamilies = [
         matiere: 'Coton Stretch Premium',
         desc: "Le Sarouel Mizân, ample et confortable, conforme aux critères de pudeur de la Sunnah. Disponible en plusieurs coloris, avec le Service demi-mesure offert : un ajustement gratuit à vos mesures, sur simple demande.",
         tailles: TAILLES_SAROUELS,
+        tourTaille: TOUR_TAILLE_SAROUELS,
         // Guide des tailles retiré au passage en 38 → 60 (l'ancien était en S/M/L/XL).
         // À recréer quand on aura les mesures de chaque taille. Seule connue pour l'instant :
         // taille 44 = tour de taille 88 cm (44 cm à plat), longueur hanche → cheville 79 cm.
@@ -155,6 +160,7 @@ const productFamilies = [
         matiere: 'Coton Stretch Premium',
         desc: "Le vrai sarouel : 7 plis pour un volume authentique, taillé en Coton Stretch Premium. Fermeture éclair, bouton, passants, poche principale et poche ticket intégrée.",
         tailles: TAILLES_SAROUELS,
+        tourTaille: TOUR_TAILLE_SAROUELS,
         ajustementSunnah: 'optionnel',
         mannequin: MANNEQUIN_SAROUELS,
         colors: [
@@ -191,6 +197,7 @@ const productFamilies = [
         nouveau: true,
         desc: "L'élégance d'une coupe travaillée alliée à un confort absolu, disponible en précommande. Inspiré de la coupe emblématique Mīzān, le Sarouel Latīf associe une tenue irréprochable et un confort absolu au quotidien. Tissu nid d'abeille texturé, respirant et léger, idéal pour les 4 saisons. Coupe 3 plis, à la retombée fluide et parfaitement structurée, avec une aisance idéale au niveau des cuisses et une tombée nette au-dessus des chevilles.",
         tailles: TAILLES_SAROUELS,
+        tourTaille: TOUR_TAILLE_SAROUELS,
         ajustementSunnah: 'optionnel',
         mannequin: MANNEQUIN_SAROUELS,
         colors: [

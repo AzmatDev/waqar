@@ -145,7 +145,14 @@
 }
 .size-guide-link:hover { color: var(--black); }
 
-/* Sous les tailles : gabarit du mannequin + lien vers le Service demi-mesure */
+/* Sous les tailles : tour de taille de la taille choisie, gabarit du mannequin,
+   lien vers le Service demi-mesure */
+.product-taille-info {
+    font-size: 0.8rem;
+    color: var(--charcoal);
+    margin: -1.2rem 0 0.9rem;
+}
+.product-taille-info:not([hidden]) + .product-mannequin { margin-top: 0; }
 .product-mannequin {
     font-size: 0.74rem;
     color: var(--warm-gray);
