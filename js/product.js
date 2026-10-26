@@ -204,6 +204,11 @@ if (family.mannequin && mannequinEl) {
 const serviceLink = document.getElementById('product-service-link');
 if (family.ajustementSunnah === 'optionnel' && serviceLink) serviceLink.hidden = false;
 
+// Note Sunnah propre au produit (sinon on garde le texte par défaut de product.html,
+// écrit pour les sarouels/jubbas : « Longueur aux chevilles… »)
+const sunnahNoteEl = document.getElementById('product-sunnah-note');
+if (family.sunnahNote && sunnahNoteEl) sunnahNoteEl.textContent = family.sunnahNote;
+
 // Guide des tailles — n'apparaît que si ce produit a un tailleGuide défini
 const sizeGuideLink = document.getElementById('size-guide-link');
 if (family.tailleGuide && sizeGuideLink) {

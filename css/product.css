@@ -172,6 +172,9 @@
     cursor: pointer;
     transition: background 0.25s, border-color 0.25s;
 }
+/* display:inline-block ci-dessus écrase l'attribut hidden : sans cette règle, la pastille
+   « Service demi-mesure » s'affichait sur tous les produits, même sans sarouel. */
+.product-service-link[hidden] { display: none; }
 .product-service-link strong { font-weight: 500; }
 .product-service-link span { color: var(--gold); text-decoration: underline; }
 .product-service-link:hover { background: var(--cream-dark); border-color: var(--gold); }

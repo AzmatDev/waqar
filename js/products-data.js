@@ -38,6 +38,17 @@ const collections = [
         video: 'images/collection-nasim/inspiration.mp4'
     },
     {
+        id: 'shita',
+        title: 'Collection SHITĀ — Série 2',
+        sub: "La sobriété d'un noir profond, une exigence de coupe respectueuse de la Sunnah, et la noblesse d'une matière pensée pour affronter la saison.",
+        savezLabel: "L'esprit de SHITĀ",
+        savezTitle: `Shitā (شتاء) — <em>l'hiver</em>`,
+        savezText1: "Shitā désigne l'hiver. Cette collection est pensée pour la saison froide : des matières chaudes et texturées, sans jamais sacrifier la sobriété.",
+        savezText2: "Chaque pièce de la Série 2 allie chaleur hivernale, confort et élégance intemporelle — avec une coupe respectueuse de la Sunnah.",
+        savezQuote: "« La chaleur dans la matière, la sobriété dans la coupe — l'hiver ne doit rien enlever à la pudeur. »",
+        emptyMessage: "De nouvelles pièces SHITĀ arrivent bientôt, incha'Allah."
+    },
+    {
         id: 'accessoires',
         title: 'Accessoires WAQĀR',
         sub: "Les détails qui accompagnent la Sunnah, jusque dans ce qui ne se voit pas.",
@@ -178,7 +189,6 @@ const productFamilies = [
         name: 'Chemise 3 Boutons',
         prix: '40,90 €',
         matiere: '100% Coton',
-        nouveau: true,
         desc: "Le basique par excellence du vestiaire masculin épuré, disponible en précommande. Conçue pour s'associer parfaitement avec le Sarouel Latīf, cette chemise reflète la gamme Nasīm : un vêtement respirant et agréable à porter au quotidien. Col officier, patte à 3 boutons élégante, une poche poitrine, et une coupe fluide au retombé ample.",
         tailles: ['S', 'M', 'L', 'XL'],
         colors: [
@@ -194,7 +204,6 @@ const productFamilies = [
         name: 'Sarouel Latīf',
         prix: '69,90 €',
         matiere: 'Tissu Nid d\'Abeille',
-        nouveau: true,
         desc: "L'élégance d'une coupe travaillée alliée à un confort absolu, disponible en précommande. Inspiré de la coupe emblématique Mīzān, le Sarouel Latīf associe une tenue irréprochable et un confort absolu au quotidien. Tissu nid d'abeille texturé, respirant et léger, idéal pour les 4 saisons. Coupe 3 plis, à la retombée fluide et parfaitement structurée, avec une aisance idéale au niveau des cuisses et une tombée nette au-dessus des chevilles.",
         tailles: TAILLES_SAROUELS,
         tourTaille: TOUR_TAILLE_SAROUELS,
@@ -205,6 +214,30 @@ const productFamilies = [
             { id: 'taupe', label: 'Taupe', hex: '#453A38', images: ['images/collection-nasim/saroual-latif/taupe_1.png', 'images/collection-nasim/saroual-latif/taupe_2.png', 'images/collection-nasim/saroual-latif/taupe_3.png', 'images/collection-nasim/saroual-latif/taupe_4.png'] },
             { id: 'ardoise', label: 'Ardoise', hex: '#68696E', images: ['images/collection-nasim/saroual-latif/ardoise_1.png', 'images/collection-nasim/saroual-latif/ardoise_2.png', 'images/collection-nasim/saroual-latif/ardoise_3.png', 'images/collection-nasim/saroual-latif/ardoise_4.png'] },
             { id: 'terracotta', label: 'Terracotta', hex: '#583F33', images: ['images/collection-nasim/saroual-latif/terracotta_1.jpeg', 'images/collection-nasim/saroual-latif/terracotta_2.jpeg', 'images/collection-nasim/saroual-latif/terracotta_3.jpeg', 'images/collection-nasim/saroual-latif/terracotta_4.jpeg'] }
+        ]
+    },
+    {
+        id: 'chemise-shita-adulte',
+        collection: 'shita',
+        cat: 'adulte',
+        name: 'Chemise Shitā',
+        prix: '64,90 €',
+        prixNote: 'Remise en main propre',
+        prixLivraison: '67,90 €',
+        prixLivraisonNote: 'Livraison incluse',
+        matiere: 'Tissu alvéolé texturé · 80% coton, 10% laine, 10% polyester',
+        nouveau: true,
+        desc: "La sobriété d'un noir profond, une exigence de coupe respectueuse de la Sunnah, et la noblesse d'une matière pensée pour affronter la saison. Tissu alvéolé texturé (80% coton, 10% laine, 10% polyester) : l'alliance parfaite entre chaleur hivernale, confort et élégance intemporelle.",
+        tailles: ['S', 'M', 'L', 'XL'],
+        // Ajustement des manches proposé en option (la Sakīna, elle, l'inclut d'office).
+        // Mode 'optionnel-manches' : case à cocher dédiée au panier, sans champs de mesures.
+        sunnahNote: '✦ Manches ajustables selon la Sunnah · Sans logo ostentatoire · Conforme à la Sunnah du Prophète ﷺ',
+        ajustementSunnah: 'optionnel-manches',
+        ajustementSunnahTexte: "Sur demande, votre Chemise Shitā est ajustée sur la longueur des manches, conformément à la Sunnah. Seule la longueur des manches est concernée — la coupe générale ne change pas.",
+        ajustementSunnahImage: 'images/collection-istiqama/sakina/guide-manches-chemise.png',
+        colors: [
+            { id: 'noir-profond', label: 'Noir profond', hex: '#1C1C1C', images: ['images/collection-shita/noir_1.jpeg', 'images/collection-shita/noir_2.jpeg', 'images/collection-shita/noir_3.jpeg', 'images/collection-shita/noir_4.jpeg'] },
+            { id: 'blanc-casse', label: 'Blanc cassé', hex: '#E9E4D8', images: ['images/collection-shita/blanc_1.jpeg', 'images/collection-shita/blanc_2.jpeg', 'images/collection-shita/blanc_3.jpeg'] }
         ]
     },
     {
@@ -233,10 +266,11 @@ const productFamilies = [
 
 // Nom du service d'ajustement d'une famille, affiché au client et dans l'email de
 // commande : les sarouels ("optionnel") proposent le Service demi-mesure (tour de
-// taille, longueur, ampleur) ; la Chemise Sakīna ("obligatoire") l'ajustement des manches.
+// taille, longueur, ampleur) ; la Chemise Sakīna ("obligatoire") et la Chemise Shitā
+// ("optionnel-manches") l'ajustement des manches.
 function nomServiceAjustement(family) {
     if (family.ajustementSunnah === 'optionnel') return 'Service demi-mesure';
-    if (family.ajustementSunnah === 'obligatoire') return 'Ajustement Sunnah';
+    if (family.ajustementSunnah === 'obligatoire' || family.ajustementSunnah === 'optionnel-manches') return 'Ajustement Sunnah';
     return '';
 }
 
