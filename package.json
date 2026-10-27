@@ -4,7 +4,7 @@
   "description": "",
   "main": "js/script.js",
   "scripts": {
-    "sitemap": "node scripts/generate-sitemap.js",
+    "sitemap": "node scripts/build.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

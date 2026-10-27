@@ -57,5 +57,6 @@ est prête plutôt que d'en ajouter une nouvelle.
 
 - `js/seo.js` met à jour titre, description, canonical, og et JSON-LD `Product` des pages
   génériques `product.html` / `collection.html` à partir de `products-data.js`.
-- `sitemap.xml` est **généré** : lancer `npm run sitemap` après tout ajout de produit/collection.
+- `sitemap.xml` et `netlify/edge-functions/seo-data.json` sont **générés** (`npm run sitemap`, aussi lancé par Netlify au build) : relancer après tout ajout de produit/collection et commiter.
+- `netlify/edge-functions/seo.js` injecte titre/og/canonical/JSON-LD dans le HTML de `product.html` et `collection.html` côté serveur, pour les aperçus de lien WhatsApp/Instagram (sans JS). Repli sur la page d'origine en cas d'erreur.
 - `robots.txt` pointe vers le sitemap.
