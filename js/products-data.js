@@ -234,11 +234,33 @@ const productFamilies = [
         ajustementSunnahTexte: "Sur demande, votre Chemise Shitā est ajustée sur la longueur des manches, conformément à la Sunnah. Seule la longueur des manches est concernée — la coupe générale ne change pas.",
         ajustementSunnahImage: 'images/collection-istiqama/sakina/guide-manches-chemise.png',
         colors: [
-            { id: 'noir-profond', label: 'Noir profond', hex: '#1C1C1C', images: ['images/collection-shita/noir_1.jpeg', 'images/collection-shita/noir_2.jpeg', 'images/collection-shita/noir_3.jpeg', 'images/collection-shita/noir_4.jpeg'] },
-            { id: 'blanc-casse', label: 'Blanc cassé', hex: '#E9E4D8', images: ['images/collection-shita/blanc_1.jpeg', 'images/collection-shita/blanc_2.jpeg', 'images/collection-shita/blanc_3.jpeg'] },
-            { id: 'beige', label: 'Beige', hex: '#D9CDB8', images: ['images/collection-shita/beige_1.jpeg', 'images/collection-shita/beige_2.jpeg'] },
-            { id: 'marron', label: 'Marron', hex: '#5A3A29', images: ['images/collection-shita/marron_1.jpeg', 'images/collection-shita/marron_2.jpeg'] },
-            { id: 'bleu-marine', label: 'Bleu marine', hex: '#1F2A4A', images: ['images/collection-shita/bleue_1.jpeg', 'images/collection-shita/bleue_2.jpeg'] }
+            { id: 'noir-profond', label: 'Noir profond', hex: '#1C1C1C', images: ['images/collection-nasim/chemise-shita/noir_1.jpeg', 'images/collection-nasim/chemise-shita/noir_2.jpeg', 'images/collection-nasim/chemise-shita/noir_3.jpeg', 'images/collection-nasim/chemise-shita/noir_4.jpeg'] },
+            { id: 'blanc-casse', label: 'Blanc cassé', hex: '#E9E4D8', images: ['images/collection-nasim/chemise-shita/blanc_1.jpeg', 'images/collection-nasim/chemise-shita/blanc_2.jpeg', 'images/collection-nasim/chemise-shita/blanc_3.jpeg'] },
+            { id: 'beige', label: 'Beige', hex: '#D9CDB8', images: ['images/collection-nasim/chemise-shita/beige_1.jpeg', 'images/collection-nasim/chemise-shita/beige_2.jpeg'] },
+            { id: 'marron', label: 'Marron', hex: '#5A3A29', images: ['images/collection-nasim/chemise-shita/marron_1.jpeg', 'images/collection-nasim/chemise-shita/marron_2.jpeg'] },
+            { id: 'bleu-marine', label: 'Bleu marine', hex: '#1F2A4A', images: ['images/collection-nasim/chemise-shita/bleue_1.jpeg', 'images/collection-nasim/chemise-shita/bleue_2.jpeg'] }
+        ]
+    },
+    {
+        id: 'chemise-talib-adulte',
+        collection: 'nasim',
+        serie: 'serie-2',
+        cat: 'adulte',
+        name: 'Chemise Tālib',
+        prix: '49,90 €',
+        matiere: '100% Coton de qualité supérieure',
+        nouveau: true,
+        desc: "L'alliance de la tradition et de la fonctionnalité.\n\nDécouvrez la Chemise Tālib, pensée et conçue pour offrir à la fois prestance, confort et sens pratique au quotidien grâce à ses quatre poches caractéristiques.\n\nUn design épuré, respectueux de la Sunnah, taillé pour traverser les saisons avec dignité.\n\nDétails & Finitions :\n• 4 poches fonctionnelles et harmonieusement intégrées\n• Système de fil discret intégré pour faciliter les ablutions en retenant les manches\n• Coupe ample et confortable pour le mouvement\n• Confection soignée pour un tombé irréprochable\n\nCaractéristiques :\n• 100% Coton de qualité supérieure\n• Matière respirante, douce et résistante\n• Confort et aisance au quotidien",
+        tailles: ['S', 'M', 'L', 'XL'],
+        sunnahNote: '✦ Manches ajustables selon la Sunnah · Sans logo ostentatoire · Conforme à la Sunnah du Prophète ﷺ',
+        ajustementSunnah: 'optionnel-manches',
+        ajustementSunnahTexte: "Sur demande, votre Chemise Tālib est ajustée sur la longueur des manches, conformément à la Sunnah. Seule la longueur des manches est concernée — la coupe générale ne change pas.",
+        ajustementSunnahImage: 'images/collection-istiqama/sakina/guide-manches-chemise.png',
+        colors: [
+            { id: 'gris', label: 'Gris', hex: '#6B6F7A', images: ['images/collection-nasim/chemise-talib/gris_1.jpeg'] },
+            { id: 'noir', label: 'Noir', hex: '#1C1C1C', images: ['images/collection-nasim/chemise-talib/noir_1.jpeg'] },
+            { id: 'marron', label: 'Marron', hex: '#5A3A29', images: ['images/collection-nasim/chemise-talib/marron_1.jpeg'] },
+            { id: 'bleu-marine', label: 'Bleu marine', hex: '#1F2A4A', images: ['images/collection-nasim/chemise-talib/bleu_1.jpeg'] }
         ]
     },
     {

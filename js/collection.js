@@ -123,6 +123,9 @@ function renderProducts(cat) {
 
     if (seriesList.length) {
         grid.classList.add('products-grid--series');
+        // nombre de lignes de la grille = titre + sous-titre + cartes de la plus grande série
+        const maxCards = Math.max(...seriesList.map(s => families.filter(f => f.serie === s.id).length));
+        grid.style.setProperty('--serie-rows', 2 + maxCards);
         grid.innerHTML = seriesList.map(serie => {
             const inSerie = families.filter(f => f.serie === serie.id);
             if (!inSerie.length) return '';

@@ -236,8 +236,10 @@ nav ul a:hover { color: var(--gold); }
     gap: 0 2rem;
     align-items: start;
 }
-.collection-serie { display: grid; grid-row: span 3; grid-template-rows: subgrid; margin-bottom: 3.5rem; }
-.collection-serie > .products-grid { grid-template-columns: 1fr; }
+.collection-serie { display: grid; grid-row: span var(--serie-rows, 3); grid-template-rows: subgrid; grid-template-columns: 1fr; }
+/* les cartes deviennent des lignes du subgrid : une même ligne a la même hauteur dans chaque série */
+.collection-serie > .products-grid { display: contents; }
+.collection-serie .product-card { margin-bottom: 2rem; }
 .product-card { cursor: pointer; transition: transform 0.3s; text-decoration: none; color: inherit; display: block; }
 .product-card:hover { transform: translateY(-4px); }
 .product-img { aspect-ratio: 3/4; overflow: hidden; margin-bottom: 1rem; background: #E2DDD5; border-radius: 8px; position: relative; }

@@ -108,6 +108,7 @@
 }
 
 .product-desc {
+    white-space: pre-line;
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.02rem;
     font-style: italic;
