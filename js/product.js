@@ -173,6 +173,14 @@ function selectTaille(btn) {
     document.querySelectorAll('.taille-btn').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
     tailleChoisie = btn.textContent;
+
+    // Sarouels : on rappelle le tour de taille complet de la taille choisie
+    const info = document.getElementById('product-taille-info');
+    const tour = family.tourTaille && family.tourTaille[tailleChoisie];
+    if (info) {
+        info.textContent = tour ? `Taille ${tailleChoisie} — ${tour} cm de tour de taille complet` : '';
+        info.hidden = !tour;
+    }
 }
 
 // Ajouter au panier
@@ -195,6 +203,11 @@ if (family.mannequin && mannequinEl) {
 // Service demi-mesure (sarouels) — le lien ouvre l'affiche du service
 const serviceLink = document.getElementById('product-service-link');
 if (family.ajustementSunnah === 'optionnel' && serviceLink) serviceLink.hidden = false;
+
+// Note Sunnah propre au produit (sinon on garde le texte par défaut de product.html,
+// écrit pour les sarouels/jubbas : « Longueur aux chevilles… »)
+const sunnahNoteEl = document.getElementById('product-sunnah-note');
+if (family.sunnahNote && sunnahNoteEl) sunnahNoteEl.textContent = family.sunnahNote;
 
 // Guide des tailles — n'apparaît que si ce produit a un tailleGuide défini
 const sizeGuideLink = document.getElementById('size-guide-link');

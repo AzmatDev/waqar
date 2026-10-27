@@ -27,15 +27,21 @@ const collections = [
     },
     {
         id: 'nasim',
-        title: 'Collection NASĪM — Série 1',
+        title: 'Collection NASĪM',
         sub: "Quand l'élégance rencontre le confort au quotidien.",
         savezLabel: "L'esprit de NASĪM",
         savezTitle: `Nasīm (نسيم) — <em>la brise légère</em>`,
         savezText1: "Nasīm évoque la brise légère et la fraîcheur. Cette collection est pensée pour des vêtements respirants et agréables à porter au quotidien, sans jamais sacrifier la sobriété.",
-        savezText2: "Chaque pièce de la Série 1 associe fluidité et finitions soignées — une élégance discrète, conforme aux critères de la Sunnah.",
+        savezText2: "Chaque pièce de la collection associe fluidité et finitions soignées — une élégance discrète, conforme aux critères de la Sunnah.",
         savezQuote: '« La fluidité dans la coupe, la légèreté dans le tissu — le confort ne doit rien coûter à la pudeur. »',
         emptyMessage: "De nouvelles pièces NASĪM arrivent bientôt, incha'Allah.",
-        video: 'images/collection-nasim/inspiration.mp4'
+        video: 'images/collection-nasim/inspiration.mp4',
+        // Séries de la collection : la page collection.html affiche chaque série dans sa
+        // propre section (titre + sous-titre). Une famille est rattachée via `serie`.
+        series: [
+            { id: 'serie-1', title: 'Série 1', sub: "Quand l'élégance rencontre le confort au quotidien." },
+            { id: 'serie-2', title: 'Série 2', sub: "Une coupe épurée respectueuse de la Sunnah, et la noblesse d'une matière pensée pour affronter la saison." }
+        ]
     },
     {
         id: 'accessoires',
@@ -54,10 +60,14 @@ const collections = [
 // Chaque couleur peut avoir plusieurs photos (galerie/carousel sur la fiche produit).
 // Gabarit du mannequin des photos des sarouels, affiché sur leur fiche produit.
 // `porte` = taille portée sur les photos — à compléter (laisser '' tant qu'on ne la connaît pas).
-const MANNEQUIN_SAROUELS = { taille: '1,70 m', poids: '82 kg', porte: '44' };
+const MANNEQUIN_SAROUELS = { taille: '1,70 m', poids: '77 kg', porte: '44' };
 
 // Sarouels : tailles chiffrées de 38 à 60 (S/M/L/XL n'est pas intuitif pour un pantalon).
 const TAILLES_SAROUELS = ['38', '40', '42', '44', '46', '48', '50', '52', '54', '56', '58', '60'];
+
+// Tour de taille complet (cm) affiché sous les tailles quand on en choisit une.
+// Règle donnée par le frère : tour complet = taille × 2 (38 → 76 cm, 40 → 80 cm, 44 → 88 cm…).
+const TOUR_TAILLE_SAROUELS = Object.fromEntries(TAILLES_SAROUELS.map(t => [t, Number(t) * 2]));
 
 const productFamilies = [
     {
@@ -108,6 +118,7 @@ const productFamilies = [
         matiere: 'Coton Stretch Premium',
         desc: "Le Sarouel Mizân, ample et confortable, conforme aux critères de pudeur de la Sunnah. Disponible en plusieurs coloris, avec le Service demi-mesure offert : un ajustement gratuit à vos mesures, sur simple demande.",
         tailles: TAILLES_SAROUELS,
+        tourTaille: TOUR_TAILLE_SAROUELS,
         // Guide des tailles retiré au passage en 38 → 60 (l'ancien était en S/M/L/XL).
         // À recréer quand on aura les mesures de chaque taille. Seule connue pour l'instant :
         // taille 44 = tour de taille 88 cm (44 cm à plat), longueur hanche → cheville 79 cm.
@@ -155,6 +166,7 @@ const productFamilies = [
         matiere: 'Coton Stretch Premium',
         desc: "Le vrai sarouel : 7 plis pour un volume authentique, taillé en Coton Stretch Premium. Fermeture éclair, bouton, passants, poche principale et poche ticket intégrée.",
         tailles: TAILLES_SAROUELS,
+        tourTaille: TOUR_TAILLE_SAROUELS,
         ajustementSunnah: 'optionnel',
         mannequin: MANNEQUIN_SAROUELS,
         colors: [
@@ -168,11 +180,11 @@ const productFamilies = [
     {
         id: 'chemise-3-btn-adulte',
         collection: 'nasim',
+        serie: 'serie-1',
         cat: 'adulte',
         name: 'Chemise 3 Boutons',
         prix: '40,90 €',
         matiere: '100% Coton',
-        nouveau: true,
         desc: "Le basique par excellence du vestiaire masculin épuré, disponible en précommande. Conçue pour s'associer parfaitement avec le Sarouel Latīf, cette chemise reflète la gamme Nasīm : un vêtement respirant et agréable à porter au quotidien. Col officier, patte à 3 boutons élégante, une poche poitrine, et une coupe fluide au retombé ample.",
         tailles: ['S', 'M', 'L', 'XL'],
         colors: [
@@ -184,13 +196,14 @@ const productFamilies = [
     {
         id: 'sarouel-latif-adulte',
         collection: 'nasim',
+        serie: 'serie-1',
         cat: 'adulte',
         name: 'Sarouel Latīf',
         prix: '69,90 €',
         matiere: 'Tissu Nid d\'Abeille',
-        nouveau: true,
         desc: "L'élégance d'une coupe travaillée alliée à un confort absolu, disponible en précommande. Inspiré de la coupe emblématique Mīzān, le Sarouel Latīf associe une tenue irréprochable et un confort absolu au quotidien. Tissu nid d'abeille texturé, respirant et léger, idéal pour les 4 saisons. Coupe 3 plis, à la retombée fluide et parfaitement structurée, avec une aisance idéale au niveau des cuisses et une tombée nette au-dessus des chevilles.",
         tailles: TAILLES_SAROUELS,
+        tourTaille: TOUR_TAILLE_SAROUELS,
         ajustementSunnah: 'optionnel',
         mannequin: MANNEQUIN_SAROUELS,
         colors: [
@@ -198,6 +211,56 @@ const productFamilies = [
             { id: 'taupe', label: 'Taupe', hex: '#453A38', images: ['images/collection-nasim/saroual-latif/taupe_1.png', 'images/collection-nasim/saroual-latif/taupe_2.png', 'images/collection-nasim/saroual-latif/taupe_3.png', 'images/collection-nasim/saroual-latif/taupe_4.png'] },
             { id: 'ardoise', label: 'Ardoise', hex: '#68696E', images: ['images/collection-nasim/saroual-latif/ardoise_1.png', 'images/collection-nasim/saroual-latif/ardoise_2.png', 'images/collection-nasim/saroual-latif/ardoise_3.png', 'images/collection-nasim/saroual-latif/ardoise_4.png'] },
             { id: 'terracotta', label: 'Terracotta', hex: '#583F33', images: ['images/collection-nasim/saroual-latif/terracotta_1.jpeg', 'images/collection-nasim/saroual-latif/terracotta_2.jpeg', 'images/collection-nasim/saroual-latif/terracotta_3.jpeg', 'images/collection-nasim/saroual-latif/terracotta_4.jpeg'] }
+        ]
+    },
+    {
+        id: 'chemise-shita-adulte',
+        collection: 'nasim',
+        serie: 'serie-2',
+        cat: 'adulte',
+        name: 'Chemise Shitā',
+        prix: '64,90 €',
+        prixNote: 'Remise en main propre',
+        prixLivraison: '67,90 €',
+        prixLivraisonNote: 'Livraison incluse',
+        matiere: 'Tissu alvéolé texturé · 80% coton, 10% laine, 10% polyester',
+        nouveau: true,
+        desc: "La sobriété d'une coupe épurée, une exigence respectueuse de la Sunnah, et la noblesse d'une matière pensée pour affronter la saison. Tissu alvéolé texturé (80% coton, 10% laine, 10% polyester) : l'alliance parfaite entre chaleur hivernale, confort et élégance intemporelle, disponible en cinq coloris.",
+        tailles: ['S', 'M', 'L', 'XL'],
+        // Ajustement des manches proposé en option (la Sakīna, elle, l'inclut d'office).
+        // Mode 'optionnel-manches' : case à cocher dédiée au panier, sans champs de mesures.
+        sunnahNote: '✦ Manches ajustables selon la Sunnah · Sans logo ostentatoire · Conforme à la Sunnah du Prophète ﷺ',
+        ajustementSunnah: 'optionnel-manches',
+        ajustementSunnahTexte: "Sur demande, votre Chemise Shitā est ajustée sur la longueur des manches, conformément à la Sunnah. Seule la longueur des manches est concernée — la coupe générale ne change pas.",
+        ajustementSunnahImage: 'images/collection-istiqama/sakina/guide-manches-chemise.png',
+        colors: [
+            { id: 'noir-profond', label: 'Noir profond', hex: '#1C1C1C', images: ['images/collection-nasim/chemise-shita/noir_1.jpeg', 'images/collection-nasim/chemise-shita/noir_2.jpeg', 'images/collection-nasim/chemise-shita/noir_3.jpeg', 'images/collection-nasim/chemise-shita/noir_4.jpeg'] },
+            { id: 'blanc-casse', label: 'Blanc cassé', hex: '#E9E4D8', images: ['images/collection-nasim/chemise-shita/blanc_1.jpeg', 'images/collection-nasim/chemise-shita/blanc_2.jpeg', 'images/collection-nasim/chemise-shita/blanc_3.jpeg'] },
+            { id: 'beige', label: 'Beige', hex: '#D9CDB8', images: ['images/collection-nasim/chemise-shita/beige_1.jpeg', 'images/collection-nasim/chemise-shita/beige_2.jpeg'] },
+            { id: 'marron', label: 'Marron', hex: '#5A3A29', images: ['images/collection-nasim/chemise-shita/marron_1.jpeg', 'images/collection-nasim/chemise-shita/marron_2.jpeg'] },
+            { id: 'bleu-marine', label: 'Bleu marine', hex: '#1F2A4A', images: ['images/collection-nasim/chemise-shita/bleue_1.jpeg', 'images/collection-nasim/chemise-shita/bleue_2.jpeg'] }
+        ]
+    },
+    {
+        id: 'chemise-talib-adulte',
+        collection: 'nasim',
+        serie: 'serie-2',
+        cat: 'adulte',
+        name: 'Chemise Tālib',
+        prix: '49,90 €',
+        matiere: '100% Coton de qualité supérieure',
+        nouveau: true,
+        desc: "L'alliance de la tradition et de la fonctionnalité.\n\nDécouvrez la Chemise Tālib, pensée et conçue pour offrir à la fois prestance, confort et sens pratique au quotidien grâce à ses quatre poches caractéristiques.\n\nUn design épuré, respectueux de la Sunnah, taillé pour traverser les saisons avec dignité.\n\nDétails & Finitions :\n• 4 poches fonctionnelles et harmonieusement intégrées\n• Système de fil discret intégré pour faciliter les ablutions en retenant les manches\n• Coupe ample et confortable pour le mouvement\n• Confection soignée pour un tombé irréprochable\n\nCaractéristiques :\n• 100% Coton de qualité supérieure\n• Matière respirante, douce et résistante\n• Confort et aisance au quotidien",
+        tailles: ['S', 'M', 'L', 'XL'],
+        sunnahNote: '✦ Manches ajustables selon la Sunnah · Sans logo ostentatoire · Conforme à la Sunnah du Prophète ﷺ',
+        ajustementSunnah: 'optionnel-manches',
+        ajustementSunnahTexte: "Sur demande, votre Chemise Tālib est ajustée sur la longueur des manches, conformément à la Sunnah. Seule la longueur des manches est concernée — la coupe générale ne change pas.",
+        ajustementSunnahImage: 'images/collection-istiqama/sakina/guide-manches-chemise.png',
+        colors: [
+            { id: 'gris', label: 'Gris', hex: '#6B6F7A', images: ['images/collection-nasim/chemise-talib/gris_1.jpeg'] },
+            { id: 'noir', label: 'Noir', hex: '#1C1C1C', images: ['images/collection-nasim/chemise-talib/noir_1.jpeg'] },
+            { id: 'marron', label: 'Marron', hex: '#5A3A29', images: ['images/collection-nasim/chemise-talib/marron_1.jpeg'] },
+            { id: 'bleu-marine', label: 'Bleu marine', hex: '#1F2A4A', images: ['images/collection-nasim/chemise-talib/bleu_1.jpeg'] }
         ]
     },
     {
@@ -226,10 +289,11 @@ const productFamilies = [
 
 // Nom du service d'ajustement d'une famille, affiché au client et dans l'email de
 // commande : les sarouels ("optionnel") proposent le Service demi-mesure (tour de
-// taille, longueur, ampleur) ; la Chemise Sakīna ("obligatoire") l'ajustement des manches.
+// taille, longueur, ampleur) ; la Chemise Sakīna ("obligatoire") et la Chemise Shitā
+// ("optionnel-manches") l'ajustement des manches.
 function nomServiceAjustement(family) {
     if (family.ajustementSunnah === 'optionnel') return 'Service demi-mesure';
-    if (family.ajustementSunnah === 'obligatoire') return 'Ajustement Sunnah';
+    if (family.ajustementSunnah === 'obligatoire' || family.ajustementSunnah === 'optionnel-manches') return 'Ajustement Sunnah';
     return '';
 }
 

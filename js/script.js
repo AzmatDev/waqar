@@ -60,3 +60,23 @@ function observeFadeIns() {
 }
 
 observeFadeIns();
+
+
+// Carrousel des collections (accueil) : flèches desktop, swipe natif sur mobile
+(function () {
+    const gallery = document.querySelector('.collections-gallery');
+    if (!gallery) return;
+    const prev = document.querySelector('.carousel-btn--prev');
+    const next = document.querySelector('.carousel-btn--next');
+    const step = () => { const c = gallery.querySelector('.collection-card'); return c ? c.offsetWidth + 32 : 300; };
+    const update = () => {
+        const max = gallery.scrollWidth - gallery.clientWidth - 2;
+        if (prev) prev.hidden = gallery.scrollLeft <= 2;
+        if (next) next.hidden = gallery.scrollLeft >= max;
+    };
+    if (prev) prev.addEventListener('click', () => gallery.scrollBy({ left: -step() }));
+    if (next) next.addEventListener('click', () => gallery.scrollBy({ left: step() }));
+    gallery.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+})();

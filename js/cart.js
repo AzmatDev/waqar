@@ -415,6 +415,23 @@ function cartShowLivraison() {
                 </div>
             </div>` : '');
 
+    // Familles "optionnel-manches" (Chemise Shitā) : ajustement des manches proposé en
+    // option, case dédiée (id distinct de la demi-mesure des sarouels), sans mesures à saisir.
+    const manchesFamilies = families.filter(f => f.ajustementSunnah === 'optionnel-manches');
+    const manchesBlockHtml = manchesFamilies.length ? `
+            <div class="ajustement-sunnah-block" id="ajustement-manches-block">
+                <label class="reception-option">
+                    <input type="checkbox" id="c-ajustement-manches">
+                    <span>Ajustement Sunnah (manches)</span>
+                    <span class="ajustement-sunnah-free-tag">Gratuit</span>
+                    <button type="button" class="info-tooltip-btn" id="info-manches-btn" aria-label="Qu'est-ce que l'ajustement des manches ?">ⓘ</button>
+                </label>
+                <div class="reception-info reception-info--split" id="info-manches-text" style="display:none;">
+                    ${manchesFamilies[0].ajustementSunnahImage ? `<img alt="Schéma de l'ajustement" class="ajustement-sunnah-img" src="${manchesFamilies[0].ajustementSunnahImage}" onerror="this.style.display='none'">` : ''}
+                    <p>${manchesFamilies[0].ajustementSunnahTexte || ''}</p>
+                </div>
+            </div>` : '';
+
     body.innerHTML = `
         <button type="button" class="cart-back-btn" onclick="cartShowCheckout()">← Retour aux coordonnées</button>
         <h3 class="cart-checkout-title">Livraison</h3>
@@ -434,6 +451,7 @@ function cartShowLivraison() {
             <p class="product-note" style="text-align:left;margin-top:-0.5rem;margin-bottom:1.2rem;">Pour mieux vous conseiller sur la taille à choisir.</p>` : ''}
 
             ${ajustementBlockHtml}
+            ${manchesBlockHtml}
 
             ${needsReception ? `
             <div class="form-group reception-choice">
@@ -492,6 +510,16 @@ function cartShowLivraison() {
                 const el = document.getElementById(id);
                 if (el) el.required = on;
             });
+        });
+    }
+
+    const infoManchesBtn = document.getElementById('info-manches-btn');
+    const infoManchesText = document.getElementById('info-manches-text');
+    if (infoManchesBtn && infoManchesText) {
+        infoManchesBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            infoManchesText.style.display = infoManchesText.style.display === 'none' ? '' : 'none';
         });
     }
 
@@ -590,6 +618,10 @@ function cartAjustementSunnahPourFamille(family) {
     if (family.ajustementSunnah === 'obligatoire') return true;
     if (family.ajustementSunnah === 'optionnel') {
         const checkbox = document.getElementById('c-ajustement-sunnah');
+        return checkbox ? checkbox.checked : false;
+    }
+    if (family.ajustementSunnah === 'optionnel-manches') {
+        const checkbox = document.getElementById('c-ajustement-manches');
         return checkbox ? checkbox.checked : false;
     }
     return false;
