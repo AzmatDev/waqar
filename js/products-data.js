@@ -27,26 +27,21 @@ const collections = [
     },
     {
         id: 'nasim',
-        title: 'Collection NASĪM — Série 1',
+        title: 'Collection NASĪM',
         sub: "Quand l'élégance rencontre le confort au quotidien.",
         savezLabel: "L'esprit de NASĪM",
         savezTitle: `Nasīm (نسيم) — <em>la brise légère</em>`,
         savezText1: "Nasīm évoque la brise légère et la fraîcheur. Cette collection est pensée pour des vêtements respirants et agréables à porter au quotidien, sans jamais sacrifier la sobriété.",
-        savezText2: "Chaque pièce de la Série 1 associe fluidité et finitions soignées — une élégance discrète, conforme aux critères de la Sunnah.",
+        savezText2: "Chaque pièce de la collection associe fluidité et finitions soignées — une élégance discrète, conforme aux critères de la Sunnah.",
         savezQuote: '« La fluidité dans la coupe, la légèreté dans le tissu — le confort ne doit rien coûter à la pudeur. »',
         emptyMessage: "De nouvelles pièces NASĪM arrivent bientôt, incha'Allah.",
-        video: 'images/collection-nasim/inspiration.mp4'
-    },
-    {
-        id: 'shita',
-        title: 'Collection SHITĀ — Série 2',
-        sub: "La sobriété d'un noir profond, une exigence de coupe respectueuse de la Sunnah, et la noblesse d'une matière pensée pour affronter la saison.",
-        savezLabel: "L'esprit de SHITĀ",
-        savezTitle: `Shitā (شتاء) — <em>l'hiver</em>`,
-        savezText1: "Shitā désigne l'hiver. Cette collection est pensée pour la saison froide : des matières chaudes et texturées, sans jamais sacrifier la sobriété.",
-        savezText2: "Chaque pièce de la Série 2 allie chaleur hivernale, confort et élégance intemporelle — avec une coupe respectueuse de la Sunnah.",
-        savezQuote: "« La chaleur dans la matière, la sobriété dans la coupe — l'hiver ne doit rien enlever à la pudeur. »",
-        emptyMessage: "De nouvelles pièces SHITĀ arrivent bientôt, incha'Allah."
+        video: 'images/collection-nasim/inspiration.mp4',
+        // Séries de la collection : la page collection.html affiche chaque série dans sa
+        // propre section (titre + sous-titre). Une famille est rattachée via `serie`.
+        series: [
+            { id: 'serie-1', title: 'Série 1', sub: "Quand l'élégance rencontre le confort au quotidien." },
+            { id: 'serie-2', title: 'Série 2', sub: "Une coupe épurée respectueuse de la Sunnah, et la noblesse d'une matière pensée pour affronter la saison." }
+        ]
     },
     {
         id: 'accessoires',
@@ -185,6 +180,7 @@ const productFamilies = [
     {
         id: 'chemise-3-btn-adulte',
         collection: 'nasim',
+        serie: 'serie-1',
         cat: 'adulte',
         name: 'Chemise 3 Boutons',
         prix: '40,90 €',
@@ -200,6 +196,7 @@ const productFamilies = [
     {
         id: 'sarouel-latif-adulte',
         collection: 'nasim',
+        serie: 'serie-1',
         cat: 'adulte',
         name: 'Sarouel Latīf',
         prix: '69,90 €',
@@ -218,7 +215,8 @@ const productFamilies = [
     },
     {
         id: 'chemise-shita-adulte',
-        collection: 'shita',
+        collection: 'nasim',
+        serie: 'serie-2',
         cat: 'adulte',
         name: 'Chemise Shitā',
         prix: '64,90 €',
@@ -227,7 +225,7 @@ const productFamilies = [
         prixLivraisonNote: 'Livraison incluse',
         matiere: 'Tissu alvéolé texturé · 80% coton, 10% laine, 10% polyester',
         nouveau: true,
-        desc: "La sobriété d'un noir profond, une exigence de coupe respectueuse de la Sunnah, et la noblesse d'une matière pensée pour affronter la saison. Tissu alvéolé texturé (80% coton, 10% laine, 10% polyester) : l'alliance parfaite entre chaleur hivernale, confort et élégance intemporelle.",
+        desc: "La sobriété d'une coupe épurée, une exigence respectueuse de la Sunnah, et la noblesse d'une matière pensée pour affronter la saison. Tissu alvéolé texturé (80% coton, 10% laine, 10% polyester) : l'alliance parfaite entre chaleur hivernale, confort et élégance intemporelle, disponible en cinq coloris.",
         tailles: ['S', 'M', 'L', 'XL'],
         // Ajustement des manches proposé en option (la Sakīna, elle, l'inclut d'office).
         // Mode 'optionnel-manches' : case à cocher dédiée au panier, sans champs de mesures.
@@ -237,7 +235,10 @@ const productFamilies = [
         ajustementSunnahImage: 'images/collection-istiqama/sakina/guide-manches-chemise.png',
         colors: [
             { id: 'noir-profond', label: 'Noir profond', hex: '#1C1C1C', images: ['images/collection-shita/noir_1.jpeg', 'images/collection-shita/noir_2.jpeg', 'images/collection-shita/noir_3.jpeg', 'images/collection-shita/noir_4.jpeg'] },
-            { id: 'blanc-casse', label: 'Blanc cassé', hex: '#E9E4D8', images: ['images/collection-shita/blanc_1.jpeg', 'images/collection-shita/blanc_2.jpeg', 'images/collection-shita/blanc_3.jpeg'] }
+            { id: 'blanc-casse', label: 'Blanc cassé', hex: '#E9E4D8', images: ['images/collection-shita/blanc_1.jpeg', 'images/collection-shita/blanc_2.jpeg', 'images/collection-shita/blanc_3.jpeg'] },
+            { id: 'beige', label: 'Beige', hex: '#D9CDB8', images: ['images/collection-shita/beige_1.jpeg', 'images/collection-shita/beige_2.jpeg'] },
+            { id: 'marron', label: 'Marron', hex: '#5A3A29', images: ['images/collection-shita/marron_1.jpeg', 'images/collection-shita/marron_2.jpeg'] },
+            { id: 'bleu-marine', label: 'Bleu marine', hex: '#1F2A4A', images: ['images/collection-shita/bleue_1.jpeg', 'images/collection-shita/bleue_2.jpeg'] }
         ]
     },
     {

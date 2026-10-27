@@ -93,7 +93,10 @@ function renderProducts(cat) {
         return;
     }
 
-    grid.innerHTML = families.map(family => {
+    // Collection découpée en séries : une section (titre + sous-titre + grille) par série.
+    // grid.innerHTML est rempli avec la grille de chaque série, imbriquée dans un bloc.
+    const seriesList = activeCollection.series || [];
+    const renderCard = family => {
         const defaultColor = cardColorState[family.id]
             ? family.colors.find(c => c.id === cardColorState[family.id]) || family.colors[0]
             : family.colors[0];
@@ -116,7 +119,23 @@ function renderProducts(cat) {
                 ${family.colors.map(c => `<button class="swatch-dot${c.id === defaultColor.id ? ' active' : ''}" data-color="${c.id}" style="background:${c.hex}" title="${c.label}" onclick="event.stopPropagation(); selectCardColor('${family.id}', '${c.id}')"></button>`).join('')}
             </div>` : ''}
         </div>`;
-    }).join('');
+    };
+
+    if (seriesList.length) {
+        grid.classList.add('products-grid--series');
+        grid.innerHTML = seriesList.map(serie => {
+            const inSerie = families.filter(f => f.serie === serie.id);
+            if (!inSerie.length) return '';
+            return `
+        <section class="collection-serie">
+            <h2 class="collection-serie-title">${serie.title}</h2>
+            <p class="collection-serie-sub">${serie.sub || ''}</p>
+            <div class="products-grid">${inSerie.map(renderCard).join('')}</div>
+        </section>`;
+        }).join('');
+    } else {
+        grid.innerHTML = families.map(renderCard).join('');
+    }
     observeFadeIns();
 }
 
