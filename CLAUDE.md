@@ -7,7 +7,8 @@ finalisent par email/WhatsApp) pour une marque de vêtements homme/enfant confor
 
 - HTML/CSS/JS statique, pas de framework, pas de build.
 - `nodemailer` (seule dépendance npm) — utilisé pour l'envoi d'email de commande/contact,
-  probablement via une fonction serverless (vérifier `api/` ou équivalent si présent).
+  via les fonctions Netlify (`netlify/functions/`, appelées par `/api/*`, voir `netlify.toml`).
+  Hébergement : Netlify, domaine `waqar1447.com`.
 - Animations : GSAP (`js/animation.js`).
 
 ## Architecture des données produits (le plus important)
@@ -51,3 +52,10 @@ est prête plutôt que d'en ajouter une nouvelle.
 - Chaque produit a un thème/texte narratif spirituel cohérent avec la collection — ne pas
   inventer de description sans confirmer le ton avec l'utilisateur (prix, matière, tailles
   sont des décisions business, jamais à deviner).
+
+## SEO
+
+- `js/seo.js` met à jour titre, description, canonical, og et JSON-LD `Product` des pages
+  génériques `product.html` / `collection.html` à partir de `products-data.js`.
+- `sitemap.xml` est **généré** : lancer `npm run sitemap` après tout ajout de produit/collection.
+- `robots.txt` pointe vers le sitemap.

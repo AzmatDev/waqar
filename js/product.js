@@ -45,7 +45,7 @@ if (offerLineEl && family.offre) {
 }
 
 document.getElementById('product-desc').textContent = family.desc;
-document.title = `WAQĀR — ${family.name}`;
+seoProduct(family, collections.find(c => c.id === family.collection));
 
 // Détermine si une couleur est claire (pour ajouter un léger contour au swatch)
 function isLightColor(hex) {

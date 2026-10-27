@@ -28,7 +28,7 @@ function renderCollectionHeader() {
     const shortTitle = activeCollection.title.replace(/^Collection\s+/i, '');
     document.getElementById('collection-page-title').textContent = shortTitle;
     document.getElementById('collection-page-sub').textContent = activeCollection.sub;
-    document.title = `WAQĀR — ${shortTitle}`;
+    seoCollection(activeCollection);
 
     const pieceCount = productFamilies.filter(f => f.collection === activeCollection.id).length;
     const metaEl = document.getElementById('collection-page-meta');
